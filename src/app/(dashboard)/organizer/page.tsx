@@ -1,4 +1,3 @@
-// src/app/(dashboard)/organizer/page.tsx
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +7,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { LoadingSpinner, SkeletonCard } from "@/components/ui/loading";
 import { OrganizerLayout } from "@/components/dashboard/layout";
 import { useRouter } from "next/navigation";
+import BulkUpdateModal from "@/components/sessions/BulkUpdateModal";
 
 import { useEvents } from "@/hooks/use-events";
 import {
@@ -54,16 +54,21 @@ import {
   Globe,
   Star,
   Shield,
+  Database,
 } from "lucide-react";
 import { format } from "date-fns";
 import { useState } from "react";
+import { toast } from "sonner"; // or "react-hot-toast" if you use that
 
 export default function OrganizerDashboardPage() {
   const { user } = useAuth();
   const router = useRouter();
+
+  // ✅ FIXED: Properly declare state
   const [selectedTimeRange, setSelectedTimeRange] = useState<
     "today" | "week" | "month"
   >("week");
+  const [showBulkUpdateModal, setShowBulkUpdateModal] = useState(false);
 
   // Comprehensive data fetching for organizer
   const { data: events, isLoading: eventsLoading } = useEvents({
@@ -125,8 +130,6 @@ export default function OrganizerDashboardPage() {
     ).length || 0;
 
   const totalFaculty = faculty?.data?.faculty?.length || 0;
-
-  // const activeFaculty = faculty?.data?.faculty?.filter(f => f.status === 'ACTIVE').length || 0;
   const pendingFacultyInvitations = facultyStats?.data?.pendingInvitations || 0;
 
   const unreadNotifications =
@@ -151,10 +154,7 @@ export default function OrganizerDashboardPage() {
   }
 
   return (
-    <OrganizerLayout
-    // userName={userName}
-    // userEmail={userEmail}
-    >
+    <OrganizerLayout>
       <div className="space-y-6">
         {/* Welcome Header */}
         <div className="flex items-center justify-between">
@@ -167,24 +167,36 @@ export default function OrganizerDashboardPage() {
             </p>
           </div>
           <div className="flex items-center space-x-2">
-            {/* <Button
+            {/* ✅ NEW: Bulk Update Button */}
+            <Button
+              onClick={() => setShowBulkUpdateModal(true)}
+              variant="outline"
+              className="border-purple-600 text-purple-600 hover:bg-purple-50"
+            >
+              <Database className="h-4 w-4 mr-2" />
+              Bulk Update
+            </Button>
+
+            <Button
               onClick={handleCreateEvent}
               className="bg-gradient-to-r from-blue-600 to-purple-600"
             >
               <Plus className="h-4 w-4 mr-2" />
               Create Event
-            </Button> */}
-            {/* <Button variant="outline" onClick={handleCommunication}>
+            </Button>
+
+            <Button variant="outline" onClick={handleCommunication}>
               <MessageSquare className="h-4 w-4 mr-2" />
               Communications
-            </Button> */}
-            {/* <Button
+            </Button>
+
+            <Button
               variant="outline"
               onClick={() => router.push("/organizer/settings")}
             >
               <Settings className="h-4 w-4 mr-2" />
               Settings
-            </Button> */}
+            </Button>
           </div>
         </div>
 
@@ -336,14 +348,14 @@ export default function OrganizerDashboardPage() {
                   Event Portfolio
                 </CardTitle>
                 <div className="flex space-x-2">
-                  {/* <Button
+                  <Button
                     variant="outline"
                     size="sm"
                     onClick={handleCreateEvent}
                   >
                     <Plus className="h-3 w-3 mr-1" />
                     New Event
-                  </Button> */}
+                  </Button>
                   <Button
                     variant="outline"
                     size="sm"
@@ -421,18 +433,20 @@ export default function OrganizerDashboardPage() {
                 <div className="text-center py-8 text-muted-foreground">
                   <Calendar className="h-16 w-16 mx-auto mb-4 opacity-50" />
                   <h3 className="font-medium mb-2">No events created yet</h3>
-                  <p className="text-sm mb-4"></p>
-                  {/* <Button onClick={handleCreateEvent}>
+                  <p className="text-sm mb-4">
+                    Start by creating your first event
+                  </p>
+                  <Button onClick={handleCreateEvent}>
                     <Plus className="h-4 w-4 mr-2" />
                     Create Your First Event
-                  </Button> */}
+                  </Button>
                 </div>
               )}
             </CardContent>
           </Card>
 
           {/* Quick Actions Panel */}
-          {/* <Card>
+          <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Zap className="h-5 w-5" />
@@ -440,25 +454,35 @@ export default function OrganizerDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              {/* <Button
+              <Button
                 className="w-full justify-start"
                 variant="outline"
                 onClick={handleCreateEvent}
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Create New Event
-              </Button> */}
+              </Button>
 
-              {/* <Button
+              {/* ✅ NEW: Bulk Update Quick Action */}
+              <Button
+                className="w-full justify-start"
+                variant="outline"
+                onClick={() => setShowBulkUpdateModal(true)}
+              >
+                <Database className="h-4 w-4 mr-2" />
+                Bulk Update Sessions
+              </Button>
+
+              <Button
                 className="w-full justify-start"
                 variant="outline"
                 onClick={handleManageFaculty}
               >
                 <UserPlus className="h-4 w-4 mr-2" />
                 Invite Faculty
-              </Button> */}
+              </Button>
 
-              {/* <Button
+              <Button
                 className="w-full justify-start"
                 variant="outline"
                 onClick={handleCommunication}
@@ -503,281 +527,312 @@ export default function OrganizerDashboardPage() {
                 Analytics & Reports
               </Button>
             </CardContent>
-          </Card> */}
+          </Card>
+        </div>
 
-          {/* Today's Schedule */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5" />
-                Today's Agenda
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {todaysLoading ? (
-                <div className="space-y-3">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="animate-pulse">
-                      <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
-                      <div className="h-2 bg-gray-200 rounded w-2/3"></div>
+        {/* Today's Schedule */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5" />
+              Today's Agenda
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {todaysLoading ? (
+              <div className="space-y-3">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
+                    <div className="h-2 bg-gray-200 rounded w-2/3"></div>
+                  </div>
+                ))}
+              </div>
+            ) : (todaysSessions?.data?.sessions?.length ?? 0) > 0 ? (
+              <div className="space-y-3 max-h-64 overflow-y-auto">
+                {(todaysSessions?.data?.sessions ?? [])
+                  .slice(0, 6)
+                  .map((session) => (
+                    <div
+                      key={session.id}
+                      className="p-3 border rounded text-sm cursor-pointer hover:bg-gray-50"
+                      onClick={() =>
+                        router.push(`/organizer/sessions/${session.id}`)
+                      }
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <h5 className="font-medium truncate">
+                          {session.title}
+                        </h5>
+                        <Badge variant="outline" className="text-xs">
+                          {session.sessionType}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center text-xs text-muted-foreground">
+                        <Clock className="h-3 w-3 mr-1" />
+                        {format(new Date(session.startTime), "HH:mm")} -{" "}
+                        {format(new Date(session.endTime), "HH:mm")}
+                        {session.hall && (
+                          <>
+                            <MapPin className="h-3 w-3 ml-2 mr-1" />
+                            {session.hall.name}
+                          </>
+                        )}
+                      </div>
+                      {Array.isArray(session.speakers) &&
+                        session.speakers.length > 0 && (
+                          <div className="flex items-center text-xs text-muted-foreground mt-1">
+                            <Users className="h-3 w-3 mr-1" />
+                            {session.speakers
+                              .slice(0, 2)
+                              .map((speaker) => speaker.user.name)
+                              .join(", ")}
+                            {session.speakers.length > 2 &&
+                              ` +${session.speakers.length - 2} more`}
+                          </div>
+                        )}
                     </div>
                   ))}
-                </div>
-              ) : (todaysSessions?.data?.sessions?.length ?? 0) > 0 ? (
-                <div className="space-y-3 max-h-64 overflow-y-auto">
-                  {(todaysSessions?.data?.sessions ?? [])
-                    .slice(0, 6)
-                    .map((session) => (
-                      <div
-                        key={session.id}
-                        className="p-3 border rounded text-sm cursor-pointer hover:bg-gray-50"
-                        onClick={() =>
-                          router.push(`/organizer/sessions/${session.id}`)
-                        }
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <h5 className="font-medium truncate">
-                            {session.title}
-                          </h5>
-                          <Badge variant="outline" className="text-xs">
-                            {session.sessionType}
-                          </Badge>
-                        </div>
-                        <div className="flex items-center text-xs text-muted-foreground">
-                          <Clock className="h-3 w-3 mr-1" />
-                          {format(new Date(session.startTime), "HH:mm")} -{" "}
-                          {format(new Date(session.endTime), "HH:mm")}
-                          {session.hall && (
-                            <>
-                              <MapPin className="h-3 w-3 ml-2 mr-1" />
-                              {session.hall.name}
-                            </>
-                          )}
-                        </div>
-                        {Array.isArray(session.speakers) &&
-                          session.speakers.length > 0 && (
-                            <div className="flex items-center text-xs text-muted-foreground mt-1">
-                              <Users className="h-3 w-3 mr-1" />
-                              {session.speakers
-                                .slice(0, 2)
-                                .map((speaker) => speaker.user.name)
-                                .join(", ")}
-                              {session.speakers.length > 2 &&
-                                ` +${session.speakers.length - 2} more`}
-                            </div>
-                          )}
-                      </div>
-                    ))}
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full mt-2"
-                    onClick={handleViewSessions}
-                  >
-                    View Full Schedule
-                  </Button>
-                </div>
-              ) : (
-                <div className="text-center py-6 text-muted-foreground">
-                  <Clock className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                  <p className="text-sm">No sessions scheduled for today</p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="mt-2"
-                    onClick={handleViewSessions}
-                  >
-                    Manage Sessions
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Pending Tasks & Notifications */}
-          {/* <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Shield className="h-5 w-5" />
-                Action Required
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {pendingCount > 0 && (
-                <div className="flex items-center justify-between p-3 bg-orange-50 border border-orange-200 rounded-lg">
-                  <div>
-                    <h5 className="font-medium text-orange-800">
-                      Registration Approvals
-                    </h5>
-                    <p className="text-xs text-orange-600">
-                      {pendingCount} awaiting review
-                    </p>
-                  </div>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={handleViewRegistrations}
-                  >
-                    Review
-                  </Button>
-                </div>
-              )}
-
-              {pendingFacultyInvitations > 0 && (
-                <div className="flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <div>
-                    <h5 className="font-medium text-blue-800">
-                      Faculty Invitations
-                    </h5>
-                    <p className="text-xs text-blue-600">
-                      {pendingFacultyInvitations} pending responses
-                    </p>
-                  </div>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={handleManageFaculty}
-                  >
-                    Follow Up
-                  </Button>
-                </div>
-              )}
-
-              {upcomingEvents > 0 && (
-                <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-                  <div>
-                    <h5 className="font-medium text-green-800">
-                      Upcoming Events
-                    </h5>
-                    <p className="text-xs text-green-600">
-                      {upcomingEvents} events need attention
-                    </p>
-                  </div>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={handleViewAllEvents}
-                  >
-                    Manage
-                  </Button>
-                </div>
-              )}
-
-              {pendingCount === 0 &&
-                pendingFacultyInvitations === 0 &&
-                upcomingEvents === 0 && (
-                  <div className="text-center py-6 text-muted-foreground">
-                    <CheckCircle className="h-8 w-8 mx-auto mb-2 text-green-500" />
-                    <p className="text-sm">All tasks completed!</p>
-                    <p className="text-xs">Great job managing everything</p>
-                  </div>
-                )}
-            </CardContent>
-          </Card> */}
-
-          {/* Advanced Analytics Preview */}
-          {/* <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BarChart3 className="h-5 w-5" />
-                Performance Overview
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Event Success Rate</span>
-                  <span className="text-sm font-medium">
-                    {Math.round((completedEvents / (totalEvents || 1)) * 100)}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className="bg-green-500 h-2 rounded-full"
-                    style={{
-                      width: `${Math.round(
-                        (completedEvents / (totalEvents || 1)) * 100
-                      )}%`,
-                    }}
-                  ></div>
-                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full mt-2"
+                  onClick={handleViewSessions}
+                >
+                  View Full Schedule
+                </Button>
               </div>
-
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Registration Efficiency</span>
-                  <span className="text-sm font-medium">
-                    {registrationStats?.data?.registrationRate?.toFixed(1) || 0}
-                    %
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className="bg-blue-500 h-2 rounded-full"
-                    style={{
-                      width: `${
-                        registrationStats?.data?.registrationRate || 0
-                      }%`,
-                    }}
-                  ></div>
-                </div>
+            ) : (
+              <div className="text-center py-6 text-muted-foreground">
+                <Clock className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                <p className="text-sm">No sessions scheduled for today</p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="mt-2"
+                  onClick={handleViewSessions}
+                >
+                  Manage Sessions
+                </Button>
               </div>
+            )}
+          </CardContent>
+        </Card>
 
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Faculty Engagement</span>
-                  <span className="text-sm font-medium">
-                    {facultyStats?.data?.activationRate?.toFixed(1) || 0}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className="bg-purple-500 h-2 rounded-full"
-                    style={{
-                      width: `${facultyStats?.data?.activationRate || 0}%`,
-                    }}
-                  ></div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2 pt-2 text-center">
+        {/* Pending Tasks & Notifications */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Shield className="h-5 w-5" />
+              Action Required
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {pendingCount > 0 && (
+              <div className="flex items-center justify-between p-3 bg-orange-50 border border-orange-200 rounded-lg">
                 <div>
-                  <div className="text-lg font-bold text-blue-600">
-                    {totalEvents}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    Total Events
-                  </div>
+                  <h5 className="font-medium text-orange-800">
+                    Registration Approvals
+                  </h5>
+                  <p className="text-xs text-orange-600">
+                    {pendingCount} awaiting review
+                  </p>
                 </div>
-                <div>
-                  {/* <div className="text-lg font-bold text-green-600">{activeFaculty}</div> 
-                  <div className="text-xs text-muted-foreground">
-                    Active Faculty
-                  </div>
-                </div>
-                <div>
-                  <div className="text-lg font-bold text-purple-600">
-                    {approvedRegistrations}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    Participants
-                  </div>
-                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleViewRegistrations}
+                >
+                  Review
+                </Button>
               </div>
+            )}
 
+            {pendingFacultyInvitations > 0 && (
+              <div className="flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <div>
+                  <h5 className="font-medium text-blue-800">
+                    Faculty Invitations
+                  </h5>
+                  <p className="text-xs text-blue-600">
+                    {pendingFacultyInvitations} pending responses
+                  </p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleManageFaculty}
+                >
+                  Follow Up
+                </Button>
+              </div>
+            )}
+
+            {upcomingEvents > 0 && (
+              <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                <div>
+                  <h5 className="font-medium text-green-800">
+                    Upcoming Events
+                  </h5>
+                  <p className="text-xs text-green-600">
+                    {upcomingEvents} events need attention
+                  </p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleViewAllEvents}
+                >
+                  Manage
+                </Button>
+              </div>
+            )}
+
+            {/* ✅ NEW: Bulk Update Action Card */}
+            <div className="flex items-center justify-between p-3 bg-purple-50 border border-purple-200 rounded-lg">
+              <div>
+                <h5 className="font-medium text-purple-800">Bulk Operations</h5>
+                <p className="text-xs text-purple-600">
+                  Update multiple sessions at once
+                </p>
+              </div>
               <Button
-                variant="outline"
                 size="sm"
-                className="w-full"
-                onClick={handleViewReports}
+                variant="outline"
+                onClick={() => setShowBulkUpdateModal(true)}
+                className="border-purple-300 text-purple-700 hover:bg-purple-100"
               >
-                <BarChart3 className="h-3 w-3 mr-2" />
-                View Detailed Analytics
+                <Database className="h-3 w-3 mr-1" />
+                Bulk Update
               </Button>
-            </CardContent>
-          </Card> */}
-        </div>
+            </div>
+
+            {pendingCount === 0 &&
+              pendingFacultyInvitations === 0 &&
+              upcomingEvents === 0 && (
+                <div className="text-center py-6 text-muted-foreground">
+                  <CheckCircle className="h-8 w-8 mx-auto mb-2 text-green-500" />
+                  <p className="text-sm">All tasks completed!</p>
+                  <p className="text-xs">Great job managing everything</p>
+                </div>
+              )}
+          </CardContent>
+        </Card>
+
+        {/* Advanced Analytics Preview */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              Performance Overview
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Event Success Rate</span>
+                <span className="text-sm font-medium">
+                  {Math.round((completedEvents / (totalEvents || 1)) * 100)}%
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div
+                  className="bg-green-500 h-2 rounded-full"
+                  style={{
+                    width: `${Math.round(
+                      (completedEvents / (totalEvents || 1)) * 100
+                    )}%`,
+                  }}
+                ></div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Registration Efficiency</span>
+                <span className="text-sm font-medium">
+                  {registrationStats?.data?.registrationRate?.toFixed(1) || 0}%
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div
+                  className="bg-blue-500 h-2 rounded-full"
+                  style={{
+                    width: `${registrationStats?.data?.registrationRate || 0}%`,
+                  }}
+                ></div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Faculty Engagement</span>
+                <span className="text-sm font-medium">
+                  {facultyStats?.data?.activationRate?.toFixed(1) || 0}%
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div
+                  className="bg-purple-500 h-2 rounded-full"
+                  style={{
+                    width: `${facultyStats?.data?.activationRate || 0}%`,
+                  }}
+                ></div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2 pt-2 text-center">
+              <div>
+                <div className="text-lg font-bold text-blue-600">
+                  {totalEvents}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Total Events
+                </div>
+              </div>
+              <div>
+                <div className="text-lg font-bold text-green-600">
+                  {totalFaculty}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Active Faculty
+                </div>
+              </div>
+              <div>
+                <div className="text-lg font-bold text-purple-600">
+                  {approvedRegistrations}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Participants
+                </div>
+              </div>
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full"
+              onClick={handleViewReports}
+            >
+              <BarChart3 className="h-3 w-3 mr-2" />
+              View Detailed Analytics
+            </Button>
+          </CardContent>
+        </Card>
       </div>
+
+      {/* ✅ NEW: Bulk Update Modal */}
+      <BulkUpdateModal
+        isOpen={showBulkUpdateModal}
+        onClose={() => setShowBulkUpdateModal(false)}
+        onSuccess={() => {
+          // Refresh relevant data
+          window.location.reload();
+          toast.success("Bulk Update Completed", {
+            description: "Sessions have been updated successfully",
+          });
+        }}
+      />
     </OrganizerLayout>
   );
 }
