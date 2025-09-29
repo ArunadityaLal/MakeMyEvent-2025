@@ -8,12 +8,15 @@ import {
   ArrowLeft,
   Loader2,
   UserPlus,
+  Paperclip,
   Image as ImageIcon,
   Download,
+  Eye,
   Copy,
+  Reply,
   MoreHorizontal,
-  CheckCircle,
-  Circle,
+  CircleDot,
+  Smile,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { toast } from "sonner";
@@ -93,6 +96,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
   // Image upload state
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   // UI state
   const [showImageModal, setShowImageModal] = useState(false);
@@ -597,13 +601,13 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                 {/* Search Input */}
                 <div className="p-4 border-b border-gray-100">
                   <div className="relative">
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-900 w-5 h-5" />
                     <input
                       type="text"
                       placeholder="Search faculty by name, email, or institution..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-gray-50 focus:bg-white transition-all duration-200 text-gray-900 placeholder:text-gray-500"
+                      className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-gray-50 focus:bg-white transition-all duration-200"
                     />
                     {searchLoading && (
                       <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
@@ -656,10 +660,8 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                       <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Search className="w-10 h-10 text-gray-400" />
                       </div>
-                      <p className="font-semibold mb-2 text-gray-700">
-                        No faculty found
-                      </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="font-semibold mb-2">No faculty found</p>
+                      <p className="text-sm">
                         Try searching with different keywords
                       </p>
                     </div>
@@ -668,10 +670,8 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                       <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Search className="w-10 h-10 text-indigo-400" />
                       </div>
-                      <p className="font-semibold mb-2 text-gray-700">
-                        Search Faculty
-                      </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="font-semibold mb-2">Search Faculty</p>
+                      <p className="text-sm">
                         Enter a name, email, or institution to find colleagues
                       </p>
                     </div>
@@ -707,12 +707,11 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                         {selectedUser.name}
                       </h3>
                       <p className="text-sm text-gray-600 flex items-center">
-                        <circle className="w-3 h-3 text-green-500 mr-1" />
+                        <CircleDot className="w-3 h-3 text-green-500 mr-1" />
                         {selectedUser.institution}
                       </p>
                     </div>
                   </div>
-
                   <div className="flex items-center space-x-2">
                     <button className="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
                       <MoreHorizontal className="w-5 h-5" />
@@ -811,12 +810,15 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                                 <span className="text-xs">
                                   {formatMessageTime(message.createdAt)}
                                 </span>
-                                {isCurrentUser &&
-                                  (message.isRead ? (
-                                    <CheckCircle className="w-3 h-3" />
-                                  ) : (
-                                    <Circle className="w-3 h-3" />
-                                  ))}
+                                {isCurrentUser && (
+                                  <div className="w-4 h-4 flex items-center justify-center">
+                                    {message.isRead ? (
+                                      <div className="w-3 h-3 rounded-full bg-white/30"></div>
+                                    ) : (
+                                      <div className="w-3 h-3 rounded-full bg-white/60"></div>
+                                    )}
+                                  </div>
+                                )}
                               </div>
                             </div>
 
@@ -932,7 +934,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                       onChange={(e) => setNewMessage(e.target.value)}
                       onKeyPress={handleKeyPress}
                       placeholder={`Message ${selectedUser.name}...`}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none max-h-32 bg-gray-50 focus:bg-white transition-all duration-200 text-gray-900 placeholder:text-gray-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none max-h-32 bg-gray-50 focus:bg-white transition-all duration-200"
                       disabled={sendingMessage}
                       rows={1}
                     />
@@ -991,8 +993,8 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                     <span className="text-sm">Share images and files</span>
                   </div>
                   <div className="flex items-center justify-center space-x-3 p-4 bg-white rounded-xl shadow-sm border">
-                    <MessageSquare className="w-5 h-5 text-green-500" />
-                    <span className="text-sm">Professional messaging</span>
+                    <Search className="w-5 h-5 text-green-500" />
+                    <span className="text-sm">Find faculty instantly</span>
                   </div>
                 </div>
               </div>
