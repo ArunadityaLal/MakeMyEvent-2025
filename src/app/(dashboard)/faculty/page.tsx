@@ -11,6 +11,8 @@ import FeedbackModal from "@/app/modals/Feedback";
 import ContactSupportModal from "@/app/modals/contact-support";
 import TravelInfoModal from "@/app/modals/TravelInfoModal";
 import AccommodationInfoModal from "@/app/modals/AccommodationInfoModal";
+import ChatModal from "@/components/chat/ChatModal";
+import ChatButton from "@/components/chat/ChatButton";
 
 import {
   Calendar,
@@ -93,14 +95,16 @@ const themeClasses = {
   // Button styles
   button: {
     primary: "bg-blue-600 hover:bg-blue-700 text-white shadow-sm",
-    secondary: "bg-white border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm",
+    secondary:
+      "bg-white border-gray-300 text-gray-700 hover:bg-gray-50 shadow-sm",
     success: "bg-green-600 hover:bg-green-700 text-white shadow-sm",
     danger: "bg-red-600 hover:bg-red-700 text-white shadow-sm",
     warning: "bg-yellow-600 hover:bg-yellow-700 text-white shadow-sm",
   },
 
   // Input styles
-  input: "bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500",
+  input:
+    "bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500",
 
   // Alert styles
   alert: {
@@ -131,7 +135,8 @@ const themeClasses = {
   // Session card styles by status
   sessionCard: {
     pending: "bg-amber-50 border-amber-200 hover:bg-amber-100 text-amber-900",
-    accepted: "bg-emerald-50 border-emerald-200 hover:bg-emerald-100 text-emerald-900",
+    accepted:
+      "bg-emerald-50 border-emerald-200 hover:bg-emerald-100 text-emerald-900",
     declined: "bg-red-50 border-red-200 hover:bg-red-100 text-red-900",
     default: "bg-white border-gray-200 hover:bg-gray-50 text-gray-900",
   },
@@ -140,6 +145,7 @@ const themeClasses = {
 export default function FacultyDashboardPage() {
   const { user } = useAuth();
   const router = useRouter();
+  const [showChatModal, setShowChatModal] = useState(false);
 
   // Rest of your state variables (unchanged)
   const [presentationFiles, setPresentationFiles] = useState<File[]>([]);
@@ -276,11 +282,14 @@ export default function FacultyDashboardPage() {
   const handleViewProfile = () => router.push("/faculty/profile");
   const handlePresentations = () => router.push("/faculty/presentations");
   const handleSchedule = () => {
-  window.open('https://pedicriticon2025.com/scientific-session/', '_blank', 'noopener,noreferrer');
-};
+    window.open(
+      "https://pedicriticon2025.com/scientific-session/",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
   const handleCertificates = () => router.push("/faculty/certificates");
-  const handleSessionClick = () =>
-    router.push(`/faculty/sessions`);
+  const handleSessionClick = () => router.push(`/faculty/sessions`);
 
   // Your existing stats calculations (unchanged)
   const mySessionsCount = mySessions?.data?.sessions?.length || 0;
@@ -696,46 +705,52 @@ export default function FacultyDashboardPage() {
                       <Calendar className="h-3 w-3 mr-1" />
                       {(() => {
                         if (!session.formattedTime) return "Date not available";
-                        
+
                         try {
                           const date = new Date(session.formattedTime);
                           if (!isNaN(date.getTime())) {
-                            return date.toLocaleDateString('en-GB', {
-                              day: '2-digit',
-                              month: '2-digit', 
-                              year: 'numeric'
+                            return date.toLocaleDateString("en-GB", {
+                              day: "2-digit",
+                              month: "2-digit",
+                              year: "numeric",
                             });
                           }
                         } catch (e) {
                           // If parsing fails, try to extract date patterns
                         }
-                        
-                        const datePattern1 = session.formattedTime.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
+
+                        const datePattern1 = session.formattedTime.match(
+                          /(\d{1,2}\/\d{1,2}\/\d{4})/
+                        );
                         if (datePattern1) {
                           return datePattern1[1];
                         }
-                        
-                        const datePattern2 = session.formattedTime.match(/(\w+ \d{1,2}, \d{4})/);
+
+                        const datePattern2 =
+                          session.formattedTime.match(/(\w+ \d{1,2}, \d{4})/);
                         if (datePattern2) {
                           const date = new Date(datePattern2[1]);
-                          return date.toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: '2-digit', 
-                            year: 'numeric'
+                          return date.toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
                           });
                         }
-                        
-                        const datePattern3 = session.formattedTime.match(/(\d{4}-\d{1,2}-\d{1,2})/);
+
+                        const datePattern3 = session.formattedTime.match(
+                          /(\d{4}-\d{1,2}-\d{1,2})/
+                        );
                         if (datePattern3) {
                           const date = new Date(datePattern3[1]);
-                          return date.toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: '2-digit', 
-                            year: 'numeric'
+                          return date.toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
                           });
                         }
-                        
-                        const firstPart = session.formattedTime.split(/[\s,]+/)[0];
+
+                        const firstPart =
+                          session.formattedTime.split(/[\s,]+/)[0];
                         return firstPart || session.formattedTime;
                       })()}
                     </div>
@@ -744,11 +759,19 @@ export default function FacultyDashboardPage() {
                     <div className="flex items-center mb-3">
                       <MapPin className="h-3 w-3 mr-1" />
                       {(() => {
-                        const place = session.place && !session.place.toLowerCase().includes('tbd') ? session.place : '';
-                        const room = session.roomName && !session.roomName.toLowerCase().includes('tbd') ? session.roomName : '';
-                        
+                        const place =
+                          session.place &&
+                          !session.place.toLowerCase().includes("tbd")
+                            ? session.place
+                            : "";
+                        const room =
+                          session.roomName &&
+                          !session.roomName.toLowerCase().includes("tbd")
+                            ? session.roomName
+                            : "";
+
                         if (place) return place;
-                        return 'Location pending';
+                        return "Location pending";
                       })()}
                     </div>
 
@@ -839,46 +862,52 @@ export default function FacultyDashboardPage() {
                       <Calendar className="h-3 w-3 mr-1" />
                       {(() => {
                         if (!event.formattedTime) return "Date not available";
-                        
+
                         try {
                           const date = new Date(event.formattedTime);
                           if (!isNaN(date.getTime())) {
-                            return date.toLocaleDateString('en-GB', {
-                              day: '2-digit',
-                              month: '2-digit', 
-                              year: 'numeric'
+                            return date.toLocaleDateString("en-GB", {
+                              day: "2-digit",
+                              month: "2-digit",
+                              year: "numeric",
                             });
                           }
                         } catch (e) {
                           // If parsing fails, try to extract date patterns
                         }
-                        
-                        const datePattern1 = event.formattedTime.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
+
+                        const datePattern1 = event.formattedTime.match(
+                          /(\d{1,2}\/\d{1,2}\/\d{4})/
+                        );
                         if (datePattern1) {
                           return datePattern1[1];
                         }
-                        
-                        const datePattern2 = event.formattedTime.match(/(\w+ \d{1,2}, \d{4})/);
+
+                        const datePattern2 =
+                          event.formattedTime.match(/(\w+ \d{1,2}, \d{4})/);
                         if (datePattern2) {
                           const date = new Date(datePattern2[1]);
-                          return date.toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: '2-digit', 
-                            year: 'numeric'
+                          return date.toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
                           });
                         }
-                        
-                        const datePattern3 = event.formattedTime.match(/(\d{4}-\d{1,2}-\d{1,2})/);
+
+                        const datePattern3 = event.formattedTime.match(
+                          /(\d{4}-\d{1,2}-\d{1,2})/
+                        );
                         if (datePattern3) {
                           const date = new Date(datePattern3[1]);
-                          return date.toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: '2-digit', 
-                            year: 'numeric'
+                          return date.toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
                           });
                         }
-                        
-                        const firstPart = event.formattedTime.split(/[\s,]+/)[0];
+
+                        const firstPart =
+                          event.formattedTime.split(/[\s,]+/)[0];
                         return firstPart || event.formattedTime;
                       })()}
                     </div>
@@ -887,11 +916,19 @@ export default function FacultyDashboardPage() {
                     <div className="flex items-center mb-3">
                       <MapPin className="h-3 w-3 mr-1" />
                       {(() => {
-                        const place = event.place && !event.place.toLowerCase().includes('tbd') ? event.place : '';
-                        const room = event.roomName && !event.roomName.toLowerCase().includes('tbd') ? event.roomName : '';
-                        
+                        const place =
+                          event.place &&
+                          !event.place.toLowerCase().includes("tbd")
+                            ? event.place
+                            : "";
+                        const room =
+                          event.roomName &&
+                          !event.roomName.toLowerCase().includes("tbd")
+                            ? event.roomName
+                            : "";
+
                         if (place) return place;
-                        return 'Location pending';
+                        return "Location pending";
                       })()}
                     </div>
 
@@ -1022,12 +1059,13 @@ export default function FacultyDashboardPage() {
           },
           {
             label: "Events",
-            value:  1,
+            value: 1,
             color: "bg-purple-500",
           },
         ]}
       >
         <div className="space-y-6">
+          <ChatButton onClick={() => setShowChatModal(true)} className="mb-2" />
           {/* FIXED: Welcome Header with light theme */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div>
@@ -1059,7 +1097,7 @@ export default function FacultyDashboardPage() {
           )}
 
           {/* FIXED: Stats Grid with light theme */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"> 
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {/* Sessions Card */}
             <Card
               className={`cursor-pointer hover:shadow-md transition-shadow ${themeClasses.background.card}`}
@@ -1096,9 +1134,7 @@ export default function FacultyDashboardPage() {
             </Card>
 
             {/* Accommodation & Travel Card */}
-            <Card
-              className={`${themeClasses.background.card}`}
-            >
+            <Card className={`${themeClasses.background.card}`}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle
                   className={`text-sm font-medium ${themeClasses.text.primary}`}
@@ -1335,6 +1371,10 @@ export default function FacultyDashboardPage() {
             </div>
           </div>
         )}
+        <ChatModal
+          isOpen={showChatModal}
+          onClose={() => setShowChatModal(false)}
+        />
       </FacultyLayout>
     </div>
   );
