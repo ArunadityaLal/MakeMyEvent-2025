@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/config";
 import { query } from "@/lib/database/connection";
+import { writeFile } from "fs/promises";
+import path from "path";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +19,9 @@ interface Message {
   senderEmail: string;
   receiverName: string;
   receiverEmail: string;
+  messageType?: "text" | "image";
+  imageUrl?: string;
+  imageName?: string;
 }
 
 // GET - Fetch messages between two users
@@ -52,6 +57,9 @@ export async function GET(request: NextRequest) {
         m.is_read as "isRead",
         m.created_at as "createdAt",
         m.updated_at as "updatedAt",
+        m.message_type as "messageType",
+        m.image_url as "imageUrl",
+        m.image_name as "imageName",
         COALESCE(s.name, 'Unknown User') as "senderName",
         COALESCE(s.email, 'unknown@email.com') as "senderEmail",
         COALESCE(r.name, 'Unknown User') as "receiverName", 
@@ -104,7 +112,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Send a new message
+// POST - Send a new message (text or image)
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
@@ -112,8 +120,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json();
-    const { receiverId, content } = body;
+    const currentUserId = session.user.id;
+    const formData = await request.formData();
+
+    const receiverId = formData.get("receiverId") as string;
+    const content = formData.get("content") as string;
+    const messageType = (formData.get("messageType") as string) || "text";
+    const imageFile = formData.get("image") as File;
 
     if (!receiverId || !content?.trim()) {
       return NextResponse.json(
@@ -122,21 +135,51 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const currentUserId = session.user.id;
     const messageId = `msg_${Date.now()}_${Math.random()
       .toString(36)
       .substr(2, 9)}`;
+    let imageUrl = null;
+    let imageName = null;
 
-    console.log("🔄 Attempting to send message:", {
-      from: currentUserId,
-      to: receiverId,
-      messageId,
-    });
+    // Handle image upload
+    if (messageType === "image" && imageFile) {
+      try {
+        // Create uploads directory if it doesn't exist
+        const uploadsDir = path.join(
+          process.cwd(),
+          "public",
+          "uploads",
+          "chat"
+        );
+
+        // Generate unique filename
+        const fileExtension = imageFile.name.split(".").pop();
+        const fileName = `${messageId}_${Date.now()}.${fileExtension}`;
+        const filePath = path.join(uploadsDir, fileName);
+
+        // Save file
+        const bytes = await imageFile.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        await writeFile(filePath, buffer);
+
+        // Set image URL and name
+        imageUrl = `/uploads/chat/${fileName}`;
+        imageName = imageFile.name;
+
+        console.log("✅ Image uploaded successfully:", imageUrl);
+      } catch (uploadError) {
+        console.error("❌ Image upload failed:", uploadError);
+        return NextResponse.json(
+          { success: false, error: "Failed to upload image" },
+          { status: 500 }
+        );
+      }
+    }
 
     // Insert message
     const insertMessageQuery = `
-      INSERT INTO messages (id, sender_id, receiver_id, content, created_at, updated_at)
-      VALUES ($1, $2, $3, $4, NOW(), NOW())
+      INSERT INTO messages (id, sender_id, receiver_id, content, message_type, image_url, image_name, created_at, updated_at)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, NOW(), NOW())
       RETURNING id, created_at as "createdAt"
     `;
 
@@ -145,6 +188,9 @@ export async function POST(request: NextRequest) {
       currentUserId,
       receiverId,
       content.trim(),
+      messageType,
+      imageUrl,
+      imageName,
     ]);
 
     if (!messageResult.rows.length) {
@@ -170,6 +216,9 @@ export async function POST(request: NextRequest) {
         m.is_read as "isRead",
         m.created_at as "createdAt",
         m.updated_at as "updatedAt",
+        m.message_type as "messageType",
+        m.image_url as "imageUrl",
+        m.image_name as "imageName",
         COALESCE(s.name, 'Unknown User') as "senderName",
         COALESCE(s.email, 'unknown@email.com') as "senderEmail",
         COALESCE(r.name, 'Unknown User') as "receiverName", 
@@ -207,7 +256,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// ✅ Fixed helper function to create or update conversation
+// Helper function to create or update conversation
 async function createOrUpdateConversation(
   user1Id: string,
   user2Id: string,
@@ -220,11 +269,9 @@ async function createOrUpdateConversation(
       user2Id
     );
 
-    // Ensure consistent ordering for conversation ID
     const [smallerId, largerId] = [user1Id, user2Id].sort();
     const conversationKey = `${smallerId}:${largerId}`;
 
-    // Check if conversation exists
     const existingConvQuery = `
       SELECT id, user1_id, user2_id 
       FROM conversations 
@@ -236,11 +283,9 @@ async function createOrUpdateConversation(
     if (existing.rows.length > 0) {
       console.log("📝 Updating existing conversation");
 
-      // Update existing conversation
       const conv = existing.rows[0];
       const isUser1Sender = user1Id === conv.user1_id;
 
-      // ✅ Fixed: Use proper SQL syntax for conditional updates
       let updateQuery: string;
       if (isUser1Sender) {
         updateQuery = `
@@ -269,7 +314,6 @@ async function createOrUpdateConversation(
     } else {
       console.log("📝 Creating new conversation");
 
-      // Create new conversation
       const conversationId = `conv_${Date.now()}_${Math.random()
         .toString(36)
         .substr(2, 9)}`;
@@ -302,7 +346,7 @@ async function createOrUpdateConversation(
   }
 }
 
-// ✅ Helper function to update unread count
+// Helper function to update unread count
 async function updateConversationUnreadCount(
   currentUserId: string,
   otherUserId: string
@@ -331,6 +375,5 @@ async function updateConversationUnreadCount(
     await query(updateQuery, [conversationKey]);
   } catch (error) {
     console.error("❌ Error in updateConversationUnreadCount:", error);
-    // Don't re-throw here as it's not critical
   }
 }

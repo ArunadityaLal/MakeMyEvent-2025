@@ -5,16 +5,15 @@ import {
   Search,
   Users,
   MessageSquare,
-  Clock,
-  User,
-  CheckCircle,
-  Circle,
   ArrowLeft,
-  Phone,
-  Video,
-  MoreVertical,
   Loader2,
   UserPlus,
+  Image as ImageIcon,
+  Download,
+  Copy,
+  MoreHorizontal,
+  CheckCircle,
+  Circle,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { toast } from "sonner";
@@ -42,6 +41,9 @@ interface Message {
   senderEmail: string;
   receiverName: string;
   receiverEmail: string;
+  messageType?: "text" | "image";
+  imageUrl?: string;
+  imageName?: string;
 }
 
 interface Conversation {
@@ -88,10 +90,19 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
   const [newMessage, setNewMessage] = useState("");
   const [sendingMessage, setSendingMessage] = useState(false);
 
+  // Image upload state
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  // UI state
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [modalImageUrl, setModalImageUrl] = useState<string>("");
+
   // Refs
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const messageInputRef = useRef<HTMLInputElement>(null);
+  const messageInputRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Auto-scroll to bottom of messages
   const scrollToBottom = () => {
@@ -102,6 +113,18 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     scrollToBottom();
   }, [messages]);
 
+  // Auto-resize textarea
+  const adjustTextareaHeight = () => {
+    if (messageInputRef.current) {
+      messageInputRef.current.style.height = "auto";
+      messageInputRef.current.style.height = `${messageInputRef.current.scrollHeight}px`;
+    }
+  };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [newMessage]);
+
   // Focus message input when chat opens
   useEffect(() => {
     if (view === "chat" && messageInputRef.current) {
@@ -109,21 +132,28 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     }
   }, [view]);
 
-  // Fetch conversations on modal open
+  // Reset state when modal closes
   useEffect(() => {
     if (isOpen) {
       fetchConversations();
     } else {
-      // Reset state when closing
-      setView("conversations");
-      setSelectedConversation(null);
-      setSelectedUser(null);
-      setSearchQuery("");
-      setSearchResults([]);
-      setMessages([]);
-      setNewMessage("");
+      resetChatState();
     }
   }, [isOpen]);
+
+  const resetChatState = () => {
+    setView("conversations");
+    setSelectedConversation(null);
+    setSelectedUser(null);
+    setSearchQuery("");
+    setSearchResults([]);
+    setMessages([]);
+    setNewMessage("");
+    setSelectedImage(null);
+    setImagePreview(null);
+    setShowImageModal(false);
+    setModalImageUrl("");
+  };
 
   // Search faculty with debouncing
   useEffect(() => {
@@ -198,7 +228,6 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
 
       if (data.success) {
         setMessages(data.data.messages);
-        // Refresh conversations to update unread counts
         fetchConversations();
       } else {
         toast.error("Failed to load messages");
@@ -211,39 +240,86 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith("image/")) {
+        toast.error("Please select an image file");
+        return;
+      }
+
+      // Validate file size (5MB limit)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("Image size must be less than 5MB");
+        return;
+      }
+
+      setSelectedImage(file);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const clearImageSelection = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   const sendMessage = async () => {
-    if (!newMessage.trim() || !selectedUser || sendingMessage) return;
+    if (
+      (!newMessage.trim() && !selectedImage) ||
+      !selectedUser ||
+      sendingMessage
+    )
+      return;
 
     const messageContent = newMessage.trim();
     setSendingMessage(true);
-    setNewMessage(""); // Clear input immediately for better UX
 
     try {
+      const formData = new FormData();
+      formData.append("receiverId", selectedUser.id);
+
+      if (selectedImage) {
+        formData.append("image", selectedImage);
+        formData.append("messageType", "image");
+        if (messageContent) {
+          formData.append("content", messageContent);
+        } else {
+          formData.append("content", "Image");
+        }
+      } else {
+        formData.append("content", messageContent);
+        formData.append("messageType", "text");
+      }
+
       const response = await fetch("/api/messages", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          receiverId: selectedUser.id,
-          content: messageContent,
-        }),
+        body: formData,
       });
 
       const data = await response.json();
 
       if (data.success) {
         setMessages((prev) => [...prev, data.data.message]);
-        fetchConversations(); // Refresh conversations
-        // Remove toast for better UX - too many notifications
-        // toast.success('Message sent');
+        setNewMessage("");
+        clearImageSelection();
+        fetchConversations();
+        if (messageInputRef.current) {
+          messageInputRef.current.style.height = "auto";
+        }
       } else {
-        setNewMessage(messageContent); // Restore message on error
         toast.error(data.error || "Failed to send message");
       }
     } catch (error) {
       console.error("Error sending message:", error);
-      setNewMessage(messageContent); // Restore message on error
       toast.error("Failed to send message");
     } finally {
       setSendingMessage(false);
@@ -261,7 +337,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     setSelectedUser(faculty);
     setSelectedConversation(faculty.id);
     setView("chat");
-    setMessages([]); // Clear previous messages
+    setMessages([]);
     fetchMessages(faculty.id);
   };
 
@@ -294,10 +370,20 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
         minute: "2-digit",
         hour12: true,
       });
+    } else if (diffInHours < 7 * 24) {
+      return date.toLocaleDateString("en-US", {
+        weekday: "short",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
     } else {
       return date.toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
       });
     }
   };
@@ -310,13 +396,13 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     const diffInDays = diffInHours / 24;
 
     if (diffInMinutes < 1) {
-      return "Just now";
+      return "now";
     } else if (diffInMinutes < 60) {
-      return `${Math.floor(diffInMinutes)}m ago`;
+      return `${Math.floor(diffInMinutes)}m`;
     } else if (diffInHours < 24) {
-      return `${Math.floor(diffInHours)}h ago`;
+      return `${Math.floor(diffInHours)}h`;
     } else if (diffInDays < 7) {
-      return `${Math.floor(diffInDays)}d ago`;
+      return `${Math.floor(diffInDays)}d`;
     } else {
       return date.toLocaleDateString("en-US", {
         month: "short",
@@ -325,28 +411,49 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  const openImageModal = (imageUrl: string) => {
+    setModalImageUrl(imageUrl);
+    setShowImageModal(true);
+  };
+
+  const downloadImage = (imageUrl: string, imageName: string) => {
+    const link = document.createElement("a");
+    link.href = imageUrl;
+    link.download = imageName || "image";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard");
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl flex">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-2">
+      <div className="bg-white rounded-2xl max-w-6xl w-full max-h-[95vh] overflow-hidden shadow-2xl flex">
         {/* Sidebar */}
-        <div className="w-80 border-r border-gray-200 flex flex-col bg-gray-50">
+        <div className="w-80 border-r border-gray-200 flex flex-col bg-white">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4">
+          <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <MessageSquare className="w-6 h-6" />
+                <div className="p-2 bg-white/20 rounded-xl">
+                  <MessageSquare className="w-6 h-6" />
+                </div>
                 <div>
                   <h2 className="text-xl font-bold">Faculty Chat</h2>
-                  <p className="text-blue-100 text-sm">
+                  <p className="text-white/80 text-sm">
                     Connect with colleagues
                   </p>
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="text-white hover:text-gray-200 transition-colors p-2 hover:bg-white/10 rounded-lg"
+                className="text-white/80 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -354,12 +461,12 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex border-b border-gray-200 bg-white">
+          <div className="flex border-b border-gray-100">
             <button
               onClick={() => setView("conversations")}
-              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors flex items-center justify-center space-x-2 ${
+              className={`flex-1 px-4 py-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-2 ${
                 view === "conversations"
-                  ? "bg-blue-50 text-blue-700 border-b-2 border-blue-600"
+                  ? "bg-indigo-50 text-indigo-700 border-b-2 border-indigo-600"
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               }`}
             >
@@ -368,9 +475,9 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
             </button>
             <button
               onClick={() => setView("search")}
-              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors flex items-center justify-center space-x-2 ${
+              className={`flex-1 px-4 py-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-2 ${
                 view === "search"
-                  ? "bg-blue-50 text-blue-700 border-b-2 border-blue-600"
+                  ? "bg-indigo-50 text-indigo-700 border-b-2 border-indigo-600"
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               }`}
             >
@@ -383,12 +490,12 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
           <div className="flex-1 overflow-hidden">
             {/* Conversations View */}
             {view === "conversations" && (
-              <div className="h-full overflow-y-auto bg-white">
+              <div className="h-full overflow-y-auto">
                 {conversationsLoading ? (
                   <div className="p-4 space-y-3">
                     {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="animate-pulse flex space-x-3 p-3">
-                        <div className="w-12 h-12 bg-gray-200 rounded-full"></div>
+                      <div key={i} className="animate-pulse flex space-x-3 p-4">
+                        <div className="w-14 h-14 bg-gray-200 rounded-full"></div>
                         <div className="flex-1 space-y-2">
                           <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                           <div className="h-3 bg-gray-200 rounded w-1/2"></div>
@@ -401,13 +508,18 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                     <div
                       key={conversation.id}
                       onClick={() => openExistingChat(conversation)}
-                      className="p-4 border-b border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors"
+                      className={`p-4 border-b border-gray-50 hover:bg-indigo-50/50 cursor-pointer transition-all duration-200 ${
+                        selectedConversation === conversation.id
+                          ? "bg-indigo-50"
+                          : ""
+                      }`}
                     >
                       <div className="flex items-start space-x-3">
                         <div className="relative">
-                          <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-lg">
+                          <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-lg shadow-lg">
                             {conversation.otherUserName.charAt(0).toUpperCase()}
                           </div>
+                          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 border-2 border-white rounded-full"></div>
                           {conversation.unreadCount > 0 && (
                             <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold">
                               {conversation.unreadCount > 9
@@ -419,7 +531,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between mb-1">
                             <h4
-                              className={`font-medium truncate ${
+                              className={`font-semibold truncate ${
                                 conversation.unreadCount > 0
                                   ? "font-bold text-gray-900"
                                   : "text-gray-900"
@@ -458,16 +570,18 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                   ))
                 ) : (
                   <div className="p-8 text-center text-gray-500">
-                    <MessageSquare className="w-16 h-16 mx-auto mb-4 opacity-30" />
-                    <p className="font-medium mb-2 text-lg">
+                    <div className="w-24 h-24 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <MessageSquare className="w-12 h-12 text-indigo-400" />
+                    </div>
+                    <p className="font-semibold mb-2 text-lg text-gray-700">
                       No conversations yet
                     </p>
-                    <p className="text-sm mb-4">
-                      Start chatting with your colleagues
+                    <p className="text-sm mb-6 text-gray-500">
+                      Start connecting with your colleagues
                     </p>
                     <button
                       onClick={() => setView("search")}
-                      className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                     >
                       <UserPlus className="w-4 h-4" />
                       <span>Find Faculty</span>
@@ -479,21 +593,21 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
 
             {/* Search View */}
             {view === "search" && (
-              <div className="h-full flex flex-col bg-white">
+              <div className="h-full flex flex-col">
                 {/* Search Input */}
-                <div className="p-4 border-b border-gray-200">
+                <div className="p-4 border-b border-gray-100">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <input
                       type="text"
                       placeholder="Search faculty by name, email, or institution..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-gray-50 focus:bg-white transition-all duration-200 text-gray-900 placeholder:text-gray-500"
                     />
                     {searchLoading && (
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                        <Loader2 className="w-4 h-4 animate-spin text-blue-500" />
+                      <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                        <Loader2 className="w-5 h-5 animate-spin text-indigo-500" />
                       </div>
                     )}
                   </div>
@@ -506,10 +620,10 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                       <div
                         key={faculty.id}
                         onClick={() => startNewChat(faculty)}
-                        className="p-4 border-b border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors"
+                        className="p-4 border-b border-gray-50 hover:bg-indigo-50/50 cursor-pointer transition-all duration-200"
                       >
                         <div className="flex items-start space-x-3">
-                          <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center text-white font-semibold text-lg">
+                          <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center text-white font-semibold text-lg shadow-lg">
                             {faculty.name.charAt(0).toUpperCase()}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -530,24 +644,34 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                               )}
                           </div>
                           <div className="flex-shrink-0">
-                            <MessageSquare className="w-5 h-5 text-gray-400" />
+                            <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                              <MessageSquare className="w-5 h-5 text-indigo-600" />
+                            </div>
                           </div>
                         </div>
                       </div>
                     ))
                   ) : searchQuery && !searchLoading ? (
                     <div className="p-8 text-center text-gray-500">
-                      <Search className="w-16 h-16 mx-auto mb-4 opacity-30" />
-                      <p className="font-medium mb-2">No faculty found</p>
-                      <p className="text-sm">
+                      <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Search className="w-10 h-10 text-gray-400" />
+                      </div>
+                      <p className="font-semibold mb-2 text-gray-700">
+                        No faculty found
+                      </p>
+                      <p className="text-sm text-gray-500">
                         Try searching with different keywords
                       </p>
                     </div>
                   ) : !searchQuery ? (
                     <div className="p-8 text-center text-gray-500">
-                      <Search className="w-16 h-16 mx-auto mb-4 opacity-30" />
-                      <p className="font-medium mb-2">Search Faculty</p>
-                      <p className="text-sm">
+                      <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Search className="w-10 h-10 text-indigo-400" />
+                      </div>
+                      <p className="font-semibold mb-2 text-gray-700">
+                        Search Faculty
+                      </p>
+                      <p className="text-sm text-gray-500">
                         Enter a name, email, or institution to find colleagues
                       </p>
                     </div>
@@ -559,54 +683,46 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col bg-gray-50">
           {view === "chat" && selectedUser ? (
             <>
               {/* Chat Header */}
-              <div className="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <button
-                    onClick={() => setView("conversations")}
-                    className="lg:hidden p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100"
-                  >
-                    <ArrowLeft className="w-5 h-5" />
-                  </button>
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
-                    {selectedUser.name.charAt(0).toUpperCase()}
+              <div className="bg-white border-b border-gray-200 p-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <button
+                      onClick={() => setView("conversations")}
+                      className="lg:hidden p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100"
+                    >
+                      <ArrowLeft className="w-5 h-5" />
+                    </button>
+                    <div className="relative">
+                      <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold shadow-lg">
+                        {selectedUser.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full"></div>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 text-lg">
+                        {selectedUser.name}
+                      </h3>
+                      <p className="text-sm text-gray-600 flex items-center">
+                        <circle className="w-3 h-3 text-green-500 mr-1" />
+                        {selectedUser.institution}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">
-                      {selectedUser.name}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      {selectedUser.institution}
-                    </p>
+
+                  <div className="flex items-center space-x-2">
+                    <button className="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+                      <MoreHorizontal className="w-5 h-5" />
+                    </button>
                   </div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <button
-                    className="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100"
-                    title="Voice Call (Coming Soon)"
-                  >
-                    <Phone className="w-5 h-5" />
-                  </button>
-                  <button
-                    className="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100"
-                    title="Video Call (Coming Soon)"
-                  >
-                    <Video className="w-5 h-5" />
-                  </button>
-                  <button
-                    className="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100"
-                    title="More Options"
-                  >
-                    <MoreVertical className="w-5 h-5" />
-                  </button>
                 </div>
               </div>
 
               {/* Messages Area */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+              <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {messagesLoading ? (
                   <div className="space-y-4">
                     {[1, 2, 3, 4, 5].map((i) => (
@@ -641,7 +757,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                         key={message.id}
                         className={`flex ${
                           isCurrentUser ? "justify-end" : "justify-start"
-                        } ${showAvatar ? "mt-4" : "mt-1"}`}
+                        } ${showAvatar ? "mt-6" : "mt-1"}`}
                       >
                         <div
                           className={`flex ${
@@ -656,30 +772,83 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                             <div className="w-8 h-8 flex-shrink-0"></div>
                           ) : null}
 
-                          <div
-                            className={`px-4 py-2 rounded-2xl break-words ${
-                              isCurrentUser
-                                ? "bg-blue-600 text-white rounded-br-md"
-                                : "bg-white text-gray-900 border border-gray-200 rounded-bl-md"
-                            }`}
-                          >
-                            <p className="text-sm">{message.content}</p>
+                          <div className="group relative">
                             <div
-                              className={`flex items-center justify-end space-x-1 mt-1 ${
+                              className={`px-4 py-3 rounded-2xl break-words shadow-sm ${
                                 isCurrentUser
-                                  ? "text-blue-200"
-                                  : "text-gray-500"
+                                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-br-md"
+                                  : "bg-white text-gray-900 border border-gray-200 rounded-bl-md"
                               }`}
                             >
-                              <span className="text-xs">
-                                {formatMessageTime(message.createdAt)}
-                              </span>
-                              {isCurrentUser &&
-                                (message.isRead ? (
-                                  <CheckCircle className="w-3 h-3" />
-                                ) : (
-                                  <Circle className="w-3 h-3" />
-                                ))}
+                              {message.messageType === "image" ? (
+                                <div className="space-y-2">
+                                  <img
+                                    src={message.imageUrl}
+                                    alt={message.imageName || "Image"}
+                                    className="max-w-full h-auto rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                                    onClick={() =>
+                                      openImageModal(message.imageUrl!)
+                                    }
+                                  />
+                                  {message.content &&
+                                    message.content !== "Image" && (
+                                      <p className="text-sm">
+                                        {message.content}
+                                      </p>
+                                    )}
+                                </div>
+                              ) : (
+                                <p className="text-sm">{message.content}</p>
+                              )}
+
+                              <div
+                                className={`flex items-center justify-end space-x-1 mt-2 ${
+                                  isCurrentUser
+                                    ? "text-white/80"
+                                    : "text-gray-500"
+                                }`}
+                              >
+                                <span className="text-xs">
+                                  {formatMessageTime(message.createdAt)}
+                                </span>
+                                {isCurrentUser &&
+                                  (message.isRead ? (
+                                    <CheckCircle className="w-3 h-3" />
+                                  ) : (
+                                    <Circle className="w-3 h-3" />
+                                  ))}
+                              </div>
+                            </div>
+
+                            {/* Message Actions */}
+                            <div
+                              className={`opacity-0 group-hover:opacity-100 transition-opacity absolute top-0 ${
+                                isCurrentUser
+                                  ? "left-0 -translate-x-full"
+                                  : "right-0 translate-x-full"
+                              } flex space-x-1 bg-white rounded-lg shadow-lg border px-2 py-1`}
+                            >
+                              <button
+                                onClick={() => copyToClipboard(message.content)}
+                                className="p-1 hover:bg-gray-100 rounded"
+                                title="Copy message"
+                              >
+                                <Copy className="w-3 h-3 text-gray-500" />
+                              </button>
+                              {message.messageType === "image" && (
+                                <button
+                                  onClick={() =>
+                                    downloadImage(
+                                      message.imageUrl!,
+                                      message.imageName || "image"
+                                    )
+                                  }
+                                  className="p-1 hover:bg-gray-100 rounded"
+                                  title="Download image"
+                                >
+                                  <Download className="w-3 h-3 text-gray-500" />
+                                </button>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -689,8 +858,10 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                 ) : (
                   <div className="flex-1 flex items-center justify-center">
                     <div className="text-center text-gray-500">
-                      <MessageSquare className="w-20 h-20 mx-auto mb-4 opacity-30" />
-                      <p className="text-xl font-medium mb-2">
+                      <div className="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <MessageSquare className="w-12 h-12 text-indigo-400" />
+                      </div>
+                      <p className="text-xl font-semibold mb-2 text-gray-700">
                         Start a conversation
                       </p>
                       <p className="text-sm">
@@ -702,27 +873,79 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                 <div ref={messagesEndRef} />
               </div>
 
+              {/* Image Preview */}
+              {imagePreview && (
+                <div className="border-t border-gray-200 p-4 bg-white">
+                  <div className="flex items-center space-x-3">
+                    <div className="relative">
+                      <img
+                        src={imagePreview}
+                        alt="Preview"
+                        className="w-16 h-16 object-cover rounded-lg border"
+                      />
+                      <button
+                        onClick={clearImageSelection}
+                        className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-gray-700">
+                        {selectedImage?.name}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {selectedImage
+                          ? (selectedImage.size / 1024).toFixed(1)
+                          : 0}{" "}
+                        KB
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Message Input */}
               <div className="bg-white border-t border-gray-200 p-4">
                 <div className="flex items-end space-x-3">
-                  <div className="flex-1 relative">
+                  <div className="flex space-x-2">
                     <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageSelect}
+                      className="hidden"
+                    />
+                    <button
+                      onClick={() => fileInputRef.current?.click()}
+                      className="p-3 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all duration-200"
+                      title="Attach image"
+                    >
+                      <ImageIcon className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  <div className="flex-1 relative">
+                    <textarea
                       ref={messageInputRef}
-                      type="text"
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       onKeyPress={handleKeyPress}
                       placeholder={`Message ${selectedUser.name}...`}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-12 resize-none"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none max-h-32 bg-gray-50 focus:bg-white transition-all duration-200 text-gray-900 placeholder:text-gray-500"
                       disabled={sendingMessage}
+                      rows={1}
                     />
                   </div>
+
                   <button
                     onClick={sendMessage}
-                    disabled={!newMessage.trim() || sendingMessage}
+                    disabled={
+                      (!newMessage.trim() && !selectedImage) || sendingMessage
+                    }
                     className={`p-3 rounded-full transition-all duration-200 flex items-center justify-center ${
-                      newMessage.trim() && !sendingMessage
-                        ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl"
+                      (newMessage.trim() || selectedImage) && !sendingMessage
+                        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-lg hover:shadow-xl"
                         : "bg-gray-200 text-gray-400 cursor-not-allowed"
                     }`}
                   >
@@ -733,39 +956,43 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
                     )}
                   </button>
                 </div>
+
                 <div className="mt-2 text-xs text-gray-500 text-center">
-                  Press Enter to send, Shift+Enter for new line
+                  Press Enter to send • Shift+Enter for new line • Max file
+                  size: 5MB
                 </div>
               </div>
             </>
           ) : (
             /* Default Chat Welcome Screen */
-            <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50">
+            <div className="flex-1 flex items-center justify-center">
               <div className="text-center text-gray-500 max-w-md">
                 <div className="relative mb-8">
-                  <MessageSquare className="w-32 h-32 mx-auto opacity-20" />
+                  <div className="w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto">
+                    <MessageSquare className="w-16 h-16 text-indigo-400" />
+                  </div>
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <Users className="w-16 h-16 text-blue-400 opacity-60" />
+                    <Users className="w-8 h-8 text-indigo-600" />
                   </div>
                 </div>
-                <h3 className="text-3xl font-bold mb-4 text-gray-700 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   Faculty Messenger
                 </h3>
                 <p className="text-lg mb-8 text-gray-600">
                   Connect and collaborate with your colleagues
                 </p>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center justify-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
-                    <Users className="w-5 h-5 text-blue-500" />
-                    <span>View your conversations in the sidebar</span>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-center space-x-3 p-4 bg-white rounded-xl shadow-sm border">
+                    <Users className="w-5 h-5 text-indigo-500" />
+                    <span className="text-sm">Real-time conversations</span>
                   </div>
-                  <div className="flex items-center justify-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
-                    <Search className="w-5 h-5 text-green-500" />
-                    <span>Search for faculty to start a new chat</span>
+                  <div className="flex items-center justify-center space-x-3 p-4 bg-white rounded-xl shadow-sm border">
+                    <ImageIcon className="w-5 h-5 text-purple-500" />
+                    <span className="text-sm">Share images and files</span>
                   </div>
-                  <div className="flex items-center justify-center space-x-3 p-3 bg-white rounded-lg shadow-sm">
-                    <MessageSquare className="w-5 h-5 text-purple-500" />
-                    <span>Real-time messaging with read receipts</span>
+                  <div className="flex items-center justify-center space-x-3 p-4 bg-white rounded-xl shadow-sm border">
+                    <MessageSquare className="w-5 h-5 text-green-500" />
+                    <span className="text-sm">Professional messaging</span>
                   </div>
                 </div>
               </div>
@@ -773,6 +1000,37 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
           )}
         </div>
       </div>
+
+      {/* Image Modal */}
+      {showImageModal && modalImageUrl && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-[60] p-4"
+          onClick={() => setShowImageModal(false)}
+        >
+          <div className="relative max-w-4xl max-h-full">
+            <img
+              src={modalImageUrl}
+              alt="Full size"
+              className="max-w-full max-h-full object-contain rounded-lg"
+            />
+            <button
+              onClick={() => setShowImageModal(false)}
+              className="absolute top-4 right-4 w-10 h-10 bg-black/50 text-white rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="absolute bottom-4 right-4 flex space-x-2">
+              <button
+                onClick={() => downloadImage(modalImageUrl, "image")}
+                className="px-4 py-2 bg-black/50 text-white rounded-lg hover:bg-black/70 transition-colors flex items-center space-x-2"
+              >
+                <Download className="w-4 h-4" />
+                <span>Download</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
