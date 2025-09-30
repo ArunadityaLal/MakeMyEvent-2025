@@ -1,4 +1,3 @@
-// src/app/(dashboard)/organizer/sessions/page.tsx - UPDATED: Extended editing with email, name, title, and invite status
 "use client";
 
 import React, { useEffect, useState, Suspense } from "react";
@@ -60,6 +59,7 @@ type SessionRow = {
   roomName?: string | null;
   roomId?: string | null;
   description?: string | null;
+  memberDescription?: string | null; // ✅ NEW: Added member description field
   startTime?: string | null;
   endTime?: string | null;
   status: "Draft" | "Confirmed";
@@ -97,7 +97,7 @@ type Event = {
 type RoomLite = { id: string; name: string };
 type Faculty = { id: string; name: string };
 
-// ✅ FIXED: Corrected DraftSession type with proper inviteStatus field
+// ✅ UPDATED: Added memberDescription to DraftSession type
 type DraftSession = {
   title: string;
   facultyName: string;
@@ -108,7 +108,8 @@ type DraftSession = {
   endTime?: string;
   status: "Draft" | "Confirmed";
   description?: string;
-  inviteStatus: "Pending" | "Accepted" | "Declined"; // ✅ FIXED: Renamed from Invite_status
+  memberDescription?: string; // ✅ NEW: Added member description field
+  inviteStatus: "Pending" | "Accepted" | "Declined";
 };
 
 // ✅ Safe string helper function
@@ -367,7 +368,7 @@ const AllSessions: React.FC = () => {
 
       const sessionsList = sData.data?.sessions || sData.sessions || sData;
 
-      // ✅ Ensure all session data has safe defaults
+      // ✅ UPDATED: Include memberDescription mapping from API response
       const mapped: SessionRow[] = sessionsList.map((s: any) => {
         const roomId =
           s.roomId ?? rData.find((r: any) => r.name === s.roomName)?.id;
@@ -384,6 +385,8 @@ const AllSessions: React.FC = () => {
           roomName: s.roomName || null,
           roomId: roomId || null,
           description: s.description || null,
+          memberDescription:
+            s.memberDescription || s.member_description || null, // ✅ NEW: Map member description
           eventName: s.eventName || null,
           startTime: s.startTime || s.time || null,
           endTime: s.endTime || null,
@@ -420,7 +423,7 @@ const AllSessions: React.FC = () => {
     return () => clearInterval(id);
   }, [selectedEventId]);
 
-  // ✅ UPDATED: Helper function to detect changes including invite status
+  // ✅ UPDATED: Helper function to detect changes including member description
   const detectChanges = (
     sessionId: string,
     originalSession: SessionRow,
@@ -483,7 +486,7 @@ const AllSessions: React.FC = () => {
       });
     }
 
-    // ✅ NEW: Check invite status changes
+    // Check invite status changes
     if (originalSession.inviteStatus !== updatedData.inviteStatus) {
       changes.push({
         field: "inviteStatus",
@@ -497,6 +500,15 @@ const AllSessions: React.FC = () => {
         field: "description",
         oldValue: originalSession.description,
         newValue: updatedData.description,
+      });
+    }
+
+    // ✅ NEW: Check member description changes
+    if (originalSession.memberDescription !== updatedData.memberDescription) {
+      changes.push({
+        field: "memberDescription",
+        oldValue: originalSession.memberDescription,
+        newValue: updatedData.memberDescription,
       });
     }
 
@@ -559,8 +571,9 @@ const AllSessions: React.FC = () => {
           startTime: session.startTime,
           endTime: session.endTime,
           status: session.status,
-          inviteStatus: session.inviteStatus, // ✅ NEW: Include invite status
+          inviteStatus: session.inviteStatus,
           description: session.description,
+          memberDescription: session.memberDescription, // ✅ NEW: Include member description
           changes: changes,
         }),
       });
@@ -637,7 +650,7 @@ const AllSessions: React.FC = () => {
     window.history.replaceState({}, "", newUrl.toString());
   };
 
-  // ✅ Safe filtered sessions with proper null checks
+  // ✅ UPDATED: Include memberDescription in filtered sessions search
   const filteredSessions = sessions.filter((session) => {
     try {
       // ✅ Safe search matching with null checks
@@ -649,7 +662,8 @@ const AllSessions: React.FC = () => {
         safeToLowerCase(session.email).includes(searchTermLower) ||
         safeToLowerCase(session.place).includes(searchTermLower) ||
         safeToLowerCase(session.eventName).includes(searchTermLower) ||
-        safeToLowerCase(session.roomName).includes(searchTermLower);
+        safeToLowerCase(session.roomName).includes(searchTermLower) ||
+        safeToLowerCase(session.memberDescription).includes(searchTermLower); // ✅ NEW: Include member description in search
 
       const matchesStatus =
         statusFilter === "all" || session.status === statusFilter;
@@ -666,7 +680,7 @@ const AllSessions: React.FC = () => {
 
   const selectedEvent = events.find((e) => e.id === selectedEventId);
 
-  // ✅ UPDATED: Edit handlers with extended fields including invite status
+  // ✅ UPDATED: Edit handlers with member description field
   const onEdit = (id: string) => {
     const row = sessions.find((s) => s.id === id);
     if (!row) return;
@@ -687,7 +701,8 @@ const AllSessions: React.FC = () => {
         endTime: toInputDateTime(row.endTime),
         status: row.status,
         description: row.description || "",
-        inviteStatus: row.inviteStatus || "Pending", // ✅ FIXED: Corrected field name
+        memberDescription: row.memberDescription || "", // ✅ NEW: Include member description
+        inviteStatus: row.inviteStatus || "Pending",
       },
     }));
   };
@@ -718,7 +733,7 @@ const AllSessions: React.FC = () => {
     }));
   };
 
-  // ✅ UPDATED: Save functionality with validation for new fields including invite status
+  // ✅ UPDATED: Save functionality with member description validation
   const onSave = async (id: string) => {
     const body = draft[id];
     const originalSession = originalValues[id];
@@ -794,7 +809,7 @@ const AllSessions: React.FC = () => {
       }
     }
 
-    // ✅ UPDATED: Include invite status in payload
+    // ✅ UPDATED: Include member description in payload
     const payload = {
       title: body.title.trim(),
       facultyName: body.facultyName.trim(),
@@ -804,8 +819,9 @@ const AllSessions: React.FC = () => {
       startTime: isoStartTime,
       endTime: isoEndTime,
       status: body.status,
-      inviteStatus: body.inviteStatus, // ✅ NEW: Include invite status
+      inviteStatus: body.inviteStatus,
       description: body.description?.trim(),
+      memberDescription: body.memberDescription?.trim(), // ✅ NEW: Include member description
     };
 
     // Detect what changed
@@ -1132,7 +1148,7 @@ const AllSessions: React.FC = () => {
                     <Search className="h-4 w-4 text-gray-400" />
                     <input
                       type="text"
-                      placeholder="Search sessions, faculty, or location..."
+                      placeholder="Search sessions, faculty, or member description..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="flex-1 bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -1237,29 +1253,30 @@ const AllSessions: React.FC = () => {
                           </div>
                         </th>
                         {selectedEventId === "all" && (
-                          <th className="text-left p-4 font-semibold text-gray-200 min-w-[150px]">
+                          <th className="text-left p-4 font-semibold text-gray-200 min-w-[200px]">
                             <div className="flex items-center gap-2">
                               <CalendarDays className="h-4 w-4" />
                               Event
                             </div>
                           </th>
                         )}
-                        <th className="text-left p-4 font-semibold text-gray-200 min-w-[200px]">
+                        <th className="text-left p-4 font-semibold text-gray-200 min-w-[160px]">
                           <div className="flex items-center gap-2">
                             <User className="h-4 w-4" />
                             Faculty Name
                           </div>
                         </th>
-                        <th className="text-left p-4 font-semibold text-gray-200 min-w-[250px]">
+                        <th className="text-left p-4 font-semibold text-gray-200 min-w-[220px]">
                           <div className="flex items-center gap-2">
                             <Mail className="h-4 w-4" />
                             Email
                           </div>
                         </th>
-                        <th className="text-left p-4 font-semibold text-gray-200 min-w-[150px]">
+                        {/* ✅ NEW: Member Description Column */}
+                        <th className="text-left p-4 font-semibold text-gray-200 min-w-[220px]">
                           <div className="flex items-center gap-2">
-                            <MapPin className="h-4 w-4" />
-                            Place
+                            <Users className="h-4 w-4" />
+                            Member Description
                           </div>
                         </th>
                         <th className="text-left p-4 font-semibold text-gray-200 min-w-[150px]">
@@ -1304,8 +1321,8 @@ const AllSessions: React.FC = () => {
                                 : "bg-gray-900/40"
                             }`}
                           >
-                            {/* ✅ UPDATED: Editable Session Title */}
-                            <td className="p-4">
+                            {/* Session Title + Description */}
+                            <td className="p-4 align-top">
                               {isEditing ? (
                                 <div className="space-y-2">
                                   <input
@@ -1320,21 +1337,19 @@ const AllSessions: React.FC = () => {
                                       )
                                     }
                                   />
-                                  {s.description && (
-                                    <textarea
-                                      className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-xs focus:border-blue-500 focus:outline-none resize-none"
-                                      placeholder="Description"
-                                      rows={2}
-                                      value={d?.description || ""}
-                                      onChange={(e) =>
-                                        onChangeDraft(
-                                          s.id,
-                                          "description",
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  )}
+                                  <textarea
+                                    className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-xs focus:border-blue-500 focus:outline-none resize-none"
+                                    placeholder="Description"
+                                    rows={2}
+                                    value={d?.description || ""}
+                                    onChange={(e) =>
+                                      onChangeDraft(
+                                        s.id,
+                                        "description",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
                                 </div>
                               ) : (
                                 <div>
@@ -1350,28 +1365,20 @@ const AllSessions: React.FC = () => {
                               )}
                             </td>
 
-                            {/* Event (only show when viewing all events) */}
+                            {/* Event + Place (only show when viewing all events) */}
                             {selectedEventId === "all" && (
-                              <td className="p-4">
-                                {s.eventName ? (
-                                  <div className="text-xs">
-                                    <div className="font-medium text-gray-200">
-                                      {s.eventName}
-                                    </div>
-                                    <div className="text-gray-400">
-                                      {s.place}
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <div className="text-gray-500">
-                                    Unknown event
-                                  </div>
-                                )}
+                              <td className="p-4 align-top">
+                                <div className="text-gray-200">
+                                  {s.eventName || "-"}
+                                </div>
+                                <div className="text-xs text-gray-400 mt-1">
+                                  {s.place || "-"}
+                                </div>
                               </td>
                             )}
 
-                            {/* ✅ UPDATED: Editable Faculty Name */}
-                            <td className="p-4">
+                            {/* Faculty Name */}
+                            <td className="p-4 align-top">
                               {isEditing ? (
                                 <input
                                   className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-sm focus:border-blue-500 focus:outline-none"
@@ -1392,8 +1399,8 @@ const AllSessions: React.FC = () => {
                               )}
                             </td>
 
-                            {/* ✅ UPDATED: Editable Email */}
-                            <td className="p-4">
+                            {/* Email */}
+                            <td className="p-4 align-top">
                               {isEditing ? (
                                 <input
                                   type="email"
@@ -1411,24 +1418,31 @@ const AllSessions: React.FC = () => {
                               )}
                             </td>
 
-                            {/* Place */}
-                            <td className="p-4">
+                            {/* ✅ NEW: Member Description Column */}
+                            <td className="p-4 align-top">
                               {isEditing ? (
-                                <input
-                                  className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-sm focus:border-blue-500 focus:outline-none"
-                                  placeholder="Location"
-                                  value={d?.place || ""}
+                                <textarea
+                                  className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-xs focus:border-blue-500 focus:outline-none resize-none"
+                                  placeholder="Member description..."
+                                  rows={2}
+                                  value={d?.memberDescription || ""}
                                   onChange={(e) =>
-                                    onChangeDraft(s.id, "place", e.target.value)
+                                    onChangeDraft(
+                                      s.id,
+                                      "memberDescription",
+                                      e.target.value
+                                    )
                                   }
                                 />
                               ) : (
-                                <div className="text-gray-200">{s.place}</div>
+                                <div className="text-xs text-gray-400 line-clamp-2">
+                                  {s.memberDescription || "-"}
+                                </div>
                               )}
                             </td>
 
                             {/* Room */}
-                            <td className="p-4">
+                            <td className="p-4 align-top">
                               {isEditing ? (
                                 <select
                                   className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-sm focus:border-blue-500 focus:outline-none"
@@ -1456,7 +1470,7 @@ const AllSessions: React.FC = () => {
                             </td>
 
                             {/* Schedule */}
-                            <td className="p-4">
+                            <td className="p-4 align-top">
                               {isEditing ? (
                                 <div className="space-y-2">
                                   <input
@@ -1519,7 +1533,7 @@ const AllSessions: React.FC = () => {
                             </td>
 
                             {/* Status */}
-                            <td className="p-4">
+                            <td className="p-4 align-top">
                               {isEditing ? (
                                 <select
                                   className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-sm focus:border-blue-500 focus:outline-none"
@@ -1540,8 +1554,8 @@ const AllSessions: React.FC = () => {
                               )}
                             </td>
 
-                            {/* ✅ NEW: Editable Invite Status */}
-                            <td className="p-4">
+                            {/* Invite Status */}
+                            <td className="p-4 align-top">
                               {isEditing ? (
                                 <Select
                                   value={d?.inviteStatus || s.inviteStatus}
@@ -1583,7 +1597,7 @@ const AllSessions: React.FC = () => {
                             </td>
 
                             {/* Actions */}
-                            <td className="p-4">
+                            <td className="p-4 align-top">
                               {isEditing ? (
                                 <div className="flex items-center gap-2">
                                   <Button
