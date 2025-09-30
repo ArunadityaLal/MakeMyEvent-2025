@@ -12,6 +12,7 @@ interface SessionUpdateRequest {
   startTime: string;
   endTime: string;
   status: string;
+  inviteStatus?: string; // ✅ Added inviteStatus field
   description?: string;
   changes: {
     field: string;
@@ -38,6 +39,7 @@ export async function POST(request: NextRequest) {
       startTime,
       endTime,
       status,
+      inviteStatus, // ✅ Added inviteStatus
       description,
       changes,
     } = body;
@@ -46,6 +48,7 @@ export async function POST(request: NextRequest) {
     console.log("Request body:", body);
     console.log("Faculty Email:", facultyEmail);
     console.log("Faculty Name:", facultyName);
+    console.log("Invite Status:", inviteStatus); // ✅ Added logging
     console.log("Changes:", changes);
 
     // Validate required fields
@@ -113,6 +116,9 @@ export async function POST(request: NextRequest) {
           case "status":
             displayField = "Status";
             break;
+          case "inviteStatus": // ✅ Added invite status formatting
+            displayField = "Invite Status";
+            break;
           case "description":
             displayField = "Description";
             break;
@@ -142,6 +148,22 @@ export async function POST(request: NextRequest) {
     const formattedEndTime = endTime
       ? new Date(endTime).toLocaleString()
       : "Not scheduled";
+
+    // ✅ Get formatted invite status for display
+    const getInviteStatusColor = (status?: string) => {
+      switch (status) {
+        case "Accepted":
+          return "#4caf50";
+        case "Declined":
+          return "#f44336";
+        case "Pending":
+        default:
+          return "#ff9800";
+      }
+    };
+
+    const displayInviteStatus = inviteStatus || "Pending";
+    const inviteStatusColor = getInviteStatusColor(inviteStatus);
 
     // HTML email template
     const htmlContent = `
@@ -210,6 +232,13 @@ export async function POST(request: NextRequest) {
               padding: 15px;
               margin: 20px 0;
             }
+            .status-badge {
+              padding: 4px 8px;
+              border-radius: 4px;
+              font-size: 12px;
+              font-weight: bold;
+              color: white;
+            }
           </style>
         </head>
         <body>
@@ -231,9 +260,10 @@ export async function POST(request: NextRequest) {
               <p><strong>Room:</strong> ${roomName}</p>
               <p><strong>Start Time:</strong> ${formattedStartTime}</p>
               <p><strong>End Time:</strong> ${formattedEndTime}</p>
-              <p><strong>Status:</strong> <span style="background: ${
+              <p><strong>Status:</strong> <span class="status-badge" style="background: ${
                 status === "Confirmed" ? "#4caf50" : "#ff9800"
-              }; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">${status}</span></p>
+              };">${status}</span></p>
+              <p><strong>Invite Status:</strong> <span class="status-badge" style="background: ${inviteStatusColor};">${displayInviteStatus}</span></p>
               ${
                 description
                   ? `<p><strong>Description:</strong> ${description}</p>`
@@ -314,6 +344,9 @@ export async function POST(request: NextRequest) {
           case "place":
             field = "Location";
             break;
+          case "inviteStatus": // ✅ Added text formatting for invite status
+            field = "Invite Status";
+            break;
         }
 
         return `- ${field}: "${change.oldValue || "Not set"}" → "${
@@ -335,6 +368,7 @@ UPDATED SESSION INFORMATION:
 - Start Time: ${formattedStartTime}
 - End Time: ${formattedEndTime}
 - Status: ${status}
+- Invite Status: ${displayInviteStatus}
 ${description ? `- Description: ${description}` : ""}
 
 ${
