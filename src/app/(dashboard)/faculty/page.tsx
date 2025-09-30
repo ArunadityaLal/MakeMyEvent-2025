@@ -1065,7 +1065,7 @@ export default function FacultyDashboardPage() {
         ]}
       >
         <div className="space-y-6">
-          <ChatButton onClick={() => setShowChatModal(true)} className="mb-2" />
+          {/* <ChatButton onClick={() => setShowChatModal(true)} className="mb-2" /> */}
           {/* FIXED: Welcome Header with light theme */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div>
