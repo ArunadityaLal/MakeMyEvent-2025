@@ -1,4 +1,4 @@
-// src/app/(dashboard)/organizer/sessions/page.tsx - UPDATED: Extended editing with email, name, and title
+// src/app/(dashboard)/organizer/sessions/page.tsx - UPDATED: Extended editing with email, name, title, and invite status
 "use client";
 
 import React, { useEffect, useState, Suspense } from "react";
@@ -97,7 +97,7 @@ type Event = {
 type RoomLite = { id: string; name: string };
 type Faculty = { id: string; name: string };
 
-// ✅ UPDATED: Extended DraftSession to include email, facultyName, and title
+// ✅ FIXED: Corrected DraftSession type with proper inviteStatus field
 type DraftSession = {
   title: string;
   facultyName: string;
@@ -108,6 +108,7 @@ type DraftSession = {
   endTime?: string;
   status: "Draft" | "Confirmed";
   description?: string;
+  inviteStatus: "Pending" | "Accepted" | "Declined"; // ✅ FIXED: Renamed from Invite_status
 };
 
 // ✅ Safe string helper function
@@ -119,7 +120,7 @@ const safeToLowerCase = (value: any): string => {
 };
 
 // Helper functions
-const badge = (s: InviteStatus) => {
+const inviteStatusBadge = (s: InviteStatus) => {
   const base =
     "px-2 py-1 rounded-full text-xs font-semibold inline-flex items-center gap-1";
   if (s === "Accepted")
@@ -419,7 +420,7 @@ const AllSessions: React.FC = () => {
     return () => clearInterval(id);
   }, [selectedEventId]);
 
-  // ✅ UPDATED: Helper function to detect changes including new fields
+  // ✅ UPDATED: Helper function to detect changes including invite status
   const detectChanges = (
     sessionId: string,
     originalSession: SessionRow,
@@ -479,6 +480,15 @@ const AllSessions: React.FC = () => {
         field: "status",
         oldValue: originalSession.status,
         newValue: updatedData.status,
+      });
+    }
+
+    // ✅ NEW: Check invite status changes
+    if (originalSession.inviteStatus !== updatedData.inviteStatus) {
+      changes.push({
+        field: "inviteStatus",
+        oldValue: originalSession.inviteStatus,
+        newValue: updatedData.inviteStatus,
       });
     }
 
@@ -549,6 +559,7 @@ const AllSessions: React.FC = () => {
           startTime: session.startTime,
           endTime: session.endTime,
           status: session.status,
+          inviteStatus: session.inviteStatus, // ✅ NEW: Include invite status
           description: session.description,
           changes: changes,
         }),
@@ -655,7 +666,7 @@ const AllSessions: React.FC = () => {
 
   const selectedEvent = events.find((e) => e.id === selectedEventId);
 
-  // ✅ UPDATED: Edit handlers with extended fields
+  // ✅ UPDATED: Edit handlers with extended fields including invite status
   const onEdit = (id: string) => {
     const row = sessions.find((s) => s.id === id);
     if (!row) return;
@@ -676,6 +687,7 @@ const AllSessions: React.FC = () => {
         endTime: toInputDateTime(row.endTime),
         status: row.status,
         description: row.description || "",
+        inviteStatus: row.inviteStatus || "Pending", // ✅ FIXED: Corrected field name
       },
     }));
   };
@@ -706,7 +718,7 @@ const AllSessions: React.FC = () => {
     }));
   };
 
-  // ✅ UPDATED: Save functionality with validation for new fields
+  // ✅ UPDATED: Save functionality with validation for new fields including invite status
   const onSave = async (id: string) => {
     const body = draft[id];
     const originalSession = originalValues[id];
@@ -782,7 +794,7 @@ const AllSessions: React.FC = () => {
       }
     }
 
-    // ✅ UPDATED: Include new fields in payload
+    // ✅ UPDATED: Include invite status in payload
     const payload = {
       title: body.title.trim(),
       facultyName: body.facultyName.trim(),
@@ -792,6 +804,7 @@ const AllSessions: React.FC = () => {
       startTime: isoStartTime,
       endTime: isoEndTime,
       status: body.status,
+      inviteStatus: body.inviteStatus, // ✅ NEW: Include invite status
       description: body.description?.trim(),
     };
 
@@ -1527,8 +1540,47 @@ const AllSessions: React.FC = () => {
                               )}
                             </td>
 
-                            {/* Invite Status */}
-                            <td className="p-4">{badge(s.inviteStatus)}</td>
+                            {/* ✅ NEW: Editable Invite Status */}
+                            <td className="p-4">
+                              {isEditing ? (
+                                <Select
+                                  value={d?.inviteStatus || s.inviteStatus}
+                                  onValueChange={(value) =>
+                                    onChangeDraft(
+                                      s.id,
+                                      "inviteStatus",
+                                      value as InviteStatus
+                                    )
+                                  }
+                                >
+                                  <SelectTrigger className="w-full bg-gray-800 border-gray-600 rounded px-2 py-1 text-white text-sm focus:border-blue-500 focus:outline-none">
+                                    <SelectValue placeholder="Select status" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="Pending">
+                                      <div className="flex items-center gap-2">
+                                        <Clock className="h-3 w-3 text-yellow-400" />
+                                        <span>Pending</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value="Accepted">
+                                      <div className="flex items-center gap-2">
+                                        <CheckCircle className="h-3 w-3 text-green-400" />
+                                        <span>Accepted</span>
+                                      </div>
+                                    </SelectItem>
+                                    <SelectItem value="Declined">
+                                      <div className="flex items-center gap-2">
+                                        <X className="h-3 w-3 text-red-400" />
+                                        <span>Declined</span>
+                                      </div>
+                                    </SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              ) : (
+                                inviteStatusBadge(s.inviteStatus)
+                              )}
+                            </td>
 
                             {/* Actions */}
                             <td className="p-4">
