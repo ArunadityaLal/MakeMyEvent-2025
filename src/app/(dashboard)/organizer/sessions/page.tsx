@@ -59,7 +59,7 @@ type SessionRow = {
   roomName?: string | null;
   roomId?: string | null;
   description?: string | null;
-  memberDescription?: string | null; // ✅ NEW: Added member description field
+  memberDescription?: string | null;
   startTime?: string | null;
   endTime?: string | null;
   status: "Draft" | "Confirmed";
@@ -97,7 +97,6 @@ type Event = {
 type RoomLite = { id: string; name: string };
 type Faculty = { id: string; name: string };
 
-// ✅ UPDATED: Added memberDescription to DraftSession type
 type DraftSession = {
   title: string;
   facultyName: string;
@@ -108,11 +107,10 @@ type DraftSession = {
   endTime?: string;
   status: "Draft" | "Confirmed";
   description?: string;
-  memberDescription?: string; // ✅ NEW: Added member description field
+  memberDescription?: string;
   inviteStatus: "Pending" | "Accepted" | "Declined";
 };
 
-// ✅ Safe string helper function
 const safeToLowerCase = (value: any): string => {
   if (value === null || value === undefined) {
     return "";
@@ -120,7 +118,6 @@ const safeToLowerCase = (value: any): string => {
   return String(value).toLowerCase();
 };
 
-// Helper functions
 const inviteStatusBadge = (s: InviteStatus) => {
   const base =
     "px-2 py-1 rounded-full text-xs font-semibold inline-flex items-center gap-1";
@@ -206,7 +203,6 @@ const calculateDuration = (
   }
 };
 
-// ✅ Email validation helper
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
@@ -217,7 +213,6 @@ const AllSessions: React.FC = () => {
   const searchParams = useSearchParams();
   const { toast, ToastContainer } = useToast();
 
-  // State
   const [sessions, setSessions] = useState<SessionRow[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [rooms, setRooms] = useState<RoomLite[]>([]);
@@ -233,23 +228,19 @@ const AllSessions: React.FC = () => {
   >("all");
   const [selectedEventId, setSelectedEventId] = useState<string>("all");
 
-  // Session creation modal
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [preselectedEventId, setPreselectedEventId] = useState<string>("");
 
-  // Edit state
   const [editing, setEditing] = useState<Record<string, boolean>>({});
   const [draft, setDraft] = useState<Record<string, DraftSession>>({});
   const [saving, setSaving] = useState<Record<string, boolean>>({});
   const [deleting, setDeleting] = useState<Record<string, boolean>>({});
   const [sendingEmail, setSendingEmail] = useState<Record<string, boolean>>({});
 
-  // Store original values for change tracking
   const [originalValues, setOriginalValues] = useState<
     Record<string, SessionRow>
   >({});
 
-  // Get URL params
   const eventIdFromUrl = searchParams.get("eventId");
   const actionFromUrl = searchParams.get("action");
 
@@ -263,11 +254,10 @@ const AllSessions: React.FC = () => {
     }
   }, [eventIdFromUrl, actionFromUrl]);
 
-  // Load events function
   const loadEvents = async () => {
     try {
       setEventsLoading(true);
-      console.log("Fetching events for sessions page...");
+      console.log("📋 Fetching events for sessions page...");
 
       const response = await fetch("/api/events", {
         cache: "no-store",
@@ -283,7 +273,7 @@ const AllSessions: React.FC = () => {
       }
 
       const data = await response.json();
-      console.log("Events API Response:", data);
+      console.log("📊 Events API Response:", data);
 
       let eventsArray: any[];
       if (data.success && data.data && data.data.events) {
@@ -293,7 +283,7 @@ const AllSessions: React.FC = () => {
       } else if (Array.isArray(data)) {
         eventsArray = data;
       } else {
-        console.warn("Unexpected events API response format:", data);
+        console.warn("⚠️ Unexpected events API response format:", data);
         eventsArray = [];
       }
 
@@ -312,11 +302,11 @@ const AllSessions: React.FC = () => {
       }));
 
       console.log(
-        `Successfully loaded ${processedEvents.length} events for sessions`
+        `✅ Successfully loaded ${processedEvents.length} events for sessions`
       );
       setEvents(processedEvents);
     } catch (error) {
-      console.error("Error loading events:", error);
+      console.error("❌ Error loading events:", error);
 
       const fallbackEvents: Event[] = [
         {
@@ -366,17 +356,25 @@ const AllSessions: React.FC = () => {
         fRes.json(),
       ]);
 
+      console.log("📊 Raw session data from API:", sData);
+
       const sessionsList = sData.data?.sessions || sData.sessions || sData;
 
-      // ✅ UPDATED: Include memberDescription mapping from API response
+      // ✅ FIX: Map member_description properly from API response
       const mapped: SessionRow[] = sessionsList.map((s: any) => {
         const roomId =
           s.roomId ?? rData.find((r: any) => r.name === s.roomName)?.id;
         const duration = calculateDuration(s.startTime, s.endTime);
 
+        // ✅ Log the raw session data to debug
+        console.log(`Session ${s.id} raw data:`, {
+          memberDescription: s.memberDescription,
+          member_description: s.member_description,
+          description: s.description,
+        });
+
         return {
           ...s,
-          // ✅ Ensure all string fields have safe defaults
           id: s.id || "",
           title: s.title || "Untitled Session",
           facultyName: s.facultyName || "Unknown Faculty",
@@ -385,8 +383,12 @@ const AllSessions: React.FC = () => {
           roomName: s.roomName || null,
           roomId: roomId || null,
           description: s.description || null,
+          // ✅ CRITICAL FIX: Check multiple possible field names from API
           memberDescription:
-            s.memberDescription || s.member_description || null, // ✅ NEW: Map member description
+            s.memberDescription ||
+            s.member_description ||
+            s.memberdescription ||
+            null,
           eventName: s.eventName || null,
           startTime: s.startTime || s.time || null,
           endTime: s.endTime || null,
@@ -402,11 +404,13 @@ const AllSessions: React.FC = () => {
         };
       });
 
+      console.log("✅ Mapped sessions with member descriptions:", mapped);
+
       setSessions(mapped);
       setRooms(rData || []);
       setFaculties(fData || []);
     } catch (e) {
-      console.error("Failed to load data:", e);
+      console.error("❌ Failed to load data:", e);
       toast({
         type: "error",
         title: "Loading Error",
@@ -423,7 +427,6 @@ const AllSessions: React.FC = () => {
     return () => clearInterval(id);
   }, [selectedEventId]);
 
-  // ✅ UPDATED: Helper function to detect changes including member description
   const detectChanges = (
     sessionId: string,
     originalSession: SessionRow,
@@ -431,7 +434,6 @@ const AllSessions: React.FC = () => {
   ) => {
     const changes: { field: string; oldValue: any; newValue: any }[] = [];
 
-    // Check title changes
     if (originalSession.title !== updatedData.title) {
       changes.push({
         field: "title",
@@ -440,7 +442,6 @@ const AllSessions: React.FC = () => {
       });
     }
 
-    // Check faculty name changes
     if (originalSession.facultyName !== updatedData.facultyName) {
       changes.push({
         field: "facultyName",
@@ -449,7 +450,6 @@ const AllSessions: React.FC = () => {
       });
     }
 
-    // Check email changes
     if (originalSession.email !== updatedData.email) {
       changes.push({
         field: "email",
@@ -486,7 +486,6 @@ const AllSessions: React.FC = () => {
       });
     }
 
-    // Check invite status changes
     if (originalSession.inviteStatus !== updatedData.inviteStatus) {
       changes.push({
         field: "inviteStatus",
@@ -503,7 +502,7 @@ const AllSessions: React.FC = () => {
       });
     }
 
-    // ✅ NEW: Check member description changes
+    // ✅ Check member description changes
     if (originalSession.memberDescription !== updatedData.memberDescription) {
       changes.push({
         field: "memberDescription",
@@ -512,7 +511,6 @@ const AllSessions: React.FC = () => {
       });
     }
 
-    // Check time changes
     const originalStartTime = originalSession.startTime;
     const newStartTime = updatedData.startTime
       ? new Date(updatedData.startTime).toISOString()
@@ -542,7 +540,6 @@ const AllSessions: React.FC = () => {
     return changes;
   };
 
-  // Send session update email
   const sendSessionUpdateEmail = async (sessionId: string, changes: any[]) => {
     const session = sessions.find((s) => s.id === sessionId);
     const event = events.find((e) => e.id === session?.eventId);
@@ -573,7 +570,7 @@ const AllSessions: React.FC = () => {
           status: session.status,
           inviteStatus: session.inviteStatus,
           description: session.description,
-          memberDescription: session.memberDescription, // ✅ NEW: Include member description
+          memberDescription: session.memberDescription,
           changes: changes,
         }),
       });
@@ -609,7 +606,6 @@ const AllSessions: React.FC = () => {
     }
   };
 
-  // Event selection handler
   const handleEventChange = (eventId: string) => {
     setSelectedEventId(eventId);
     const newUrl = new URL(window.location.href);
@@ -621,7 +617,6 @@ const AllSessions: React.FC = () => {
     window.history.replaceState({}, "", newUrl.toString());
   };
 
-  // Create session handlers
   const handleCreateSession = (eventId?: string) => {
     setPreselectedEventId(
       eventId || (selectedEventId !== "all" ? selectedEventId : "")
@@ -650,10 +645,8 @@ const AllSessions: React.FC = () => {
     window.history.replaceState({}, "", newUrl.toString());
   };
 
-  // ✅ UPDATED: Include memberDescription in filtered sessions search
   const filteredSessions = sessions.filter((session) => {
     try {
-      // ✅ Safe search matching with null checks
       const searchTermLower = safeToLowerCase(searchTerm);
       const matchesSearch =
         searchTermLower === "" ||
@@ -663,7 +656,7 @@ const AllSessions: React.FC = () => {
         safeToLowerCase(session.place).includes(searchTermLower) ||
         safeToLowerCase(session.eventName).includes(searchTermLower) ||
         safeToLowerCase(session.roomName).includes(searchTermLower) ||
-        safeToLowerCase(session.memberDescription).includes(searchTermLower); // ✅ NEW: Include member description in search
+        safeToLowerCase(session.memberDescription).includes(searchTermLower);
 
       const matchesStatus =
         statusFilter === "all" || session.status === statusFilter;
@@ -673,19 +666,16 @@ const AllSessions: React.FC = () => {
       return matchesSearch && matchesStatus && matchesInvite;
     } catch (error) {
       console.warn("Error filtering session:", session.id, error);
-      // Return true to include the session even if filtering fails
       return true;
     }
   });
 
   const selectedEvent = events.find((e) => e.id === selectedEventId);
 
-  // ✅ UPDATED: Edit handlers with member description field
   const onEdit = (id: string) => {
     const row = sessions.find((s) => s.id === id);
     if (!row) return;
 
-    // Store original values for change detection
     setOriginalValues((prev) => ({ ...prev, [id]: row }));
 
     setEditing((e) => ({ ...e, [id]: true }));
@@ -701,7 +691,7 @@ const AllSessions: React.FC = () => {
         endTime: toInputDateTime(row.endTime),
         status: row.status,
         description: row.description || "",
-        memberDescription: row.memberDescription || "", // ✅ NEW: Include member description
+        memberDescription: row.memberDescription || "",
         inviteStatus: row.inviteStatus || "Pending",
       },
     }));
@@ -714,7 +704,6 @@ const AllSessions: React.FC = () => {
       delete nd[id];
       return nd;
     });
-    // Clear original values
     setOriginalValues((prev) => {
       const newOriginal = { ...prev };
       delete newOriginal[id];
@@ -733,14 +722,12 @@ const AllSessions: React.FC = () => {
     }));
   };
 
-  // ✅ UPDATED: Save functionality with member description validation
   const onSave = async (id: string) => {
     const body = draft[id];
     const originalSession = originalValues[id];
 
     if (!body || !originalSession) return;
 
-    // ✅ Validation for new fields
     if (!body.title.trim()) {
       toast({
         type: "error",
@@ -809,7 +796,7 @@ const AllSessions: React.FC = () => {
       }
     }
 
-    // ✅ UPDATED: Include member description in payload
+    // ✅ CRITICAL FIX: Include memberDescription in payload
     const payload = {
       title: body.title.trim(),
       facultyName: body.facultyName.trim(),
@@ -821,10 +808,11 @@ const AllSessions: React.FC = () => {
       status: body.status,
       inviteStatus: body.inviteStatus,
       description: body.description?.trim(),
-      memberDescription: body.memberDescription?.trim(), // ✅ NEW: Include member description
+      memberDescription: body.memberDescription?.trim() || null,
     };
 
-    // Detect what changed
+    console.log("📤 Saving session with payload:", payload);
+
     const changes = detectChanges(id, originalSession, body);
 
     setSaving((s) => ({ ...s, [id]: true }));
@@ -849,7 +837,6 @@ const AllSessions: React.FC = () => {
       const responseData = await res.json();
       console.log("✅ Session updated successfully:", responseData);
 
-      // Show success popup
       toast({
         type: "success",
         title: "Session Updated",
@@ -857,9 +844,7 @@ const AllSessions: React.FC = () => {
         duration: 4000,
       });
 
-      // Send update email if there are changes
       if (changes.length > 0) {
-        // Show email sending notification
         toast({
           type: "info",
           title: "Sending Email",
@@ -884,7 +869,6 @@ const AllSessions: React.FC = () => {
     }
   };
 
-  // ✅ Delete functionality with popup notification
   const onDelete = async (id: string) => {
     const session = sessions.find((s) => s.id === id);
     const sessionTitle = session?.title || "this session";
@@ -916,7 +900,6 @@ const AllSessions: React.FC = () => {
       const responseData = await res.json();
       console.log("✅ Session deleted successfully:", responseData);
 
-      // Show success popup
       toast({
         type: "success",
         title: "Session Deleted",
@@ -952,8 +935,7 @@ const AllSessions: React.FC = () => {
                     Session Management
                   </h1>
                   <p className="text-gray-300 text-lg mt-1">
-                    Event-based session management with comprehensive editing &
-                    notifications
+                    Event-based session management with comprehensive editing & notifications
                   </p>
                 </div>
               </div>
@@ -1023,8 +1005,7 @@ const AllSessions: React.FC = () => {
                               <div className="flex flex-col">
                                 <div className="font-medium">{event.name}</div>
                                 <div className="text-xs text-gray-400">
-                                  {event.location} • {event.count.sessions}{" "}
-                                  sessions
+                                  {event.location} • {event.count.sessions} sessions
                                 </div>
                               </div>
                             </SelectItem>
@@ -1131,9 +1112,7 @@ const AllSessions: React.FC = () => {
                           ).length
                         }
                       </div>
-                      <div className="text-sm text-gray-400">
-                        Time Conflicts
-                      </div>
+                      <div className="text-sm text-gray-400">Time Conflicts</div>
                     </div>
                   </div>
                 </CardContent>
@@ -1180,8 +1159,7 @@ const AllSessions: React.FC = () => {
                     </select>
                   </div>
                   <div className="text-sm text-gray-400">
-                    Showing {filteredSessions.length} of {sessions.length}{" "}
-                    sessions
+                    Showing {filteredSessions.length} of {sessions.length} sessions
                   </div>
                 </div>
               </CardContent>
@@ -1193,9 +1171,7 @@ const AllSessions: React.FC = () => {
             <Card className="border-gray-700 bg-gray-900/50 backdrop-blur">
               <CardContent className="p-12 text-center">
                 <RefreshCw className="h-12 w-12 animate-spin text-blue-400 mx-auto mb-4" />
-                <div className="text-xl text-gray-300 mb-2">
-                  Loading Sessions
-                </div>
+                <div className="text-xl text-gray-300 mb-2">Loading Sessions</div>
                 <div className="text-gray-400">
                   Fetching session data from database...
                 </div>
@@ -1221,9 +1197,7 @@ const AllSessions: React.FC = () => {
                     <Plus className="h-4 w-4 mr-2" />
                     Create New Session
                   </Button>
-                  {(searchTerm ||
-                    statusFilter !== "all" ||
-                    inviteFilter !== "all") && (
+                  {(searchTerm || statusFilter !== "all" || inviteFilter !== "all") && (
                     <Button
                       variant="outline"
                       onClick={() => {
@@ -1272,7 +1246,6 @@ const AllSessions: React.FC = () => {
                             Email
                           </div>
                         </th>
-                        {/* ✅ NEW: Member Description Column */}
                         <th className="text-left p-4 font-semibold text-gray-200 min-w-[220px]">
                           <div className="flex items-center gap-2">
                             <Users className="h-4 w-4" />
@@ -1321,7 +1294,6 @@ const AllSessions: React.FC = () => {
                                 : "bg-gray-900/40"
                             }`}
                           >
-                            {/* Session Title + Description */}
                             <td className="p-4 align-top">
                               {isEditing ? (
                                 <div className="space-y-2">
@@ -1330,11 +1302,7 @@ const AllSessions: React.FC = () => {
                                     placeholder="Session Title"
                                     value={d?.title || ""}
                                     onChange={(e) =>
-                                      onChangeDraft(
-                                        s.id,
-                                        "title",
-                                        e.target.value
-                                      )
+                                      onChangeDraft(s.id, "title", e.target.value)
                                     }
                                   />
                                   <textarea
@@ -1343,19 +1311,13 @@ const AllSessions: React.FC = () => {
                                     rows={2}
                                     value={d?.description || ""}
                                     onChange={(e) =>
-                                      onChangeDraft(
-                                        s.id,
-                                        "description",
-                                        e.target.value
-                                      )
+                                      onChangeDraft(s.id, "description", e.target.value)
                                     }
                                   />
                                 </div>
                               ) : (
                                 <div>
-                                  <div className="font-medium text-white">
-                                    {s.title}
-                                  </div>
+                                  <div className="font-medium text-white">{s.title}</div>
                                   {s.description && (
                                     <div className="text-xs text-gray-400 mt-1 line-clamp-2">
                                       {s.description}
@@ -1365,19 +1327,15 @@ const AllSessions: React.FC = () => {
                               )}
                             </td>
 
-                            {/* Event + Place (only show when viewing all events) */}
                             {selectedEventId === "all" && (
                               <td className="p-4 align-top">
-                                <div className="text-gray-200">
-                                  {s.eventName || "-"}
-                                </div>
+                                <div className="text-gray-200">{s.eventName || "-"}</div>
                                 <div className="text-xs text-gray-400 mt-1">
                                   {s.place || "-"}
                                 </div>
                               </td>
                             )}
 
-                            {/* Faculty Name */}
                             <td className="p-4 align-top">
                               {isEditing ? (
                                 <input
@@ -1385,21 +1343,14 @@ const AllSessions: React.FC = () => {
                                   placeholder="Faculty Name"
                                   value={d?.facultyName || ""}
                                   onChange={(e) =>
-                                    onChangeDraft(
-                                      s.id,
-                                      "facultyName",
-                                      e.target.value
-                                    )
+                                    onChangeDraft(s.id, "facultyName", e.target.value)
                                   }
                                 />
                               ) : (
-                                <div className="text-gray-200">
-                                  {s.facultyName}
-                                </div>
+                                <div className="text-gray-200">{s.facultyName}</div>
                               )}
                             </td>
 
-                            {/* Email */}
                             <td className="p-4 align-top">
                               {isEditing ? (
                                 <input
@@ -1412,13 +1363,10 @@ const AllSessions: React.FC = () => {
                                   }
                                 />
                               ) : (
-                                <div className="text-gray-300 text-xs">
-                                  {s.email}
-                                </div>
+                                <div className="text-gray-300 text-xs">{s.email}</div>
                               )}
                             </td>
 
-                            {/* ✅ NEW: Member Description Column */}
                             <td className="p-4 align-top">
                               {isEditing ? (
                                 <textarea
@@ -1427,11 +1375,7 @@ const AllSessions: React.FC = () => {
                                   rows={2}
                                   value={d?.memberDescription || ""}
                                   onChange={(e) =>
-                                    onChangeDraft(
-                                      s.id,
-                                      "memberDescription",
-                                      e.target.value
-                                    )
+                                    onChangeDraft(s.id, "memberDescription", e.target.value)
                                   }
                                 />
                               ) : (
@@ -1441,18 +1385,13 @@ const AllSessions: React.FC = () => {
                               )}
                             </td>
 
-                            {/* Room */}
                             <td className="p-4 align-top">
                               {isEditing ? (
                                 <select
                                   className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-sm focus:border-blue-500 focus:outline-none"
                                   value={d?.roomId || s.roomId || ""}
                                   onChange={(e) =>
-                                    onChangeDraft(
-                                      s.id,
-                                      "roomId",
-                                      e.target.value
-                                    )
+                                    onChangeDraft(s.id, "roomId", e.target.value)
                                   }
                                 >
                                   <option value="">Select Room</option>
@@ -1463,13 +1402,10 @@ const AllSessions: React.FC = () => {
                                   ))}
                                 </select>
                               ) : (
-                                <div className="text-gray-200">
-                                  {s.roomName || "-"}
-                                </div>
+                                <div className="text-gray-200">{s.roomName || "-"}</div>
                               )}
                             </td>
 
-                            {/* Schedule */}
                             <td className="p-4 align-top">
                               {isEditing ? (
                                 <div className="space-y-2">
@@ -1478,11 +1414,7 @@ const AllSessions: React.FC = () => {
                                     className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-xs focus:border-blue-500 focus:outline-none"
                                     value={d?.startTime || ""}
                                     onChange={(e) =>
-                                      onChangeDraft(
-                                        s.id,
-                                        "startTime",
-                                        e.target.value
-                                      )
+                                      onChangeDraft(s.id, "startTime", e.target.value)
                                     }
                                   />
                                   <input
@@ -1490,11 +1422,7 @@ const AllSessions: React.FC = () => {
                                     className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-xs focus:border-blue-500 focus:outline-none"
                                     value={d?.endTime || ""}
                                     onChange={(e) =>
-                                      onChangeDraft(
-                                        s.id,
-                                        "endTime",
-                                        e.target.value
-                                      )
+                                      onChangeDraft(s.id, "endTime", e.target.value)
                                     }
                                   />
                                 </div>
@@ -1502,48 +1430,35 @@ const AllSessions: React.FC = () => {
                                 <div className="text-xs space-y-1">
                                   {s.startTime && (
                                     <div className="text-green-300">
-                                      <span className="text-gray-400">
-                                        Start:
-                                      </span>{" "}
+                                      <span className="text-gray-400">Start:</span>{" "}
                                       {s.formattedStartTime}
                                     </div>
                                   )}
                                   {s.endTime && (
                                     <div className="text-red-300">
-                                      <span className="text-gray-400">
-                                        End:
-                                      </span>{" "}
+                                      <span className="text-gray-400">End:</span>{" "}
                                       {s.formattedEndTime}
                                     </div>
                                   )}
                                   {s.duration && (
                                     <div className="text-blue-300">
-                                      <span className="text-gray-400">
-                                        Duration:
-                                      </span>{" "}
+                                      <span className="text-gray-400">Duration:</span>{" "}
                                       {s.duration}
                                     </div>
                                   )}
                                 </div>
                               ) : (
-                                <div className="text-gray-500 text-xs">
-                                  Not scheduled
-                                </div>
+                                <div className="text-gray-500 text-xs">Not scheduled</div>
                               )}
                             </td>
 
-                            {/* Status */}
                             <td className="p-4 align-top">
                               {isEditing ? (
                                 <select
                                   className="w-full bg-gray-800 border border-gray-600 rounded px-2 py-1 text-white text-sm focus:border-blue-500 focus:outline-none"
                                   value={d?.status || s.status}
                                   onChange={(e) =>
-                                    onChangeDraft(
-                                      s.id,
-                                      "status",
-                                      e.target.value as "Draft" | "Confirmed"
-                                    )
+                                    onChangeDraft(s.id, "status", e.target.value as "Draft" | "Confirmed")
                                   }
                                 >
                                   <option value="Draft">Draft</option>
@@ -1554,17 +1469,12 @@ const AllSessions: React.FC = () => {
                               )}
                             </td>
 
-                            {/* Invite Status */}
                             <td className="p-4 align-top">
                               {isEditing ? (
                                 <Select
                                   value={d?.inviteStatus || s.inviteStatus}
                                   onValueChange={(value) =>
-                                    onChangeDraft(
-                                      s.id,
-                                      "inviteStatus",
-                                      value as InviteStatus
-                                    )
+                                    onChangeDraft(s.id, "inviteStatus", value as InviteStatus)
                                   }
                                 >
                                   <SelectTrigger className="w-full bg-gray-800 border-gray-600 rounded px-2 py-1 text-white text-sm focus:border-blue-500 focus:outline-none">
@@ -1596,7 +1506,6 @@ const AllSessions: React.FC = () => {
                               )}
                             </td>
 
-                            {/* Actions */}
                             <td className="p-4 align-top">
                               {isEditing ? (
                                 <div className="flex items-center gap-2">
@@ -1664,16 +1573,13 @@ const AllSessions: React.FC = () => {
             </Card>
           )}
 
-          {/* Footer Stats */}
           {filteredSessions.length > 0 && (
             <div className="mt-6 text-center text-sm text-gray-400">
-              Last updated: {new Date().toLocaleTimeString()} • Auto-refresh
-              every 10 seconds
+              Last updated: {new Date().toLocaleTimeString()} • Auto-refresh every 10 seconds
             </div>
           )}
         </div>
 
-        {/* Create Session Modal */}
         <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
@@ -1690,7 +1596,6 @@ const AllSessions: React.FC = () => {
         </Dialog>
       </div>
 
-      {/* Toast Container */}
       <ToastContainer />
     </OrganizerLayout>
   );
