@@ -10,11 +10,11 @@ const FACULTY_DATA = {
     sessions: [
       {
         title: "Intro",
-        startTime: "7/11/2025 8:30 AM",
-        endTime: "7/11/2025 9:00 AM",
-        role: "Panelist",
+        startTime: "9/11/2025 1:15 PM",
+        endTime: "9/11/2025 1:30 PM",
+        role: "Speaker",
         description: " ",
-        place: "Hall B",
+        place: "Hall A",
         institution: " "
       }
     ]
@@ -1510,13 +1510,12 @@ const FACULTY_DATA = {
     ]
   }
 };
-
 // Generate email subject based on number of sessions
 function generateEmailSubject(facultyData: any) {
   if (facultyData.sessions.length === 1) {
-    return Session Updated: ${facultyData.sessions[0].title};
+    return `Session Updated: ${facultyData.sessions[0].title}`;
   } else {
-    return Sessions Updated: ${facultyData.sessions.length} Sessions;
+    return `Sessions Updated: ${facultyData.sessions.length} Sessions`;
   }
 }
 
@@ -1525,7 +1524,7 @@ function renderEmailHTML(facultyEmail: string) {
   const facultyData = FACULTY_DATA[facultyEmail as keyof typeof FACULTY_DATA];
 
   if (!facultyData) {
-    console.error(No data found for faculty: ${facultyEmail});
+    console.error(`No data found for faculty: ${facultyEmail}`);
     return "";
   }
 
@@ -1747,7 +1746,7 @@ export async function sendBulkInviteEmail(
       );
     } catch (error) {
       console.error(
-        Failed to send email to ${facultyData.facultyName}:,
+        `Failed to send email to ${facultyData.facultyName}:`,
         error
       );
       results.push({
@@ -1763,12 +1762,12 @@ export async function sendBulkInviteEmail(
   const failureCount = results.filter((r) => !r.success).length;
 
   console.log(
-    Email Summary: ${successCount} successful, ${failureCount} failed out of ${results.length} total
+    `Email Summary: ${successCount} successful, ${failureCount} failed out of ${results.length} total`
   );
 
   return {
     ok: failureCount === 0,
-    message: Sent ${successCount}/${results.length} emails successfully,
+    message: `Sent ${successCount}/${results.length} emails successfully`,
     results: results,
   };
 }
@@ -1807,7 +1806,7 @@ export async function sendUpdateEmail(
         });
       } catch (error) {
         console.error(
-          Failed to send update email to ${facultyData.facultyName}:,
+          `Failed to send update email to ${facultyData.facultyName}:`,
           error
         );
         results.push({
@@ -1822,7 +1821,7 @@ export async function sendUpdateEmail(
 
     return {
       ok: failureCount === 0,
-      message: Update emails: ${successCount}/${results.length} sent successfully,
+      message: `Update emails: ${successCount}/${results.length} sent successfully`,
     };
   } catch (error) {
     console.error("Failed to send update emails:", error);
