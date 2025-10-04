@@ -19,1067 +19,50 @@ const FACULTY_DATA = {
       }
     ]
   },
-  "rekhasolomon1@gmail.com": {
-    facultyName: "Dr. Rekha Solomon",
-    email: "rekhasolomon1@gmail.com",
+  "vbuche@gmail.com": {
+    facultyName: "Dr. Vishram Buche",
+    email: "vbuche@gmail.com",
     sessions: [
       {
-        title: "Lactate in Septic Shock: Marker of Perfusion or Marker of Confusion?",
-        startTime: "8/11/2025 9:45 AM",
-        endTime: "8/11/2025 10:15 AM",
-        role: "Debater - FOR Marker of perfusion",
-        description: "Co Debater\nDr. Sandeep Dhingra for marker of confusion",
-        place: "Hall B",
-        institution: " "
-      }
-    ]
-  },
-  "reshma1987@gmail.com": {
-    facultyName: "Dr. Reshma A",
-    email: "reshma1987@gmail.com",
-    sessions: [
-      {
-        title: "HSCT: Navigating HSCT Challenges",
-        startTime: "7/11/2025 8:30 AM",
-        endTime: "7/11/2025 9:00 AM",
-        role: "Panelist",
-        description: "Dr. Indira Jayakumar (Moderator), \nCo Panelists\nDr. Abdul Rauf\nDr. Sanket R\nDr Abhinav\nDr Krishna Chaitanya",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "Stamp of Quality or Just a Stamp?\nImpact of PICU Accreditation",
-        startTime: "9/11/2025 9:45 AM",
-        endTime: "9/11/2025 10:15 AM",
-        role: "Debater - Stamp of Quality",
-        description: "Co Debater - Dr Karunakar\n- Just a stamp",
-        place: "Hall C",
-        institution: " "
-      },
-      {
-        title: "Back to Basics\nSystematic Assessment and\nidentification of sick kids\nPCCN workshop",
-        startTime: "6/11/2025 2:30 PM",
-        endTime: "6/11/2025 3:10 PM",
-        role: "Workshop",
-        description: "Online Session",
-        place: " ",
-        institution: "Paramitha Hospital"
-      },
-      {
-        title: "Tuning the Tiny Tots:\nStabilization of a child in shock\nand Hemodynamic Monitoring\nPCCN workshop",
-        startTime: "6/11/2025 10:30 AM",
-        endTime: "6/11/2025 1:30 PM",
-        role: "Workshop",
-        description: " ",
-        place: " ",
-        institution: "Paramitha Hospital"
-      },
-      {
-        title: "Spotting the Signs\nSimulation scenario\non recognition of a sick child\n(Neuro - Poly Trauma)\nPCCN workshop",
-        startTime: "6/11/2025 2:15 PM",
-        endTime: "6/11/2025 3:46 PM",
-        role: "Workshop",
-        description: " ",
-        place: " ",
-        institution: "Paramitha Hospital"
-      }
-    ]
-  },
-  "rohitbhowmick.bhowmick@gmail.com": {
-    facultyName: "Dr. Rohit Bhowmick",
-    email: "rohitbhowmick.bhowmick@gmail.com",
-    sessions: [
-      {
-        title: "Management of Complications related to blood based dialysis in PICU",
-        startTime: "7/11/2025 2:15 PM",
-        endTime: "7/11/2025 3:00 PM",
-        role: "Panelist",
-        description: "DCo- Debater\n Karunakar BP - Just a stamp",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "L1: AKI in PICU\nCRRT and SLED",
-        startTime: "6/11/2025 9:00 AM",
-        endTime: "6/11/2025 9:30 AM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "KIMS Cuddles, Kondapur"
-      },
-      {
-        title: "W4: Therapeutic Plasma Exchange & other Extracorporeal Therapies in sepsis\nCRRT and SLED",
-        startTime: "6/11/2025 4:30 PM",
-        endTime: "6/11/2025 5:10 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: " "
-      },
-      {
-        title: "Airways, Algorithms, and Accreditation: The Many Facets of Pediatric Critical Care",
-        startTime: "9/11/2025 9:00 AM",
-        endTime: "9/11/2025 11:00 AM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      }
-    ]
-  },
-  "drrohitvohra87@gmail.com": {
-    facultyName: "Dr. Rohit Vohra",
-    email: "drrohitvohra87@gmail.com",
-    sessions: [
-      {
-        title: "Acute Flaccid Paralysis in the PICU: GBS, Myelitis, or Something Else?",
-        startTime: "7/11/2025 11:15 AM",
-        endTime: "7/11/2025 11:45 AM",
-        role: "Moderator",
-        description: "Panelists\n\nDr Jesal Sheth\nDr Ramaling Loni \nDr Mukesh Jain\nDr Mihir Sarkar\nDr. Suchitra D",
-        place: "Hall B",
-        institution: " "
-      }
-    ]
-  },
-  "drromit@gmail.com": {
-    facultyName: "Dr. Romit Saxena",
-    email: "drromit@gmail.com",
-    sessions: [
-      {
-        title: "Namaste & Nurture” – Pre-briefing & Ice-Breaker\nTransport ",
-        startTime: "6/11/2025 8:00 AM",
-        endTime: "6/11/2025 8:30 AM",
-        role: "National Coordinator",
-        description: " ",
-        place: " ",
-        institution: "Apollo Medical College"
-      },
-      {
-        title: "Yatra Begins!”\n– Fundamentals of Pediatric Transport\nTransport",
-        startTime: "6/11/2025 8:30 AM",
-        endTime: "6/11/2025 9:15 AM",
-        role: "National Coordinator",
-        description: " ",
-        place: " ",
-        institution: " "
-      },
-      {
-        title: "“Ambulance Darshan” –Inside the Beast: Ambulance Anatomy & Action Zone\nTransport",
-        startTime: "6/11/2025 9:30 AM",
-        endTime: "6/11/2025 10:15 AM",
-        role: "National Coordinator",
-        description: " ",
-        place: " ",
-        institution: " "
-      },
-      {
-        title: "Intra-Hospital Rescue Run\nTransport",
-        startTime: "6/11/2025 12:45 PM",
-        endTime: "6/11/2025 1:30 PM",
-        role: "National Coordinator",
-        description: " ",
-        place: " ",
-        institution: " "
-      }
-    ]
-  },
-  "docsagar2002@yahoo.co.in": {
-    facultyName: "Dr. Sagar Hiremath",
-    email: "docsagar2002@yahoo.co.in",
-    sessions: [
-      {
-        title: "Cardiac Failure & Cardiogenic Shock",
-        startTime: "7/11/2025 9:00 AM",
-        endTime: "7/11/2025 9:40 AM",
-        role: "Panelists",
-        description: "Dr. Priyavarthini (Moderator)\nCo Panelists\nDr. Ravi Kumar\nDr Ikram Ul Haque \nDr Javed Ismail \nDr Kalyan Kunchapudi",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Pre-operative Stabilization and Transport of Critically Ill Cardiac Patients\nCardiac Critical Care",
-        startTime: "6/11/2025 9:40 AM",
-        endTime: "6/11/2025 10:05 AM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Rainbow Children's Heart Institute"
-      },
-      {
-        title: "Station 1: Seeing is Believing: Hands-On Echo for Pediatric Hearts\nCardiac Critical Care",
-        startTime: "6/11/2025 1:15 PM",
-        endTime: "6/11/2025 4:15 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Rainbow Children's Heart Institute"
-      }
-    ]
-  },
-  "drsagarlad@yahoo.com": {
-    facultyName: "Dr. Sagar lad",
-    email: "drsagarlad@yahoo.com",
-    sessions: [
-      {
-        title: "Global Lungs, Local Challenges: Advancing Equitable Pediatric Respiratory Care",
-        startTime: "8/11/2025 4:45 PM",
-        endTime: "8/11/2025 5:30 PM",
-        role: "Panelists",
-        description: "Dr Maninder Dhaliwal (Moderator )\nCo Panelists\nDr Rajiv Uttam\nDr Shekhar Venkatraman\nDr Mounika Reddy\nDr Yeshwanth Reddy",
-        place: "Hall A",
-        institution: " "
-      }
-    ]
-  },
-  "ksajith120@yahoo.com": {
-    facultyName: "Dr. Sajith Keswan",
-    email: "ksajith120@yahoo.com",
-    sessions: [
-      {
-        title: "Concept of Recruitment to Inflation Ratio - What does it really mean ?",
-        startTime: "7/11/2025 12:15 PM",
-        endTime: "7/11/2025 12:30 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Lower airway pathologies\nBronchoscopy",
-        startTime: "6/11/2025 11:45 AM",
-        endTime: "6/11/2025 12:15 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Ankura Hospitals, Kukatpally"
-      },
-      {
-        title: "Flexible bronchoscopy\nBronchoscopy",
-        startTime: "6/11/2025 2:00 PM",
-        endTime: "6/11/2025 5:00 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Ankura Hospitals, Kukatpally"
-      }
-    ]
-  },
-  "ssadawarte@gmail.com": {
-    facultyName: "Dr. Sameer Sadawarte",
-    email: "ssadawarte@gmail.com",
-    sessions: [
-      {
-        title: "Dengue Gone Wild: Navigating the Complications (Agenda: Complicated Dengue)",
-        startTime: "8/11/2025 10:15 AM",
-        endTime: "8/11/2025 11:00 AM",
-        role: "Panelists",
-        description: "Dr Rachna Sharma(Moderator )\n Panelists\nDr Sateesh Ghanta\nDr Daisy Khera\nDr Rujipat\nDr.JV Rao",
-        place: "Hall C",
-        institution: " "
-      },
-      {
-        title: "Pediatric critical care at Legal cross routes",
-        startTime: "7/11/2025 2:30 PM",
-        endTime: "7/11/2025 3:10 PM",
-        role: "Moderator:",
-        description: "\nPanelists:\nDr Amita Kaul\nDr Manju Kedarnath\nDr Vinayak Pataki\nDr NL Sridhar\nDr Amar Singh ",
-        place: "Hall B",
-        institution: " "
-      }
-    ]
-  },
-  "dingrasandeep@yahoo.co.in": {
-    facultyName: "Dr. Sandeep Dhingra",
-    email: "dingrasandeep@yahoo.co.in",
-    sessions: [
-      {
-        title: "Lactate in Septic Shock: Marker of Perfusion or Marker of Confusion?\n(agenda- Use of Lactate to Guide Resuscitation in Pediatric Septic Shock: Helpful Marker or Misleading Metric? DEBATE",
-        startTime: "8/11/2025 9:45 AM",
-        endTime: "8/11/2025 10:15 AM",
-        role: "Debater - FOR Marker of CONFUSION",
-        description: "Dr Rekha Solomon Debator - FOR Marker of perfusion",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "The Metabolic Challenge",
-        startTime: "22/9/2025 2:30 AM",
-        endTime: "22/9/2025 3:45 AM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      }
-    ]
-  },
-  "drghorpadesanjay@gmail.com": {
-    facultyName: "Dr. Sanjay Ghorpade",
-    email: "drghorpadesanjay@gmail.com",
-    sessions: [
-      {
-        title: "Biomarkers in Pediatric Critical Care: Hype vs. Help",
-        startTime: "9/11/2025 12:30 PM",
-        endTime: "9/11/2025 12:45 PM",
+        title: "The Arterial Truth: Using ABG Trends to Guide Real-Time Decisions",
+        startTime: "9/11/2025 3:30 PM",
+        endTime: "9/11/2025 3:45 PM",
         role: "Speaker",
         description: " ",
         place: "Hall C",
         institution: " "
-      },
-      {
-        title: "Friend, Foe, or Firefighting Tool? CRRT & Plasmapheresis in Pediatric ALF",
-        startTime: "9/11/2025 10:15 AM",
-        endTime: "9/11/2025 10:15 AM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall A",
-        institution: " "
       }
     ]
   },
-  "porwalsanketh@gmail.com": {
-    facultyName: "Dr. Sanket R",
-    email: "porwalsanketh@gmail.com",
+  "drvsvprasad@gmail.com": {
+    facultyName: "Dr. VSV Prasad",
+    email: "drvsvprasad@gmail.com",
     sessions: [
       {
-        title: "HSCT: Navigating HSCT Challenges",
-        startTime: "7/11/2025 8:30 AM",
-        endTime: "7/11/2025 9:00 AM",
-        role: "Panelists",
-        description: "Dr Indira Jayakumar(Moderator)\nCo Panelists\nDr Reshma A ,\nDr Abdul Rauf\nDr Abhinav\nDr Krishna Chaitanya",
-        place: "Hall B",
+        title: "Fluid, Not Flood: Smarter Resuscitation in the PICU\n",
+        startTime: "8/11/2025 3:30 PM",
+        endTime: "8/11/2025 4:15 PM",
+        role: "Panelist",
+        description: "Dr Mahesh Mohite (Moderator)\nCo panelists\nDr Manoj Chowdary\nDr John Adabie Appiah\nDr Mritunjay Pao\nDr Vinay Ramuni",
+        place: "Hall C",
         institution: " "
       },
       {
-        title: "Physiological Difficult Airway\nBPICC",
-        startTime: "3/11/2025 9:45 AM",
-        endTime: "3/11/2025 10:15 AM",
-        role: "Workshop Faculty",
-        description: "ONLINE LECTURES",
-        place: " ",
-        institution: "Yashoda Hospitals"
-      },
-      {
-        title: "Airway :Bag and Mask/ Intubation/ LMA & RSI\nBPICC",
-        startTime: "6/11/2025 10:25 AM",
-        endTime: "6/11/2025 12:45 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: " "
-      },
-      {
-        title: "Shock Cases\nBPICC",
-        startTime: "6/11/2025 2:15 PM",
-        endTime: "6/11/2025 4:30 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: " "
-      },
-      {
-        title: "Beyond the Bedside: Ethics, Quality & Safety in PICU",
+        title: "Buying Smart: Equipping Your PICU for Function, Not Fashion",
         startTime: "9/11/2025 2:30 PM",
-        endTime: "9/11/2025 5:30 PM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      }
-    ]
-  },
-  "drsoans62@gmail.com": {
-    facultyName: "Dr. Santosh Soans",
-    email: "drsoans62@gmail.com",
-    sessions: [
-      {
-        title: "Thrombosis Meets Cytokine Storm in Sepsis: What Should We Tame First?",
-        startTime: "9/11/2025 9:15 AM",
-        endTime: "9/11/2025 9:30 AM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "Friend, Foe, or Firefighting Tool? CRRT & Plasmapheresis in Pediatric ALF",
-        startTime: "9/11/2025 10:15 AM",
-        endTime: "9/11/2025 10:15 AM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      }
-    ]
-  },
-  "drpandian81@gmail.com": {
-    facultyName: "Dr. Sarvanan Pandian",
-    email: "drpandian81@gmail.com",
-    sessions: [
-      {
-        title: "Post-Transplant Panic: ICU Nightmares After Pediatric Liver Transplant",
-        startTime: "9/11/2025 9:15 AM",
-        endTime: "9/11/2025 9:30 AM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      }
-    ]
-  },
-  "sasidarpgi@gmail.com": {
-    facultyName: "Dr. Sasidaran",
-    email: "sasidarpgi@gmail.com",
-    sessions: [
-      {
-        title: "Precision prescription methods in CRRT",
-        startTime: "7/11/2025 3:00 PM",
-        endTime: "7/11/2025 3:15 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "PICU Case Cafe",
-        startTime: "7/11/2025 10:10 AM",
-        endTime: "7/11/2025 10:45 AM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      },
-      {
-        title: "Panel Discussion: CKRT: When, What & How\nCRRT and SLED",
-        startTime: "6/11/2025 1:15 PM",
-        endTime: "6/11/2025 1:45 PM",
-        role: "National coordinator",
-        description: "Moderator: \nDr Sasidharan Kandasamy\nPanelists:\nDr Mounika M\nDr Balakrishna P\n2 Local faculty.",
-        place: " ",
-        institution: "KIMS Cuddles, Kondapur"
-      },
-      {
-        title: "W2: CKRT in PICU, Prescription, Troubleshooting - CASE BASED APPROACH\nCRRT and SLED",
-        startTime: "6/11/2025 3:10 PM",
-        endTime: "6/11/2025 3:50 PM",
-        role: "National coordinator",
-        description: " ",
-        place: " ",
-        institution: " "
-      },
-      {
-        title: "RRT Timing: Act Fast or Wait Smart?",
-        startTime: "8/11/2025 4:15 PM",
-        endTime: "8/11/2025 4:45 PM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      }
-    ]
-  },
-  "satheeshponnar@gmail.com": {
-    facultyName: "Dr. Satheesh Ponnarneni",
-    email: "satheeshponnar@gmail.com",
-    sessions: [
-      {
-        title: "Management of Complications related to blood based dialysis in PICU",
-        startTime: "7/11/2025 2:15 PM",
-        endTime: "7/11/2025 3:00 PM",
+        endTime: "9/11/2025 3:15 PM",
         role: "Moderator",
-        description: "Co Panelists\nDr Raghad Abdwani\nDr Parag Dakate \nDr Sumant Patil \nDr Saumen Meur \nDr Rohit Bhowmick",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "L6: Anticoagulation Considerations in CKRT\nCRRT and SLED",
-        startTime: "6/11/2025 11:45 AM",
-        endTime: "6/11/2025 12:15 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "KIMS Cuddles, Kondapur"
-      },
-      {
-        title: "W3: RRT on ECMO & Tandem Therapies\nCRRT and SLED",
-        startTime: "6/11/2025 3:50 PM",
-        endTime: "6/11/2025 4:30 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: " "
-      }
-    ]
-  },
-  "drsatishghanta@gmail.com": {
-    facultyName: "Dr. Satish Ghanta",
-    email: "drsatishghanta@gmail.com",
-    sessions: [
-      {
-        title: "Dengue Gone Wild: Navigating the Complications (Agenda: Complicated Dengue)",
-        startTime: "8/11/2025 10:15 AM",
-        endTime: "8/11/2025 11:00 AM",
-        role: "Panelist",
-        description: "Dr Rachna Sharma(Moderator )\nCo Panelists\nDr Daisy Khera\nDr Rujipat\nDr Sameer Sadawarte\nDr. JV Rao",
+        description: "panelists\nDr Anand Buthada\nDr Nirmal Choraria\nDr Preetam\nDr G Ramesh\nDr Rafiq Ahmed",
         place: "Hall C",
         institution: " "
       },
       {
-        title: "High Flow Nasal Cannula in and out of PICU Ward\nNon-Invasive Respiratory Support",
-        startTime: "6/11/2025 10:30 AM",
-        endTime: "6/11/2025 12:45 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Little Stars & She Hospital, Hyderabad"
-      },
-      {
-        title: "Skill Station 2: Case Based Scenario of Hypercarbia\nNon-Invasive Respiratory Support",
-        startTime: "6/11/2025 1:30 PM",
-        endTime: "6/11/2025 3:45 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Little Stars & She Hospital, Hyderabad"
-      }
-    ]
-  },
-  "kandathsathish@gmail.com": {
-    facultyName: "Dr. K.Sathish Kumar",
-    email: "kandathsathish@gmail.com",
-    sessions: [
-      {
-        title: "Beyond Survival: Navigating Long-Stay Challenges in the PICU",
-        startTime: "9/11/2025 3:15 PM",
-        endTime: "9/11/2025 3:30 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall B",
-        institution: " "
-      }
-    ]
-  },
-  "deopujaris@gmail.com": {
-    facultyName: "Dr. Satish Deopujari",
-    email: "deopujaris@gmail.com",
-    sessions: [
-      {
-        title: "From Screen to Stethoscope: Apps That Enhance Pediatric Care",
-        startTime: "7/11/2025 1:30 PM",
-        endTime: "7/11/2025 3:30 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "Interpreting Critical Labs in Suspected Metabolic Disease \n",
-        startTime: "8/11/2025 1:00 PM",
-        endTime: "8/11/2025 1:45 PM",
-        role: "Panelist",
-        description: "Dr. Banani Poddar (Moderator)\nCo Panelists\nDr Karunakar BP\nDr Dayanand Nakate\nDr Shalu Gupta\nDr Priyabrata Panda ",
-        place: "Hall B",
-        institution: " "
-      }
-    ]
-  },
-  "saumenmeur@yahoo.co.uk": {
-    facultyName: "Dr. Saumen Meur",
-    email: "saumenmeur@yahoo.co.uk",
-    sessions: [
-      {
-        title: "Management of Complications related to blood based dialysis in PICU",
-        startTime: "7/11/2025 2:15 PM",
-        endTime: "7/11/2025 3:00 PM",
-        role: "Panelist",
-        description: "Moderator: \nDr Sateesh Ponnarmeni \n\nCo-Panelists\nDr Raghad Abdwani\nDr Parag Dakate \nDr Sumant Patil \nDr Rohit Bhowmick",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Neuromonitoring in PICU using POCUS\nPOCUS \n  (Basic)",
-        startTime: "6/11/2025 12:00 PM",
-        endTime: "6/11/2025 12:30 PM",
-        role: "Worskshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Lotus Hospitals for women & children, Miyapur, Hyderabad"
-      }
-    ]
-  },
-  "ssenthilsmc@yahoo.co.in": {
-    facultyName: "Dr. Senthil Kumar",
-    email: "ssenthilsmc@yahoo.co.in",
-    sessions: [
-      {
-        title: "Top 5 ICU Red Flags You Should Never Miss",
-        startTime: "9/11/2025 5:15 PM",
-        endTime: "9/11/2025 5:25 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      }
-    ]
-  },
-  "drshalugupta@yahoo.co.in": {
-    facultyName: "Dr. Shalu Gupta",
-    email: "drshalugupta@yahoo.co.in",
-    sessions: [
-      {
-        title: "Interpreting Critical Labs in Suspected Metabolic Disease",
-        startTime: "8/11/2025 1:00 PM",
-        endTime: "8/11/2025 1:45 PM",
-        role: "Panelist",
-        description: "Dr Banani Poddar (Moderator )\nCo Panelists\nDr Satish Deopujari \nDr Karunakar BP\nDr Dayanand Nakate\nDr Priyabrata Panda ",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "Friend, Foe, or Firefighting Tool? CRRT & Plasmapheresis in Pediatric ALF",
-        startTime: "9/11/2025 10:15 AM",
-        endTime: "9/11/2025 11:00 AM",
-        role: "Panellist",
-        description: "Dr Jolly Chandaran (Moderator)        \nCo Panelists\nDr Uma Ali\nDr Vasudha\nDr Deepankar Bansal\nDr Avinash Reddy",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Basic Mechanical Ventilation\nBPICC",
-        startTime: "3/11/2025 10:15 AM",
-        endTime: "3/11/2025 10:45 AM",
-        role: "Worskshop Faculty",
-        description: "ONLINE LECTURES",
-        place: " ",
-        institution: "Yashoda Hospitals"
-      },
-      {
-        title: "Panel Discussion\nSetting Up of Ventilator \nBPICC",
-        startTime: "6/11/2025 9:00 AM",
-        endTime: "6/11/2025 9:40 AM",
-        role: "Worskshop Faculty",
-        description: "Moderator: \nDr. Shalu Gupta\nPanelists: \nDr.Anand\nDr Jolly Chandran, \nDr Ririe \nDr Ragad Aldhwani",
-        place: " ",
-        institution: " "
-      },
-      {
-        title: "CPAP/ HFNC\nBPICC",
-        startTime: "6/11/2025 10:25 AM",
-        endTime: "6/11/2025 12:45 PM",
-        role: "Worskshop Faculty",
-        description: " ",
-        place: " ",
-        institution: " "
-      },
-      {
-        title: "Difficult Ventilation Scenarios\nBPICC",
-        startTime: "6/11/2025 2:15 PM",
-        endTime: "6/11/2025 4:30 PM",
-        role: "Worskshop Faculty",
-        description: " ",
-        place: " ",
-        institution: " "
-      }
-    ]
-  },
-  "minhaj1609@gmail.com": {
-    facultyName: "Dr. Sheikh Minhaj",
-    email: "minhaj1609@gmail.com",
-    sessions: [
-      {
-        title: "Rescue, Restore, Rewire: Protecting the Pediatric  Brain After Trauma and Arrest.",
-        startTime: "8/11/2025 3:30 PM",
-        endTime: "8/11/2025 4:15 PM",
-        role: "Panelist",
-        description: "Dr Vinayak Patki(Moderator)\nCo Panelists\nDr Shrishu Kamath\nDr Sudeep KC\nDr Sibabrata Patnaik\nDr Raghupathi R",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "Code Red: Rapid Response to Pediatric GI Bleed",
-        startTime: "8/11/2025 9:00 AM",
-        endTime: "8/11/2025 9:15 AM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      },
-      {
-        title: "Introduction to workshop\nAcute Critical Care for Practicing Paediatricians",
-        startTime: "6/11/2025 9:00 AM",
-        endTime: "6/11/2025 9:05 AM",
-        role: "National Coordinator",
-        description: " ",
-        place: " ",
-        institution: "Ankura Hospitals, Gachibowli"
-      },
-      {
-        title: "Work Stations x 03 Groups\n A.Oxygen delivery devices\n B.Airway management – Intubation hands on\n C.ABG analysis\nAcute Critical Care for Practicing Paediatricians",
-        startTime: "6/11/2025 11:30 AM",
-        endTime: "6/11/2025 1:00 PM",
-        role: "National Coordinator",
-        description: " ",
-        place: " ",
-        institution: "Ankura Hospitals, Gachibowli"
-      },
-      {
-        title: "Essentials of fluid therapy\nAcute Critical Care for Practicing Paediatricians",
-        startTime: "6/11/2025 1:45 PM",
-        endTime: "6/11/2025 2:30 PM",
-        role: "National Coordinator",
-        description: " ",
-        place: " ",
-        institution: "Ankura Hospitals, Gachibowli"
-      },
-      {
-        title: "Mapping the Maze: Pediatric Hemodynamics from Scores to Solutions",
-        startTime: "8/11/2025 9:00 AM",
-        endTime: "8/11/2025 11:00 AM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall B",
-        institution: " "
-      }
-    ]
-  },
-  "drshiv2014@gmail.com": {
-    facultyName: "Dr. Shivkumar",
-    email: "drshiv2014@gmail.com",
-    sessions: [
-      {
-        title: "Palliative Cardiac Surgery in Resource-Limited Settings: Ethical Necessity or Compromise?",
-        startTime: "8/11/2025 9:45 AM",
-        endTime: "8/11/2025 10:15 AM",
-        role: "Debater - Ethical Necessity",
-        description: "Co-debator:\nDr Amish Vora - Compromise\n",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "USG guided vascular access (Central & arterial line insertion)\nPOCUS \n  (Basic)",
-        startTime: "6/11/2025 11:15 AM",
-        endTime: "6/11/2025 11:45 AM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Lotus Hospitals for women & children, Miyapur, Hyderabad"
-      },
-      {
-        title: "Free Paper",
-        startTime: "9/11/2025 8:00 AM",
-        endTime: "9/11/2025 9:00 AM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      }
-    ]
-  },
-  "shrishu@yahoo.com": {
-    facultyName: "Dr. Shrishu Kamath",
-    email: "shrishu@yahoo.com",
-    sessions: [
-      {
-        title: "Rescue, Restore, Rewire: Protecting the Pediatric Brain After Trauma and Arrest.",
-        startTime: "8/11/2025 3:30 PM",
-        endTime: "8/11/2025 4:15 PM",
-        role: "Panelist",
-        description: "Dr Vinayak Patki(Moderator)\nCo Panelists\nDr Sheikh Minhaj\nDr Sudeep KC\nDr Sibabrata Patnaik\nDr Raghupathi R",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "Difficult Airway: Plan-B and Beyond",
-        startTime: "9/11/2025 9:15 AM",
-        endTime: "9/11/2025 9:30 AM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      },
-      {
-        title: "Pediatric Polytrauma: To Cut or Not to Cut?",
-        startTime: "9/11/2025 12:15 PM",
-        endTime: "9/11/2025 12:30 PM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      }
-    ]
-  },
-  "shubhadeepnrsdoc@gmail.com": {
-    facultyName: "Dr. Shubhadeep Das",
-    email: "shubhadeepnrsdoc@gmail.com",
-    sessions: [
-      {
-        title: "Infections in the Cardiac ICU: When Bugs Break Hearts",
-        startTime: "7/11/2025 8:20 AM",
-        endTime: "7/11/2025 8:40 AM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Cardiac Critical Care\nThe Road to Recovery: Essential Post-Op Care of pediatric cardiac patients",
-        startTime: "6/11/2025 12:10 PM",
-        endTime: "6/11/2025 12:35 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Rainbow Children's Heart Institute"
-      },
-      {
-        title: "Cardiac Critical Care\nStation 3: Real Cases, Real Solutions: Navigating Pediatric Cardiac Crises",
-        startTime: "6/11/2025 1:15 PM",
-        endTime: "6/11/2025 4:15 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Rainbow Children's Heart Institute"
-      }
-    ]
-  },
-  "drsbpatnaik45@gmail.com": {
-    facultyName: "Dr. Sibabrata Patnaik",
-    email: "drsbpatnaik45@gmail.com",
-    sessions: [
-      {
-        title: "Rescue, Restore, Rewire: Protecting the Pediatric Brain After Trauma and Arrest.",
-        startTime: "8/11/2025 3:30 PM",
-        endTime: "8/11/2025 4:15 PM",
-        role: "Panelist",
-        description: "Dr Vinayak Patki(Moderator)\nCo Panelists\nDr Sheikh Minhaj\nDr Shrishu Kamath\nDr Sudeep KC\nDr Raghupathi R",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "Data Overload: Does More Monitoring Mean Better Outcomes?",
-        startTime: "9/11/2025 3:45 PM",
-        endTime: "9/11/2025 4:15 PM",
-        role: "Debator - FOR",
-        description: "Co-debator\nDr Anjul Dayal -  AGAINST",
-        place: "Hall C",
-        institution: " "
-      },
-      {
-        title: "Beyond Consent: Navigating Ethical Minefields in Pediatric Research",
-        startTime: " ",
-        endTime: " ",
-        role: "Panelist",
-        description: "Moderator\nDr Karthik Narayanan\n\nPanelists\nDr Bhakti Sarangi\nDr Michael Canarie\nDr Yasser Kazzaz\nDr Harish Kumar H",
-        place: " ",
-        institution: " "
-      },
-      {
-        title: "Simulation",
-        startTime: "6/11/2025 8:00 AM",
-        endTime: "6/11/2025 5:00 PM",
-        role: "Local Cordinator",
-        description: " ",
-        place: " ",
-        institution: "All India Institute of Medical Sciences, Bibinagar"
-      },
-      {
-        title: "Case-Based Panel: “My Worst Myocarditis Case in the PICU",
-        startTime: "22/9/2025 3:45 PM",
-        endTime: "22/9/2025 4:25 PM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      }
-    ]
-  },
-  "siva.anjin@gmail.com": {
-    facultyName: "Dr. Siva Vyasam",
-    email: "siva.anjin@gmail.com",
-    sessions: [
-      {
-        title: "Super-Refractory Status Epilepticus: How Far Should We Go?",
-        startTime: "7/11/2025 11:45 AM",
-        endTime: "7/11/2025 12:30 PM",
-        role: "Panelist",
-        description: "Dr Atul Jindle (Moderator) \nCo Panelists\nDr Matthew Kirschen\nDr Bharat Mehra\nDr Pushpraj Awasthi\nDr Sridevi N",
-        place: "Hall B",
-        institution: " "
-      }
-    ]
-  },
-  "somu.rgk@gmail.com": {
-    facultyName: "Dr. Somnath Gorain",
-    email: "somu.rgk@gmail.com",
-    sessions: [
-      {
-        title: "Saving Lives, Saving Costs: Can We Do Both?",
-        startTime: "9/11/2025 10:15 AM",
-        endTime: "9/11/2025 11:00 AM",
-        role: "Panelist",
-        description: "Dr Nirmal Choraria (Moderator)\nCo Panelists\nDr Jalani Basha\nDr Kshama Daphtary\nDr Akash Bang\nDr N L Sridhar",
-        place: "Hall C",
-        institution: " "
-      }
-    ]
-  },
-  "drsonal287@gmail.com": {
-    facultyName: "Dr. Sonal Gajbhiya",
-    email: "drsonal287@gmail.com",
-    sessions: [
-      {
-        title: "Liver Transplant: Mastering Post-Op Complications",
+        title: "Oncology and Transplant ICU: Challenges & Solutions",
         startTime: "7/11/2025 8:00 AM",
-        endTime: "7/11/2025 8:30 AM",
-        role: "Panelist",
-        description: "Dr Ravi T (Moderator)\nCo Panelists\nDr Akashdeep\nDr Prashant Bachina\nDr Ravi Babu K \nDr Venkat Sandeep Reddy",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "Inside the Brain – Transcranial Doppler, ANATOMICAL , RADIOLOGICAL COOREATION Physics , principles , trouble shooting , WINDOWS\nPOCUS (Advanced)",
-        startTime: "6/11/2025 8:00 AM",
-        endTime: "6/11/2025 8:30 AM",
-        role: "Workshop Faculty",
-        description: "Zoom Session",
-        place: " ",
-        institution: " "
-      },
-      {
-        title: "Neuro Monitoring - Probe placement demonstration\n  ( TCD )\nPOCUS (Advanced)",
-        startTime: "6/11/2025 9:20 AM",
-        endTime: "6/11/2025 9:40 AM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: " "
-      }
-    ]
-  },
-  "drsudani@gmail.com": {
-    facultyName: "Dr. Soonu Udani",
-    email: "drsudani@gmail.com",
-    sessions: [
-      {
-        title: "Decoding Hyperferritinemia in PICU",
-        startTime: "7/11/2025 9:00 AM",
-        endTime: "7/11/2025 9:15 AM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "From Collapse to Comeback: Pediatric Cardiac Arrest through the Lens of Multidisciplinary Care",
-        startTime: "8/11/2025 10:15 AM",
-        endTime: "8/11/2025 11:00 AM",
-        role: "Panelist",
-        description: "Dr Nameet Jerath (Moderator )\nCo Panelists\nDr Manish Sharma\nDr Vinay Nadkarni\nDr Manu Sundaram\nDr Milind Jambagi",
-        place: "Hall A",
-        institution: " "
-      }
-    ]
-  },
-  "suchitraranjit@yahoo.co.in": {
-    facultyName: "Dr. Suchitra Ranjit",
-    email: "suchitraranjit@yahoo.co.in",
-    sessions: [
-      {
-        title: "Recognize, Stratify, Intervene: The New Paradigm in Sepsis Phenotypes",
-        startTime: "8/11/2025 9:30 AM",
-        endTime: "8/11/2025 9:45 AM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "Echo in Action: Real-Time Clarity for Real-Life Hemodynamics.",
-        startTime: "8/11/2025 10:15 AM",
-        endTime: "8/11/2025 11:00 AM",
-        role: "Panelists",
-        description: "Moderator \nDr Dhiren Gupta  \n\nPanelists\nDr Mehak Bansal\nDr Neil C \nDr Swathi Rao\nDr Namita Ravikumar",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "From Wards to Policy: Nuturing a Healthier Future For India's Children",
-        startTime: "8/11/2025 5:30 PM",
-        endTime: "8/11/2025 5:50 PM",
+        endTime: "7/11/2025 10:00 AM",
         role: "Chairperson",
         description: " ",
         place: "Hall B",
-        institution: " "
-      }
-    ]
-  },
-  "sudeepkecy2011@gmail.com": {
-    facultyName: "Dr. Sudeep KC",
-    email: "sudeepkecy2011@gmail.com",
-    sessions: [
-      {
-        title: "Rescue, Restore, Rewire: Protecting the Pediatric  Brain After Trauma and Arrest.",
-        startTime: "8/11/2025 3:30 PM",
-        endTime: "8/11/2025 4:15 PM",
-        role: "Panelist",
-        description: "Dr Vinayak Patki(Moderator)\nCo panelists\nDr Sheikh Minhaj\nDr Shrishu Kamath\nDr Sibabrata Patnaik\nDr Raghupathi R",
-        place: "Hall B",
-        institution: " "
-      },
-      {
-        title: "Command Code Blue:\nHigh Quality CPR\nAsystole and Shockable rhythm with\nCRM\nPCCN ",
-        startTime: "6/11/2025 10:30 AM",
-        endTime: "6/11/2025 1:30 PM",
-        role: "Work shop",
-        description: " ",
-        place: " ",
-        institution: "Paramitha Hospital"
-      },
-      {
-        title: "Managing the Mayhem\nBasics of Poly and NeuroTrauma\nVideo assisted learning\nPCCN",
-        startTime: "6/11/2025 3:40 PM",
-        endTime: "6/11/2025 4:00 PM",
-        role: " ",
-        description: " ",
-        place: " ",
-        institution: " "
-      }
-    ]
-  },
-  "sumantsp22@gmail.com": {
-    facultyName: "Dr. Sumant Patil",
-    email: "sumantsp22@gmail.com",
-    sessions: [
-      {
-        title: "Management of Complications related to blood based dialysis in PICU",
-        startTime: "7/11/2025 2:15 PM",
-        endTime: "7/11/2025 3:00 PM",
-        role: "Panelist",
-        description: "Dr Sateesh (Moderator)\nCo panelists\nDr Raghad Abdwani\nDr Parag Dakate \nDr Saumen Meur \nDr Rohit Bhowmick",
-        place: "Hall A",
-        institution: " "
-      }
-    ]
-  },
-  "sunit.singhi@gmail.com": {
-    facultyName: "Dr. Sunit Singhi",
-    email: "sunit.singhi@gmail.com",
-    sessions: [
-      {
-        title: "Pediatric respiratory critical care research and promoting the development of a research network in India- identifying key gaps",
-        startTime: "7/11/2025 10:45 AM",
-        endTime: "7/11/2025 11:45 AM",
-        role: "Panelist",
-        description: "Dr Jhuma Sankar(Moderator)\nCo panelists\nDr Martin Kneyber \nDr Anil Sachdev \nDr Lalita AV \nDr Praveen Khilnani",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "From Wards to Policy: Nuturing a Healthier Future For India's Children",
-        startTime: "8/11/2025 5:30 PM",
-        endTime: "8/11/2025 5:50 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall A",
         institution: " "
       },
       {
@@ -1093,51 +76,240 @@ const FACULTY_DATA = {
       }
     ]
   },
-  "drschandrasekar@yahoo.com": {
-    facultyName: "Dr. Supraja Chandrasekhar",
-    email: "drschandrasekar@yahoo.com",
+  "milind.jambagi@gmail.com": {
+    facultyName: "Dr Milind Jambagi",
+    email: "milind.jambagi@gmail.com",
     sessions: [
       {
-        title: "RRT Timing: Act Fast or Wait Smart?",
-        startTime: "8/11/2025 4:15 PM",
-        endTime: "8/11/2025 4:45 PM",
-        role: "Debater - FOR Wait Smart",
-        description: "Co Debator\nDr. Anupama Yerra - For Act Fast",
+        title: "PICU Brain Buzzer",
+        startTime: "7/11/2025 2:45 PM",
+        endTime: "7/11/2025 3:45 PM",
+        role: "QuizMaster",
+        description: "Co Quiz masters: \nDr Maninder Dhaliwal, \nDr Karthik Narayan\nDr Farhan Shaikh",
         place: "Hall C",
         institution: " "
       },
       {
-        title: "Local Implementation & Overcoming Barriers\nSimulation",
-        startTime: "6/11/2025 3:45 PM",
-        endTime: "6/11/2025 4:15 PM",
+        title: "USG Basics, Probes and Knobology\nPOCUS (Basic)",
+        startTime: "6/11/2025 9:00 AM",
+        endTime: "6/11/2025 9:45 AM",
         role: "Workshop Faculty",
         description: " ",
         place: " ",
-        institution: "All India Institute of Medical Sciences, Bibinagar"
+        institution: "Lotus Hospitals for women & children, Miyapur, Hyderabad"
       },
       {
-        title: "The Hepato-Renal Tightrope: Pediatric ICU Challenges and Solutions",
-        startTime: "9/11/2025 9:00 AM",
-        endTime: "9/11/2025 11:00 AM",
-        role: "Chairperson",
+        title: "From Collapse to Comeback: Pediatric Cardiac Arrest through the Lens of Multidisciplinary Care",
+        startTime: "8/11/2025 10:15 AM",
+        endTime: "8/11/2025 11:00 AM",
+        role: "Panelist",
+        description: "Moderator\nDr. Nameet Jerath \n\nPanelists\nDr. Soonu Udani        \nDr. Manish Sharma        \nDr. Vinay Nadkarni        \nDr. Manu Sundaram",
+        place: "Hall A",
+        institution: " "
+      }
+    ]
+  },
+  "preityanand@yahoo.co.in": {
+    facultyName: "Dr Preeti Anand",
+    email: "preityanand@yahoo.co.in",
+    sessions: [
+      {
+        title: "Case-Based Panel: “My Worst Myocarditis Case \nin the PICU",
+        startTime: "9/11/2025 3:45 PM",
+        endTime: "9/11/2025 4:25 PM",
+        role: "Panelists",
+        description: "Dr Rajeshwari (Moderator)\n\nCo panelists\nDr Manish Kori        \nDr Naresh Lal        \nDr Ravi (KKTCH)\nDr Banani Poddar",
+        place: "Hall A",
+        institution: " "
+      }
+    ]
+  },
+  "aldutoridd@gmail.com": {
+    facultyName: "Dr Manish Kori",
+    email: "aldutoridd@gmail.com",
+    sessions: [
+      {
+        title: "Case-Based Panel: “My Worst Myocarditis Case in the PICU",
+        startTime: "9/11/2025 3:45 PM",
+        endTime: "9/11/2025 4:25 PM",
+        role: "Panelists",
+        description: "Dr Rajeshwari (Moderator)\nCo Panelists\nDr Preeti Anand   \nDr Naresh Lal        \nDr Ravi (KKTCH)\nDr Banani Poddar",
+        place: "Hall A",
+        institution: " "
+      }
+    ]
+  },
+  "doclal2009@gmail.com": {
+    facultyName: "Dr Naresh Lal",
+    email: "doclal2009@gmail.com",
+    sessions: [
+      {
+        title: "Case-Based Panel: “My Worst Myocarditis Case in the PICU",
+        startTime: "9/11/2025 3:45 PM",
+        endTime: "9/11/2025 4:25 PM",
+        role: "Panelists",
+        description: "Dr Rajeshwari (Moderator)\n\nCo Panelists\nDr Preeti Anand   \nDr Manish Kori     \nDr Ravi (KKTCH)\nDr Banani Poddar",
+        place: "Hall A",
+        institution: " "
+      }
+    ]
+  },
+  "drgirishc@gmail.com": {
+    facultyName: "Dr Girish H C",
+    email: "drgirishc@gmail.com",
+    sessions: [
+      {
+        title: "Accidental Drug Overdose or Wrong Drug in the PICU: First Response and Reporting",
+        startTime: "9/11/2025 4:35 PM",
+        endTime: "9/11/2025 4:45 PM",
+        role: "Speaker",
         description: " ",
         place: "Hall A",
         institution: " "
       }
     ]
   },
-  "drskpanuganti@gmail.com": {
-    facultyName: "Dr Suresh Kumar Panugati",
-    email: "drskpanuganti@gmail.com",
+  "parveenbharadwaj@hotmail.com": {
+    facultyName: "Dr Praveen Bharadwaj",
+    email: "parveenbharadwaj@hotmail.com",
     sessions: [
       {
-        title: "Electrolyte Emergencies in the PICU: Algorithms, Controversies, and Pitfalls",
-        startTime: "9/11/2025 3:00 PM",
-        endTime: "9/11/2025 3:45 PM",
+        title: "Chest Tube Not Bubbling: What Should You Do?",
+        startTime: "9/11/2025 12:25 PM",
+        endTime: "9/11/2025 12:35 PM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall B",
+        institution: " "
+      },
+      {
+        title: "Hemodynamic assessment using functional ECHO\nPOCUS \n (Basic)",
+        startTime: "6/11/2025 10:45 AM",
+        endTime: "6/11/2025 11:15 AM",
+        role: "Workshop Faculty",
+        description: " ",
+        place: " ",
+        institution: "Lotus Hospitals for women & children, Miyapur, Hyderabad"
+      }
+    ]
+  },
+  "drsunildsharma@gmail.com": {
+    facultyName: "Dr Sunil Dutt Sharma",
+    email: "drsunildsharma@gmail.com",
+    sessions: [
+      {
+        title: "BP Crisis in Children: Think Fast, Act Slow",
+        startTime: "9/11/2025 1:15 PM",
+        endTime: "9/11/2025 1:25 PM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall B",
+        institution: " "
+      }
+    ]
+  },
+  "rgundeti@gmail.com": {
+    facultyName: "Dr G Ramesh",
+    email: "rgundeti@gmail.com",
+    sessions: [
+      {
+        title: "Buying Smart: Equipping Your PICU for Function, Not Fashion",
+        startTime: "9/11/2025 2:30 PM",
+        endTime: "9/11/2025 3:15 PM",
         role: "Panelist",
-        description: "Dr. Lalitha AV (Moderator)\nCo panelists\nDr. Nitish Upadhaya\nDr. Atsushi Kawaguchi\nDr. Amit Vij\nDr Bala Krishna Reddy P",
+        description: "Moderator \nDr VSV Prasad \n\nCo Panelists\nDr Anand Buthada\nDr Rafiq Ahmed \nDr Nirmal Choraria\nDr Preetam",
+        place: "Hall C",
+        institution: " "
+      }
+    ]
+  },
+  "kalyancriticare@gmail.com": {
+    facultyName: "Dr S kalyan Kunchapudi",
+    email: "kalyancriticare@gmail.com",
+    sessions: [
+      {
+        title: "Cardiac Failure & Cardiogenic Shock",
+        startTime: "7/11/2025 9:00 AM",
+        endTime: "7/11/2025 9:40 AM",
+        role: "Panelists",
+        description: "Dr.\nPriyavarthini (Moderator)\nCo Panelists\nDr. Ravi Kumar (KKCTH)\nDr Ikram Ul Haque \nDr Javed Ismail \nDr.Sagar Hiremath (NH Bnagalore) ",
         place: "Hall A",
         institution: " "
+      },
+      {
+        title: "PANEL DISCUSSION - HYPOXEMIA, REFRACTORY HYPOXEMIA\nAdvanced Ventilation",
+        startTime: "6/11/2025 11:30 AM",
+        endTime: "6/11/2025 12:30 PM",
+        role: "Local Cordinator",
+        description: "Moderator: Dr. Yashwanth Reddy \n Panelists: \nDr. Sekhar Venkatraman, \nDr. Nameet Jerath, \nDr. Kalyan, \nDr. Prabas Prasun",
+        place: " ",
+        institution: "KIMS Cuddles Secunderabad"
+      },
+      {
+        title: "MECHANICAL VENTILATION ON ECMO – DOES VA OR VV MATTER?\nAdvanced Ventilation",
+        startTime: "6/11/2025 2:40 PM",
+        endTime: "6/11/2025 3:00 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: " "
+      },
+      {
+        title: "AEROSOL ADMINISTRATION IN VENTILATION AND POSTURAL PHYSIOTHERAPY\nAdvanced Ventilation",
+        startTime: "6/11/2025 5:00 PM",
+        endTime: "6/11/2025 5:40 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: " "
+      }
+    ]
+  },
+  "kvsandeepreddy@gmail.com": {
+    facultyName: "Dr Venkat Sandeep Reddy",
+    email: "kvsandeepreddy@gmail.com",
+    sessions: [
+      {
+        title: "Liver Transplant: Mastering Post-Op Complications",
+        startTime: "7/11/2025 8:00 AM",
+        endTime: "7/11/2025 8:30 AM",
+        role: "Panelist",
+        description: "Dr Ravi T (Moderator)\nCo Panelists\nDr Akashdeep\nDr Prashant Bachina\nDr Ravi Babu K \nDr Sonal Gajbhiya",
+        place: "Hall B",
+        institution: " "
+      },
+      {
+        title: "Station 2: Life Support Mastery: ECMO, and iNO in Pediatric Cardiac Care\nCardiac Critical Care",
+        startTime: "6/11/2025 1:15 PM",
+        endTime: "6/11/2025 4:15 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: "Rainbow Children's Heart Institute"
+      }
+    ]
+  },
+  "drsuchitrajoty@gmail.com": {
+    facultyName: "Dr Suchithra D (Hyd)",
+    email: "drsuchitrajoty@gmail.com",
+    sessions: [
+      {
+        title: "Acute Flaccid Paralysis in the PICU: GBS, Myelitis, or Something Else?",
+        startTime: "7/11/2025 11:15 AM",
+        endTime: "7/11/2025 11:45 AM",
+        role: "Panelist",
+        description: "Moderator \nDr Rohit Vohra \n\nPanelists\nDr Jesal Sheth\nDr Ramaling Loni \nDr Mukesh Jain\nDr Mihir Sarkar",
+        place: "Hall B",
+        institution: " "
+      },
+      {
+        title: "Bridges and Roadblocks in Thesis Writing: A Guide’s Perspective\nCLINICAL RESEARCH",
+        startTime: "6/11/2025 4:00 PM",
+        endTime: "6/11/2025 4:20 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: "Nilofer Hospital, Hyderabad"
       },
       {
         title: "Flash Talks: PICU Dogma Disrupted",
@@ -1150,81 +322,24 @@ const FACULTY_DATA = {
       }
     ]
   },
-  "sureshangurana@gmail.com": {
-    facultyName: "Dr. Suresh Kumar Angurana",
-    email: "sureshangurana@gmail.com",
+  "nrao_aslp@yahoo.com": {
+    facultyName: "Dr. Sridevi N",
+    email: "nrao_aslp@yahoo.com",
     sessions: [
       {
-        title: "The Gut-Brain Axis in Pediatric ICU: A \n Microbiome Perspective",
-        startTime: "9/11/2025 2:30 PM",
-        endTime: "9/11/2025 2:45 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      }
-    ]
-  },
-  "surjeetthappa@gmail.com": {
-    facultyName: "Dr. Surjit Kumar Thappa",
-    email: "surjeetthappa@gmail.com",
-    sessions: [
-      {
-        title: "GAME ON – “Crash or Stabilise?”",
-        startTime: "7/11/2025 9:40 AM",
-        endTime: "7/11/2025 10:00 AM",
-        role: "Quizmaster",
-        description: "Fellow Quizmaster:\nDr Chidambaram",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Too much, Too little or Just Right\nFluid Balance in PICU\nCase scenario based\nPCCN Workshop",
-        startTime: "6/11/2025 1:30 PM",
-        endTime: "6/11/2025 1:45 PM",
-        role: "Workshop",
-        description: "Online Session",
-        place: " ",
-        institution: "Paramitha Hospital"
-      },
-      {
-        title: "Beyond the Machine Smooth and\nSecure:\nPreparation for Intubation with CRM , \nDOOPE , Prone Positioning,LMA\nPCCN workshop",
-        startTime: "6/11/2025 10:30 AM",
-        endTime: "6/11/2025 1:30 PM",
-        role: "WORKSHOP",
-        description: "Online Session",
-        place: " ",
-        institution: "Paramitha Hospital"
-      },
-      {
-        title: "Spotting the Signs\nSimulation scenario\non recognition of a sick child\n(Neuro - Poly Trauma)\nPCCN workshop",
-        startTime: "6/11/2025 2:15 PM",
-        endTime: "6/11/2025 3:46 PM",
-        role: "WORKSHOP",
-        description: " ",
-        place: " ",
-        institution: " "
-      }
-    ]
-  },
-  "drswathiraoped@gmail.com": {
-    facultyName: "Dr. Swathi Rao",
-    email: "drswathiraoped@gmail.com",
-    sessions: [
-      {
-        title: "Echo in Action: Real-Time Clarity for Real-Life  Hemodynamics",
-        startTime: "8/11/2025 10:15 AM",
-        endTime: "8/11/2025 11:00 AM",
+        title: "Super-Refractory Status Epilepticus: How Far Should We Go?",
+        startTime: "7/11/2025 11:45 AM",
+        endTime: "7/11/2025 12:30 PM",
         role: "Panelist",
-        description: "Dr. Dhiren Gupta (Moderator)\nCo panelists\nDr. Mehak Bansal\nDr. Neil C\nDr. Namita Ravikumar\nDr. Suchitra Ranjit",
+        description: "Dr. Atul Jindle (Moderator) \nCo Panelists \nDr. Matthew Kirschen \nDr. Siva Vyasam \nDr. Pushpraj Awasthi\nDr Bharat Mehra",
         place: "Hall B",
         institution: " "
       },
       {
-        title: "Oxygen Therapy in Respiratory Distress Children\nNon-Invasive Respiratory Support",
-        startTime: "6/11/2025 8:30 AM",
-        endTime: "6/11/2025 9:00 AM",
-        role: "Workshop Faculty",
+        title: "Pre- Test\nNon-Invasive Respiratory Support",
+        startTime: "6/11/2025 8:15 AM",
+        endTime: "6/11/2025 8:30 AM",
+        role: "Local coordinator",
         description: " ",
         place: " ",
         institution: "Little Stars & She Hospital, Hyderabad"
@@ -1233,7 +348,7 @@ const FACULTY_DATA = {
         title: "High Flow Nasal Cannula in and out of PICU Ward\nNon-Invasive Respiratory Support",
         startTime: "6/11/2025 10:30 AM",
         endTime: "6/11/2025 12:45 PM",
-        role: "Workshop Faculty",
+        role: "Local coordinator",
         description: " ",
         place: " ",
         institution: "Little Stars & She Hospital, Hyderabad"
@@ -1242,138 +357,123 @@ const FACULTY_DATA = {
         title: "Skill Station 1: Case Based Scenario of Hypoxia\nNon-Invasive Respiratory Support",
         startTime: "6/11/2025 1:30 PM",
         endTime: "6/11/2025 3:45 PM",
-        role: "Workshop Faculty",
+        role: "Local coordinator",
+        description: " ",
+        place: " ",
+        institution: "Little Stars & She Hospital, Hyderabad"
+      },
+      {
+        title: "Post-Test\nNon-Invasive Respiratory Support",
+        startTime: "6/11/2025 4:15 PM",
+        endTime: "6/11/2025 4:30 PM",
+        role: "Local coordinator",
         description: " ",
         place: " ",
         institution: "Little Stars & She Hospital, Hyderabad"
       }
     ]
   },
-  "doctortanzila@gmail.com": {
-    facultyName: "Dr. Tanzila Sharique",
-    email: "doctortanzila@gmail.com",
+  "drsujeeth.27@gmail.com": {
+    facultyName: "Dr Modi Sujeeth Kumar",
+    email: "drsujeeth.27@gmail.com",
     sessions: [
       {
-        title: "Mottled Skin: Shock or Cold Room?",
-        startTime: "9/11/2025 4:45 PM",
-        endTime: "9/11/2025 4:55 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall C",
+        title: "Breathless Battles: Viral Pneumonia That Won’t Back Down: What's the Trend in Pediatric Viral Pneumonia?",
+        startTime: "8/11/2025 3:30 PM",
+        endTime: "8/11/2025 4:15 PM",
+        role: "Panelist",
+        description: "Dr. Manish Sharma (Moderator)        \nCo Panelists\nDr. Anil Sachdeva        \nDr. Hiroshi Kurosawa        \nDr. Ranganath Iyer\nDr. Bala Ramachandran",
+        place: "Hall A",
         institution: " "
       },
       {
-        title: "Procedural sedation\nBronchoscopy",
-        startTime: "6/11/2025 10:15 AM",
-        endTime: "6/11/2025 10:30 AM",
+        title: "Introduction\nBPICC",
+        startTime: "3/11/2025 9:00 AM",
+        endTime: "3/11/2025 9:15 AM",
+        role: "Local Cordinator",
+        description: "ONLINE LECTURES",
+        place: " ",
+        institution: "Yashoda Hospitals"
+      },
+      {
+        title: "ABG analysis\nBPICC",
+        startTime: "3/11/2025 1:15 PM",
+        endTime: "3/11/2025 1:45 PM",
+        role: "Local Cordinator",
+        description: "ONLINE LECTURES",
+        place: " ",
+        institution: " "
+      },
+      {
+        title: "PICU Procedures  (CVL)\nBPICC",
+        startTime: "6/11/2025 10:25 AM",
+        endTime: "6/11/2025 12:45 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: " "
+      },
+      {
+        title: "Difficult Ventilation Scenarios\nBPICC",
+        startTime: "6/11/2025 2:15 PM",
+        endTime: "6/11/2025 4:30 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: " "
+      }
+    ]
+  },
+  "yashu198@yahoo.co.in": {
+    facultyName: "Dr. Yashwanth Reddy",
+    email: "yashu198@yahoo.co.in",
+    sessions: [
+      {
+        title: "Global Lungs, Local Challenges: Advancing Equitable Pediatric Respiratory Care.",
+        startTime: "8/11/2025 4:45 PM",
+        endTime: "8/11/2025 5:30 PM",
+        role: "Panelist",
+        description: "Dr. Maninder Dhaliwal (Moderator)\n\nCo Panelists\nDr. Rajiv Uttam        \nDr. Sagar lad        \nDr. Shekhar Venkatraman        \nDr. Mounika Reddy",
+        place: "Hall A",
+        institution: " "
+      },
+      {
+        title: "PANEL DISCUSSION - HYPOXEMIA, REFRACTORY HYPOXEMIA\nAdvanced Ventilation",
+        startTime: "6/11/2025 11:30 AM",
+        endTime: "6/11/2025 12:30 AM",
+        role: "Workshop Faculty",
+        description: "Moderator: Dr. Yashwanth Reddy \n Panelists: \nDr. Sekhar Venkatraman, \nDr. Nameet Jerath, \nDr. Kalyan, \nDr. Prabas Prasun",
+        place: " ",
+        institution: "KIMS Cuddles Secunderabad"
+      },
+      {
+        title: "RECRUITMENT METHODS AND PRONING\nAdvanced Ventilation",
+        startTime: "6/11/2025 3:40 PM",
+        endTime: "6/11/2025 4:20 PM",
         role: "Workshop Faculty",
         description: " ",
         place: " ",
-        institution: "Ankura Hospitals, Kukatpally"
-      },
-      {
-        title: "Procedural sedation\nBronchoscopy",
-        startTime: "6/11/2025 2:00 PM",
-        endTime: "6/11/2025 5:00 PM",
-        role: "Workshop Faculty",
-        description: " ",
-        place: " ",
-        institution: "Ankura Hospitals, Kukatpally"
-      }
-    ]
-  },
-  "thangavelu.dr@gmail.com": {
-    facultyName: "Dr. Thangavellu",
-    email: "thangavelu.dr@gmail.com",
-    sessions: [
-      {
-        title: "Extubation Without Agitation: Mastering Sedation \n Tapering",
-        startTime: "9/11/2025 3:15 PM",
-        endTime: "9/11/2025 3:30 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      },
-      {
-        title: "ICU Skills You Didn't Learn in Residency (But Should Have)",
-        startTime: "9/11/2025 4:15 PM",
-        endTime: "9/11/2025 4:25 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      },
-      {
-        title: "Rapid Response Teams in Pediatric Wards: Early Warning to Early PICU Admission",
-        startTime: "9/11/2025 4:25 PM",
-        endTime: "9/11/2025 4:35 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Transcranial Doppler in Pediatric CNS Infections: Diagnostic And Prognostic Value",
-        startTime: "8/11/2025 2:45 PM",
-        endTime: "8/11/2025 2:45 PM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall B",
         institution: " "
       }
     ]
   },
-  "drumaali22@gmail.com": {
-    facultyName: "Dr. Uma Ali",
-    email: "drumaali22@gmail.com",
+  "priyabrata.picu@gmail.com": {
+    facultyName: "Dr Priyabrata Panda",
+    email: "priyabrata.picu@gmail.com",
     sessions: [
       {
-        title: "Managing Sodium disurbances during CRRT",
-        startTime: "7/11/2025 2:00 PM",
-        endTime: "7/11/2025 2:15 PM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Friend, Foe, or Firefighting Tool? CRRT & Plasmapheresis in Pediatric ALF",
-        startTime: "9/11/2025 10:15 AM",
-        endTime: "9/11/2025 11:00 AM",
-        role: "Panellist",
-        description: "Dr Jolly Chandaran (Moderator)        \nCo panelists\nDr Shalu Gupta\nDr Vasudha\nDr Deepankar Bansal\nDr Avinash Reddy",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Mapping the Maze: Pediatric Hemodynamics from Scores to Solutions",
-        startTime: "8/11/2025 9:00 AM",
-        endTime: "8/11/2025 11:00 AM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall B",
-        institution: " "
-      }
-    ]
-  },
-  "vasanthbabblu@gmail.com": {
-    facultyName: "Dr. Vasanth",
-    email: "vasanthbabblu@gmail.com",
-    sessions: [
-      {
-        title: "Hemadsorption in the PICU: Magic Filter or Misplaced Faith?",
-        startTime: "9/11/2025 9:45 AM",
-        endTime: "9/11/2025 10:15 AM",
-        role: "Debator: for Hemadsorption is Misplaced Faith",
-        description: " ",
+        title: "Interpreting Critical Labs in Suspected Metabolic Disease",
+        startTime: "8/11/2025 1:00 PM",
+        endTime: "8/11/2025 1:45 PM",
+        role: "Panelist",
+        description: "Dr Banani Poddar (Moderator )\nCo Panelists\nDr Satish Deopujari \nDr Karunakar BP\nDr Dayanand Nakate\nDr. Shalu Gupta",
         place: "Hall B",
         institution: " "
       },
       {
-        title: "RRT Timing: Act Fast or Wait Smart?",
-        startTime: "8/11/2025 4:15 PM",
-        endTime: "8/11/2025 4:45 PM",
+        title: "Smart Moves in the PICU",
+        startTime: "9/11/2025 2:30 PM",
+        endTime: "9/11/2025 4:15 PM",
         role: "Chairperson",
         description: " ",
         place: "Hall C",
@@ -1381,137 +481,278 @@ const FACULTY_DATA = {
       }
     ]
   },
-  "drvraghunathan@gmail.com": {
-    facultyName: "Dr. Veena Raghunathan",
-    email: "drvraghunathan@gmail.com",
+  "raghupaaa@gmail.com": {
+    facultyName: "Dr. Raghupathi R",
+    email: "raghupaaa@gmail.com",
     sessions: [
       {
-        title: "Coming Off CRRT: Protocol Precision or Clinical \nWisdom?",
-        startTime: "9/11/2025 9:45 AM",
-        endTime: "9/11/2025 10:15 AM",
-        role: "Debater - FOR PROTOCOL PRECISION",
-        description: "Co Debater\nDr Abhijeet Bagde - CLINICAL WISDOM ",
-        place: "Hall A",
+        title: "Rescue, Restore, Rewire: Protecting the Pediatric  Brain After Trauma and Arrest.",
+        startTime: "8/11/2025 3:30 PM",
+        endTime: "8/11/2025 4:15 PM",
+        role: "Panelist",
+        description: "Dr Vinayak Patki(Moderator)\nCo panelists\nDr Sheikh Minhaj\nDr Shrishu Kamath\nDr Sibabrata Patnaik\nDr Sudeep K C",
+        place: "Hall B",
         institution: " "
       },
       {
-        title: "Workstation 1: Nursing care plan of a child with respiratory distress\nNursing Respiratory Care",
-        startTime: "6/11/2025 11:00 AM",
-        endTime: "6/11/2025 1:30 PM",
+        title: "Airway :Bag and Mask/ Intubation/ LMA & RSI\nBPICC",
+        startTime: "6/11/2025 10:25 AM",
+        endTime: "6/11/2025 12:45 PM",
         role: "Workshop Faculty",
         description: " ",
         place: " ",
-        institution: "Yashoda Hospital, Hitech City"
+        institution: "Yashoda Hospitals"
       },
       {
-        title: "Tracheostomy care – Hands-on training\nNursing Respiratory Care",
-        startTime: "6/11/2025 3:00 PM",
+        title: "Cardiac Emergencies\nBPICC",
+        startTime: "6/11/2025 2:15 PM",
         endTime: "6/11/2025 4:30 PM",
         role: "Workshop Faculty",
         description: " ",
         place: " ",
-        institution: "Yashoda Hospital, Hitech City"
-      },
-      {
-        title: "Beyond the Bedside: Ethics, Quality & Safety in PICU",
-        startTime: "9/11/2025 2:30 PM",
-        endTime: "9/11/2025 5:30 PM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall A",
         institution: " "
       }
     ]
   },
-  "vijaiwilliams@gmail.com": {
-    facultyName: "Dr. Vijai Williams",
-    email: "vijaiwilliams@gmail.com",
+  "vishnutej.pudi@gmail.com": {
+    facultyName: "Dr Vishnu Tej",
+    email: "vishnutej.pudi@gmail.com",
     sessions: [
       {
-        title: "Start Slow or Start Smart?\nShould Golden Hour  DKA Management Be Aggressively Standardized?",
-        startTime: "8/11/2025 9:45 AM",
-        endTime: "8/11/2025 10:15 AM",
-        role: "Debater - FOR  Start Smart",
-        description: "Co Debater\nDr Ashish Simalti - Start Smart",
-        place: "Hall C",
-        institution: " "
-      }
-    ]
-  },
-  "dr.vikas.78@gmail.com": {
-    facultyName: "Dr. Vikas Bansal",
-    email: "dr.vikas.78@gmail.com",
-    sessions: [
-      {
-        title: "The New Gold Standard in Ventilation?\nIn Mechanical Power We Trust… or Not?",
-        startTime: "8/11/2025 4:15 PM",
-        endTime: "8/11/2025 4:15 PM",
-        role: "Debater - WE TRUST",
-        description: "Co Debater\nDr Vikas Taneja - Not Trust",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Free Paper",
-        startTime: "8/11/2025 8:00 AM",
-        endTime: "8/11/2025 9:00 AM",
-        role: "Chairperson",
-        description: " ",
-        place: "Hall C",
-        institution: " "
-      }
-    ]
-  },
-  "drvikastaneja@yahoo.co.in": {
-    facultyName: "Dr. Vikas Taneja",
-    email: "drvikastaneja@yahoo.co.in",
-    sessions: [
-      {
-        title: "The New Gold Standard in Ventilation? In Mechanical Power We Trust… or Not?",
-        startTime: "8/11/2025 4:15 PM",
-        endTime: "8/11/2025 4:15 PM",
-        role: "Debater - NOT TRUST",
-        description: "Co Debater\nDr Vikas Bansal - We Trust",
-        place: "Hall A",
-        institution: " "
-      },
-      {
-        title: "Echo in Action: Real-Time Clarity for Real-Life Hemodynamics",
-        startTime: "8/11/2025 10:15 AM",
-        endTime: "8/11/2025 10:15 AM",
-        role: "Chairperson",
-        description: " ",
+        title: "Innovation Over Infrastructure: Delivering Neurorehab in Our Real World.",
+        startTime: "8/11/2025 4:45 PM",
+        endTime: "8/11/2025 5:30 PM",
+        role: "Panelist",
+        description: "Moderator\nDr Kavita TK\n\nCo Panelists:\nDr Karen Ka Yan LEUNG\nDr Ririe\nDr. Prabhas Prasun Giri\nDr. Narayanan P",
         place: "Hall B",
         institution: " "
       }
     ]
   },
-  "vinpreethadi@gmail.com": {
-    facultyName: "Dr. Vinay Joshi",
-    email: "vinpreethadi@gmail.com",
+  "ramunivinay@gmail.com": {
+    facultyName: "Dr. Vinay Ramuni",
+    email: "ramunivinay@gmail.com",
     sessions: [
       {
-        title: "Silent Hypoxia: Recognizing & Managing Pulmonary Hypertensive Crisis",
-        startTime: "7/11/2025 8:40 AM",
-        endTime: "7/11/2025 9:00 AM",
-        role: "Speaker",
-        description: " ",
-        place: "Hall A",
-        institution: " "
-      }
-    ]
-  },
-  "patkivinayak@gmail.com": {
-    facultyName: "Dr. Vinayak Patki",
-    email: "patkivinayak@gmail.com",
-    sessions: [
-      {
-        title: "Rescue, Restore, Rewire: Protecting the Pediatric Brain After Trauma and Arrest.",
+        title: "Fluid, Not Flood: Smarter Resuscitation in the PICU\n",
         startTime: "8/11/2025 3:30 PM",
         endTime: "8/11/2025 4:15 PM",
-        role: "Moderator",
-        description: "Co panelists\nDr Sheikh Minhaj \nDr Shrishu Kamath \nDr Sudeep KC \nDr Sibabrata Patnaik\nDr Raghupathi R",
+        role: "Panelist",
+        description: "Dr Mahesh Mohite (Moderator)\nCo panelists\nDr Manoj Chowdary\nDr John Adabie Appiah\nDr Mritunjay Pao\nDr Vinay Ramuni",
+        place: "Hall C",
+        institution: " "
+      },
+      {
+        title: "Hepatic flow decoded –VexUS , Venous & Portal patterns\nPOCUS (Advanced)",
+        startTime: "6/11/2025",
+        endTime: "6/11/2025",
+        role: "Workshop Faculty",
+        description: "Zoom Session",
+        place: " ",
+        institution: " "
+      }
+    ]
+  },
+  "dr.shashwatm@gmail.com": {
+    facultyName: "Dr Shashwat Mohanti",
+    email: "dr.shashwatm@gmail.com",
+    sessions: [
+      {
+        title: "Between Guidelines and Ground Reality: Talking to Families in Indian PICUs",
+        startTime: "8/11/2025 12:30 PM",
+        endTime: "8/11/2025 1:15 PM",
+        role: "Panelist",
+        description: "Dr. Puneet Pooni(Moderator)\n\nCo Panelists  \nDr Chirag Sethi       \nDr. Hariharan Seetharaman        \nDr. Kwame Boateng\nDr. Bakul Parikh",
+        place: "Hall C",
+        institution: " "
+      },
+      {
+        title: "“Ambulance Darshan” –Inside the Beast: Ambulance Anatomy & Action Zone\nTransport ",
+        startTime: "6/11/2025 9:30 AM",
+        endTime: "6/11/2025 10:15 AM",
+        role: "Workshop Faculty",
+        description: " ",
+        place: " ",
+        institution: "Apollo Medical College"
+      },
+      {
+        title: "Intra-Hospital Rescue Run\nTransport ",
+        startTime: "6/11/2025 12:45 PM",
+        endTime: "6/11/2025 1:30 PM",
+        role: "Workshop Faculty",
+        description: " ",
+        place: " ",
+        institution: " "
+      }
+    ]
+  },
+  "dr_jvrao@yahoo.co.in": {
+    facultyName: "Dr JV Rao",
+    email: "dr_jvrao@yahoo.co.in",
+    sessions: [
+      {
+        title: "Dengue Gone Wild: Navigating the Complications",
+        startTime: " ",
+        endTime: " ",
+        role: "Panelist",
+        description: "Moderator \nDr Rachna Sharma\n\nPanelists\nDr Satish Ghanta\nDr Daisy Khera\nDr Rujipat\nDr Sameer Sadawarte\n",
+        place: " ",
+        institution: " "
+      }
+    ]
+  },
+  "sujithkumar1010@gmail.com": {
+    facultyName: "Dr Sujith T",
+    email: "sujithkumar1010@gmail.com",
+    sessions: [
+      {
+        title: "Pus, Air, and Trouble: Stepwise Care in Necrotising Pneumonia",
+        startTime: "8/11/2025 4:45 PM",
+        endTime: "8/11/2025 5:30 PM",
+        role: "Panelist",
+        description: "Dr Pradeep Sharma (Moderator)\n\nCo Panelists       \nDr Rashmi Kapoor        \nDr Kaushik Maulik        \nDr Sebastian Gonzalez-Dambrauskas                \nDr Bijay Kumar Meher",
+        place: "Hall C",
+        institution: " "
+      }
+    ]
+  },
+  "avinashreddy@outlook.com": {
+    facultyName: "Dr Avinash Reddy",
+    email: "avinashreddy@outlook.com",
+    sessions: [
+      {
+        title: "Friend, Foe, or Firefighting Tool?\nCRRT & Plasmapheresis in Pediatric ALF",
+        startTime: "9/11/2025 10:15 AM",
+        endTime: "9/11/2025 11:00 AM",
+        role: "Panelist",
+        description: "Dr Jolly Chandaran (Moderator)        \nCo Panelists \nDr Uma Ali\nDr Shalu Gupta\nDr Vasudha\nDr. Deepankar Bansal",
+        place: "Hall A",
+        institution: " "
+      }
+    ]
+  },
+  "ale285samagna@gmail.com": {
+    facultyName: "Dr Alekhya Reddy R",
+    email: "ale285samagna@gmail.com",
+    sessions: [
+      {
+        title: "Keeping the Calm: Practical Challenges in Sedating the ECMO Child",
+        startTime: "9/11/2025 12:15 PM",
+        endTime: "9/11/2025 1:00 PM",
+        role: "Panelist",
+        description: "Moderator\nDr Parag Dakate \n\nCo- Panelists:\nDr Madhudhar Chegondi\nDr Nanda Kishore\nDr Prashant Mitharwal\nDr Deepak R",
+        place: "Hall A",
+        institution: " "
+      },
+      {
+        title: "CRRT and SLED",
+        startTime: "6/11/2025",
+        endTime: " ",
+        role: "Workshop Faculty",
+        description: " ",
+        place: " ",
+        institution: "KIMS Cuddles, Kondapur"
+      }
+    ]
+  },
+  "paedbalu8@gmail.com": {
+    facultyName: "Dr Bala Krishna Reddy P",
+    email: "paedbalu8@gmail.com",
+    sessions: [
+      {
+        title: "Electrolyte Emergencies in the PICU: Algorithms, Controversies, and Pitfalls",
+        startTime: "9/11/2025 3:00 PM",
+        endTime: "9/11/2025 3:45 PM",
+        role: "Panelist",
+        description: "Dr.\nLalitha AV (Moderator)\nCo panelists\nDr. Nitish Upadhaya\nDr. Atsushi Kawaguchi\nDr. Amit Vij\nDr Suresh Kumar Panugati",
+        place: "Hall A",
+        institution: " "
+      }
+    ]
+  },
+  "koyalachandu@gmail.com": {
+    facultyName: "Dr Chandra Shekar",
+    email: "koyalachandu@gmail.com",
+    sessions: [
+      {
+        title: "Transfuse or Tolerate? Finding the Balance in Pediatric Critical Care",
+        startTime: "9/11/2025 10:15 AM",
+        endTime: "9/11/2025 11:00 AM",
+        role: "Panelist",
+        description: "Moderator \nDr Lakshmi Shobhavat\n\nCo Panelist\nDr Anand Bhutada\nDr Chetan Mundada\nDr Abhijeet Chaudhary\nDr Lalit Takia",
         place: "Hall B",
+        institution: " "
+      }
+    ]
+  },
+  "sneharaj_t@yahoo.co.in": {
+    facultyName: "Dr Sneha T",
+    email: "sneharaj_t@yahoo.co.in",
+    sessions: [
+      {
+        title: "Burnout in PICU: Caring for the Caring Team",
+        startTime: "9/11/2025 3:30 PM",
+        endTime: "9/11/2025 4:15 PM",
+        role: "Panelist",
+        description: "Moderator \nDr Bala Ramachandaran\n\nCo Panelists\nDr Avishek Poddar\nDr Muthuvel\nDr Asha Shenoi\nDr Neeraj Verma",
+        place: "Hall B",
+        institution: " "
+      },
+      {
+        title: "PICU Procedures  (CVL)\nBPICC",
+        startTime: "6/11/2025 10:25 AM",
+        endTime: "6/11/2025 12:45 PM",
+        role: "Workshop Faculty",
+        description: " ",
+        place: " ",
+        institution: "Yashoda Hospitals"
+      },
+      {
+        title: "Shock Cases\nBPICC",
+        startTime: "6/11/2025 2:15 PM",
+        endTime: "6/11/2025 4:30 PM",
+        role: "Workshop Faculty",
+        description: " ",
+        place: " ",
+        institution: " "
+      }
+    ]
+  },
+  "sanjaysrirampur@yahoo.com": {
+    facultyName: "Dr Sanjay Srirampur",
+    email: "sanjaysrirampur@yahoo.com",
+    sessions: [
+      {
+        title: "From Rote to innovation - pediatricians for digital & AI world",
+        startTime: "7/11/2025 1:45 PM",
+        endTime: "7/11/2025 2:00 PM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall B",
+        institution: " "
+      },
+      {
+        title: "Innovators of Tomorrow: Pediatric Critical Care DM/DrNB Thesis Awards",
+        startTime: "7/11/2025 8:00 AM",
+        endTime: "7/11/2025 9:00 AM",
+        role: "Chairperson",
+        description: " ",
+        place: "Hall C",
+        institution: " "
+      }
+    ]
+  },
+  "drsridharnl@gmail.com": {
+    facultyName: "Dr N L Sridhar",
+    email: "drsridharnl@gmail.com",
+    sessions: [
+      {
+        title: "Saving Lives, \nSaving Costs: Can We Do Both?",
+        startTime: "9/11/2025 10:15 AM",
+        endTime: "9/11/2025 11:00 AM",
+        role: "Panelist",
+        description: "Dr Nirmal Choraria (Moderator)\nCo Panelists\nDr jalani Basha\nDr Kshama Daphtary\nDr Akash Bang\nDr. Somnath Gorain",
+        place: "Hall C",
         institution: " "
       },
       {
@@ -1519,17 +760,479 @@ const FACULTY_DATA = {
         startTime: "7/11/2025 2:30 PM",
         endTime: "7/11/2025 3:10 PM",
         role: "Panelist",
-        description: "Moderator: Dr Sameer Sadawarte\nPanelists:\nDr Amita Kaul\nDr Manju Kedarnath\nDr NL Sridhar\nDr Amar Singh ",
+        description: "Moderator: Dr Sameer Sadawarte\nPanelists:\nDr Amita Kaul\nDr Manju Kedarnath\nDr Vinayak Pataki\nDr Amar Singh (9057161357)",
+        place: "Hall B",
+        institution: " "
+      },
+      {
+        title: "Navigating Neurocritical Challenges: Advanced Perspectives in Pediatric Care",
+        startTime: "7/11/2025 10:30 AM",
+        endTime: "7/11/2025 12:30 PM",
+        role: "Chairperson",
+        description: " ",
+        place: "Hall B",
+        institution: " "
+      }
+    ]
+  },
+  "ravimooli59@gmail.com": {
+    facultyName: "Dr Ravi Mooli",
+    email: "ravimooli59@gmail.com",
+    sessions: [
+      {
+        title: "When Not to Intubate: Grey Zones in Airway Management",
+        startTime: "9/11/2025 4:25 PM",
+        endTime: "9/11/2025 4:35 PM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall C",
+        institution: " "
+      },
+      {
+        title: "Common Pediatric Emergencies\n A.Anaphylaxis\n B.Diabetic ketoacidosis\n Drowning\nAcute Critical Care for Practicing Paediatricians",
+        startTime: "6/11/2025 2:30 PM",
+        endTime: "6/11/2025 3:15 PM",
+        role: "Workshop Faculty",
+        description: " ",
+        place: " ",
+        institution: "Ankura Hospitals, Gachibowli"
+      },
+      {
+        title: "The Practical PICU",
+        startTime: "8/11/2025 12:45 PM",
+        endTime: "8/11/2025 5:50 PM",
+        role: "Chairperson",
+        description: " ",
+        place: "Hall C",
+        institution: " "
+      }
+    ]
+  },
+  "akunurishalini@gmail.com": {
+    facultyName: "Dr Shalini A",
+    email: "akunurishalini@gmail.com",
+    sessions: [
+      {
+        title: "Inubated asthmatics-do you use ZERO PEEP?",
+        startTime: "9/11/2025 4:35 PM",
+        endTime: "9/11/2025 4:45 PM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall C",
+        institution: " "
+      }
+    ]
+  },
+  "kanumala.udaykumar@gmail.com": {
+    facultyName: "Dr Uday Kumar P",
+    email: "kanumala.udaykumar@gmail.com",
+    sessions: [
+      {
+        title: "Stop!\nWhen Not to Give Antibiotics",
+        startTime: "9/11/2025 5:05 PM",
+        endTime: "9/11/2025 5:15 PM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall C",
+        institution: " "
+      }
+    ]
+  },
+  "drraghuvamsi@gmail.com": {
+    facultyName: "Dr Raghu Vamsi",
+    email: "drraghuvamsi@gmail.com",
+    sessions: [
+      {
+        title: "Ouch Matters: Quick Guide to Pain Management in Critically Ill Children",
+        startTime: "9/11/2025 5:25 PM",
+        endTime: "9/11/2025 5:35 PM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall C",
+        institution: " "
+      }
+    ]
+  },
+  "jbhaasha@gmail.com": {
+    facultyName: "Dr Jilani Basha",
+    email: "jbhaasha@gmail.com",
+    sessions: [
+      {
+        title: "Saving Lives, Saving Costs: Can We Do Both?",
+        startTime: "9/11/2025 10:15 AM",
+        endTime: "9/11/2025 11:00 AM",
+        role: "Panelist",
+        description: "Moderator\nDr Nirmal Choraria \n\nPanelists\nDr Somnath Gorain\nDr Jalani Basha\nDr Kshama Daphtary\nDr Akash Bang\nDr N L Sridhar",
+        place: "Hall C",
+        institution: " "
+      },
+      {
+        title: "Abdominal Ultrasound & e – FAST.\nPOCUS (Basic)",
+        startTime: "6/11/2025 12:30 PM",
+        endTime: "6/11/2025 1:00 PM",
+        role: "Local coordinator",
+        description: " ",
+        place: " ",
+        institution: "Lotus Hospitals for women & children, Miyapur, Hyderabad"
+      }
+    ]
+  },
+  "lokisiri@gmail.com": {
+    facultyName: "Dr Sirisha",
+    email: "lokisiri@gmail.com",
+    sessions: [
+      {
+        title: "Critical Care of Cellular Therapies in Transplant & Oncology (CAR-T, Immunotherapies)",
+        startTime: "7/11/2025 9:30 AM",
+        endTime: "7/11/2025 9:45 AM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall B",
+        institution: " "
+      }
+    ]
+  },
+  "prabhatm7@yahoo.com": {
+    facultyName: "Dr Prabhat Maheshwari",
+    email: "prabhatm7@yahoo.com",
+    sessions: [
+      {
+        title: "The Race Against Time: Early Recognition in \"Malignancy-Induced Cytokine Release Syndrome”",
+        startTime: "9/11/2025 9:30 AM",
+        endTime: "9/11/2025 9:45 AM",
+        role: "Speaker",
+        description: " ",
         place: "Hall B",
         institution: " "
       },
       {
         title: "Free Paper",
-        startTime: "8/11/2025 8:00 AM",
-        endTime: "8/11/2025 9:00 AM",
+        startTime: "9/11/2025 8:00 AM",
+        endTime: "9/11/2025 9:00 AM",
         role: "Chairperson",
         description: " ",
         place: "Hall A",
+        institution: " "
+      }
+    ]
+  },
+  "Vasu.winny@gmail.com": {
+    facultyName: "Dr Vasudha",
+    email: "Vasu.winny@gmail.com",
+    sessions: [
+      {
+        title: "Pediatric Environmental Hazards\n A.Burns\n B.Envenomation\n C.Poisoning – Decontamination\n D.Transport of sick child\nAcute Critical Care for Practicing Paediatricians",
+        startTime: "6/11/2025 3:15 PM",
+        endTime: "6/11/2025 4:00 PM",
+        role: "Workshop Faculty",
+        description: " ",
+        place: " ",
+        institution: "Ankura Hospitals, Gachibowli"
+      },
+      {
+        title: "Friend, Foe, or Firefighting Tool?\nCRRT & Plasmapheresis in Pediatric ALF",
+        startTime: "9/11/2025 10:15 AM",
+        endTime: "9/11/2025 11:00 AM",
+        role: "Panelist",
+        description: "Dr Jolly Chandaran (Moderator)        \nCo Panelists \nDr Uma Ali\nDr Shalu Gupta\nDr Avinash Reddy\nDr. Deepankar Bansal",
+        place: "Hall A",
+        institution: " "
+      }
+    ]
+  },
+  "pediadramar25@gmail.com": {
+    facultyName: "Prof Subha Narayan Rath",
+    email: "pediadramar25@gmail.com",
+    sessions: [
+      {
+        title: "Newer Technology and Innovation in shaping future of critical care",
+        startTime: "7/11/2025 2:00 PM",
+        endTime: "7/11/2025 2:15 PM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall B",
+        institution: " "
+      }
+    ]
+  },
+  "baswarajt@gmail.com": {
+    facultyName: "Dr Basavaraj Tandur",
+    email: "baswarajt@gmail.com",
+    sessions: [
+      {
+        title: "Building collaborative networks for PICU",
+        startTime: "7/11/2025 2:15 PM",
+        endTime: "7/11/2025 2:30 PM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall B",
+        institution: " "
+      },
+      {
+        title: "Technological Advances and Recent innovations in Pediatric Critical Care",
+        startTime: "7/11/2025 1:30 PM",
+        endTime: "7/11/2025 3:30 PM",
+        role: "Speaker",
+        description: " ",
+        place: "Hall B",
+        institution: " "
+      }
+    ]
+  },
+  "drharishkumar@rediffmail.com": {
+    facultyName: "Dr. Harish Kumar H",
+    email: "drharishkumar@rediffmail.com",
+    sessions: [
+      {
+        title: "Beyond Consent: Navigating Ethical Minefields in Pediatric Research",
+        startTime: " ",
+        endTime: " ",
+        role: "Panelist",
+        description: "Moderator\nDr Karthik Narayanan\n\nPanelists\nDr Bhakti Sarangi\nDr Michael Canarie\nDr Yasser Kazzaz\nDr Sibabrata Patnaik",
+        place: " ",
+        institution: " "
+      }
+    ]
+  },
+  "dr.swamy.dara@gmail.com": {
+    facultyName: "Dr Daraswamy",
+    email: "dr.swamy.dara@gmail.com",
+    sessions: [
+      {
+        title: "Paediatric Delirium and its confounders\nPICU Liberation",
+        startTime: "6/11/2025 9:50 AM",
+        endTime: "6/11/2025 10:10 AM",
+        role: "Local coordinator",
+        description: " ",
+        place: " ",
+        institution: "NICE Hospital, Hyderabad"
+      },
+      {
+        title: "Workstation 4 – Ward rounds and planning for a child with delirium\nPICU Liberation",
+        startTime: "6/11/2025 1:50 PM",
+        endTime: "6/11/2025 3:50 PM",
+        role: "Local coordinator",
+        description: " ",
+        place: " ",
+        institution: "NICE Hospital, Hyderabad"
+      }
+    ]
+  },
+  "mjshree64@gmail.com": {
+    facultyName: "Dr. Jayashree Muralidharan",
+    email: "mjshree64@gmail.com",
+    sessions: [
+      {
+        title: "Welcome and Overview\nCLINICAL RESEARCH",
+        startTime: "6/11/2025 8:30 AM",
+        endTime: "6/11/2025 8:45 AM",
+        role: "National coordinator",
+        description: " ",
+        place: " ",
+        institution: "Nilofer Hospital, Hyderabad"
+      },
+      {
+        title: "Clinical trials\nCLINICAL RESEARCH",
+        startTime: "6/11/2025 11:45 PM",
+        endTime: "6/11/2025 12:20 PM",
+        role: "Workshop Faculty",
+        description: " ",
+        place: " ",
+        institution: "Nilofer Hospital, Hyderabad"
+      },
+      {
+        title: "Closing remarks\nCLINICAL RESEARCH",
+        startTime: "6/11/2025 4:20 PM",
+        endTime: "6/11/2025 4:30 PM",
+        role: "Workshop Faculty",
+        description: " ",
+        place: " ",
+        institution: "Nilofer Hospital, Hyderabad"
+      }
+    ]
+  },
+  "jakkasrinu@yahoo.com": {
+    facultyName: "Srinivas Jakka",
+    email: "jakkasrinu@yahoo.com",
+    sessions: [
+      {
+        title: "Upper airway pathologies\nBronchoscopy",
+        startTime: "6/11/2025 11:15 AM",
+        endTime: "6/11/2025 11:45 AM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: "Ankura Hospitals, Kukatpally"
+      },
+      {
+        title: "Flexible bronchoscopy\nBronchoscopy",
+        startTime: "6/11/2025 2:00 PM",
+        endTime: "6/11/2025 5:00 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: "Ankura Hospitals, Kukatpally"
+      }
+    ]
+  },
+  "lsumanpgi@gmail.com": {
+    facultyName: "DR. SUMAN L",
+    email: "lsumanpgi@gmail.com",
+    sessions: [
+      {
+        title: "L3: How do I prescribe IHD & PIKRT\nCRRT and SLED",
+        startTime: "6/11/2025 10:00 AM",
+        endTime: "6/11/2025 10:30 AM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: "KIMS Cuddles, Kondapur"
+      },
+      {
+        title: "W1: IHD & PIKRT-\nCase Based Approach\nCRRT and SLED",
+        startTime: "6/11/2025 2:30 PM",
+        endTime: "6/11/2025 3:10 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: " "
+      }
+    ]
+  },
+  "prmuthiah@gmail.com": {
+    facultyName: "Dr Muthiah Periyakaruppan",
+    email: "prmuthiah@gmail.com",
+    sessions: [
+      {
+        title: "Ice Breaking Game\nNursing Respiratory Care",
+        startTime: "6/11/2025 10:00 AM",
+        endTime: "6/11/2025 10:30 AM",
+        role: "National Coordinator",
+        description: " ",
+        place: " ",
+        institution: "Yashoda Hospital, Hitech City"
+      },
+      {
+        title: "Ventilator Alarms Game\nNursing Respiratory Care",
+        startTime: "6/11/2025 2:30 PM",
+        endTime: "6/11/2025 3:00 PM",
+        role: "National Coordinator",
+        description: " ",
+        place: " ",
+        institution: "Yashoda Hospital, Hitech City"
+      },
+      {
+        title: "Art of nebulisation in children with Asthma\nNursing Respiratory Care",
+        startTime: "6/11/2025 3:00 PM",
+        endTime: "6/11/2025 4:30 PM",
+        role: "National Coordinator",
+        description: " ",
+        place: " ",
+        institution: "Yashoda Hospital, Hitech City"
+      }
+    ]
+  },
+  "drkrkrishna@gmail.com": {
+    facultyName: "Dr Ramakrishna",
+    email: "drkrkrishna@gmail.com",
+    sessions: [
+      {
+        title: "Station 3: Real Cases, Real Solutions: Navigating Pediatric Cardiac Crises\nCardiac Critical Care",
+        startTime: "6/11/2025 1:15 PM",
+        endTime: "6/11/2025 4:15 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: "Rainbow Children's Heart Institute"
+      }
+    ]
+  },
+  "ravindergoudjangampally@gmail.com": {
+    facultyName: "Dr RAVINDER",
+    email: "ravindergoudjangampally@gmail.com",
+    sessions: [
+      {
+        title: "Workstation 2: Nursing care paln of a child on Non-invasive respiratory support\nNursing Respiratory Care",
+        startTime: "6/11/2025 11:00 AM",
+        endTime: "6/11/2025 1:30 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: "Yashoda Hospital, Hitech City"
+      },
+      {
+        title: "ABG at bedside – What nurse should know?\nNursing Respiratory Care",
+        startTime: "6/11/2025 3:00 PM",
+        endTime: "6/11/2025 4:30 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: "Yashoda Hospital, Hitech City"
+      }
+    ]
+  },
+  "thanigavelurajeswari@gmail.com": {
+    facultyName: "Mrs T Rajeshwari",
+    email: "thanigavelurajeswari@gmail.com",
+    sessions: [
+      {
+        title: "Failure to prepare is preperation to fail\nTriage and Emergency Preparedness\nCase based Discussion\nPCCN",
+        startTime: "6/11/2025 3:10 PM",
+        endTime: "6/11/2025 3:40 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: "Paramitha Hospital"
+      },
+      {
+        title: "Spotting the Signs\nSimulation scenario\non recognition of a sick child\n(Neuro - Poly Trauma)\nPCCN",
+        startTime: "6/11/2025 2:15 PM",
+        endTime: "6/11/2025 3:46 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: " "
+      },
+      {
+        title: "Command Code Blue:\nHigh Quality CPR\nAsystole and Shockable rhythm with\nCRM\nPCCN",
+        startTime: "6/11/2025 10:30 AM",
+        endTime: "6/11/2025 1:30 PM",
+        role: "Local Cordinator",
+        description: " ",
+        place: " ",
+        institution: " "
+      }
+    ]
+  },
+  "Saipraneeth1114@gmail.com": {
+    facultyName: "Dr Sai Praneeth",
+    email: "Saipraneeth1114@gmail.com",
+    sessions: [
+      {
+        title: "Stack the Cheese, Stop the squeak\nUnderstanding Medication errors to prevent it\nBreakout rooms\nPCCN",
+        startTime: "6/11/2025 1:45 PM",
+        endTime: "6/11/2025 2:30 PM",
+        role: " ",
+        description: " ",
+        place: " ",
+        institution: "Paramitha Hospital"
+      },
+      {
+        title: "Command Code Blue:\nHigh Quality CPR\nAsystole and Shockable rhythm with\nCRM\nPCCN",
+        startTime: "6/11/2025 10:30 AM",
+        endTime: "6/11/2025 1:30 PM",
+        role: " ",
+        description: " ",
+        place: " ",
+        institution: " "
+      },
+      {
+        title: "Control in Chaos\nPrinciples of Crisis Communication\nISBAR and CRM\nPCCN",
+        startTime: "6/11/2025 3:45 PM",
+        endTime: "6/11/2025 5:15 PM",
+        role: " ",
+        description: " ",
+        place: " ",
         institution: " "
       }
     ]
