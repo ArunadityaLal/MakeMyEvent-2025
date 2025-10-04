@@ -2,7 +2,6 @@ import { sendMail } from "@/lib/mailer";
 
 const baseUrl =
   process.env.NEXT_PUBLIC_BASE_URL || "make-my-event.vercel.app";
-
 const FACULTY_DATA = {
   "muigoku42@gmail.com": {
     facultyName: "Dr. MUI Goku",
