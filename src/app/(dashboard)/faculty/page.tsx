@@ -622,7 +622,7 @@ export default function FacultyDashboardPage() {
             className={`text-center p-3 rounded-lg border ${themeClasses.stats.events}`}
           >
             <div className="text-xl font-bold"> */}
-              {/* {facultyEvents?.length ?? 0} */} 1
+              {/* {facultyEvents?.length ?? 0} */} 
             {/* </div>
             <div className="text-xs font-medium">Event Invitations</div>
           </div> */}
