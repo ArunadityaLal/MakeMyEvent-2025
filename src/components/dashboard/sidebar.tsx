@@ -464,22 +464,38 @@ export function NavigationSidebar({
   };
 
   // Hardened: ignore falsy/invalid hrefs
-  const isItemActive = (href?: string) => {
-    if (!href) return false;
-    return pathname === href || pathname.startsWith(href + "/");
-  };
+  // FIXED: Improved active state detection
+// FIXED: Precise active state checking
+// FIXED: Completely rewritten logic
 
-  // Active if parent path is active or any child with a valid href is active
-  const isParentActive = (item: NavigationItem) => {
-    if (isItemActive(item.href)) return true;
-    if (item.children?.length) {
-      return item.children.some(
-        (child) => child.href && isItemActive(child.href)
-      );
-    }
+const isItemActive = (href?: string) => {
+  if (!href) return false;
+  return pathname === href;
+};
+
+const isParentActive = (item: NavigationItem) => {
+  // First, check if ANY item (including children) has exact match
+  const hasExactMatchAnywhere = navigationItems.some((navItem) => {
+    if (navItem.href === pathname) return true;
+    return navItem.children?.some((child) => child.href === pathname) ?? false;
+  });
+  
+  // If there's an exact match somewhere and this item isn't it, don't highlight
+  if (hasExactMatchAnywhere && item.href !== pathname) {
     return false;
-  };
-
+  }
+  
+  // Otherwise, use standard logic
+  if (item.href === pathname) return true;
+  
+  if (item.children?.length) {
+    return item.children.some(
+      (child) => child.href && (pathname === child.href || pathname.startsWith(child.href + '/'))
+    );
+  }
+  
+  return false;
+};
   // Click behavior with enhanced debugging
   const handleNavClick = (item: NavigationItem, e: React.MouseEvent) => {
     const hasChildren = !!item.children?.length;
