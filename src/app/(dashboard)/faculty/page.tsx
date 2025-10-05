@@ -173,7 +173,7 @@ export default function FacultyDashboardPage() {
   const [sessionsStats, setSessionsStats] = useState({
     total: 0,
     pending: 0,
-    accepted: 0,
+    //accepted: 0,
     declined: 0,
     upcoming: 0,
   });
@@ -1122,9 +1122,9 @@ export default function FacultyDashboardPage() {
                   className={`flex items-center text-xs ${themeClasses.text.muted} mt-1`}
                 >
                   <div className="flex items-center space-x-4">
-                    <span className={themeClasses.text.success}>
+                    {/* <span className={themeClasses.text.success}>
                       Accepted: {sessionsStats?.accepted ?? 0}
-                    </span>
+                    </span> */}
                     <span className={themeClasses.text.warning}>
                       Pending: {sessionsStats?.pending ?? 0}
                     </span>
