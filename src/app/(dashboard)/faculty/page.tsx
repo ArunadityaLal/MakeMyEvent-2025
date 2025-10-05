@@ -611,22 +611,22 @@ export default function FacultyDashboardPage() {
       </CardHeader>
       <CardContent>
         {/* FIXED: Combined Stats with light theme colors */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div
             className={`text-center p-3 rounded-lg border ${themeClasses.stats.sessions}`}
           >
             <div className="text-xl font-bold">{sessionsStats?.total ?? 0}</div>
             <div className="text-xs font-medium">Total Sessions</div>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className={`text-center p-3 rounded-lg border ${themeClasses.stats.events}`}
           >
-            <div className="text-xl font-bold">
+            <div className="text-xl font-bold"> */}
               {/* {facultyEvents?.length ?? 0} */} 1
-            </div>
+            {/* </div>
             <div className="text-xs font-medium">Event Invitations</div>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className={`text-center p-3 rounded-lg border ${themeClasses.stats.accepted}`}
           >
             <div className="text-xl font-bold">
@@ -635,8 +635,8 @@ export default function FacultyDashboardPage() {
                   ?.length ?? 0)}
             </div>
             <div className="text-xs font-medium">Total Accepted</div>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className={`text-center p-3 rounded-lg border ${themeClasses.stats.pending}`}
           >
             <div className="text-xl font-bold">
@@ -646,7 +646,7 @@ export default function FacultyDashboardPage() {
             </div>
             <div className="text-xs font-medium">Total Pending</div>
           </div>
-        </div>
+        </div> */}
 
         {loadingFacultySessions || loadingFacultyEvents ? (
           <div className="space-y-3">
